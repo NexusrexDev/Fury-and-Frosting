@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5mttu2y0hjkm"]
+
+[ext_resource type="Texture2D" uid="uid://ds0q7b6phl8vq" path="res://icon.svg" id="1_xq112"]
+[ext_resource type="PackedScene" uid="uid://cu4xrd20aho12" path="res://Placeholder/Player.tscn" id="2_drcq6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ph2po"]
+size = Vector2(64, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_evier"]
+size = Vector2(512, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yddgb"]
+size = Vector2(128, 64)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(320, 340)
+scale = Vector2(5, 0.3125)
+texture = ExtResource("1_xq112")
+
+[node name="Icon2" type="Sprite2D" parent="."]
+position = Vector2(32, 160)
+scale = Vector2(0.5, 2.5)
+texture = ExtResource("1_xq112")
+
+[node name="Icon3" type="Sprite2D" parent="."]
+position = Vector2(608, 160)
+scale = Vector2(0.5, 2.5)
+texture = ExtResource("1_xq112")
+
+[node name="Icon4" type="Sprite2D" parent="."]
+position = Vector2(320, 288)
+scale = Vector2(1, 0.5)
+texture = ExtResource("1_xq112")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(32, 180)
+shape = SubResource("RectangleShape2D_ph2po")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(608, 180)
+shape = SubResource("RectangleShape2D_ph2po")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(320, 340)
+shape = SubResource("RectangleShape2D_evier")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(320, 288)
+shape = SubResource("RectangleShape2D_yddgb")
+
+[node name="Player" parent="." node_paths=PackedStringArray("_velocityLabel") instance=ExtResource("2_drcq6")]
+position = Vector2(128, 288)
+_velocityLabel = NodePath("../Label")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 64.0
+offset_right = 304.0
+offset_bottom = 23.0
