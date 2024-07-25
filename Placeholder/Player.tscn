@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cu4xrd20aho12"]
+[gd_scene load_steps=11 format=3 uid="uid://cu4xrd20aho12"]
 
 [ext_resource type="Texture2D" uid="uid://ds0q7b6phl8vq" path="res://icon.svg" id="1_rjgw6"]
 [ext_resource type="Script" path="res://Placeholder/Player.cs" id="1_ugaps"]
@@ -7,12 +7,18 @@
 [ext_resource type="Script" path="res://Player/States/Run.cs" id="5_uxoyh"]
 [ext_resource type="Script" path="res://Player/States/Air.cs" id="6_2odrp"]
 [ext_resource type="Script" path="res://Player/States/Dash.cs" id="7_gop2i"]
+[ext_resource type="Script" path="res://Player/States/Hurt.cs" id="8_lmcqq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vode2"]
 size = Vector2(64, 64)
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q7kxp"]
+size = Vector2(48, 48)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Timer", "IFrameTimer")]
 script = ExtResource("1_ugaps")
+Timer = NodePath("Timer")
+IFrameTimer = NodePath("iFrameTimer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -36,3 +42,18 @@ script = ExtResource("6_2odrp")
 
 [node name="Dash" type="Node" parent="StateMachine"]
 script = ExtResource("7_gop2i")
+
+[node name="Hurt" type="Node" parent="StateMachine"]
+script = ExtResource("8_lmcqq")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_q7kxp")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="iFrameTimer" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true

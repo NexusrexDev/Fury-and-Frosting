@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c34223pk0kywc"]
+
+[ext_resource type="Texture2D" uid="uid://ds0q7b6phl8vq" path="res://icon.svg" id="1_d78xr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2m31v"]
+size = Vector2(128, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yhl7s"]
+size = Vector2(124, 44)
+
+[node name="Spring" type="StaticBody2D" groups=["Spring"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2m31v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1, 0.5)
+texture = ExtResource("1_d78xr")
+
+[node name="BounceArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BounceArea"]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_yhl7s")

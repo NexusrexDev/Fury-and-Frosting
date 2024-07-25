@@ -10,6 +10,7 @@ public partial class Idle : PlayerState
         {
             if (_message.ContainsKey("landed"))
             {
+                _player.Velocity = Vector2.Zero;
                 //Squash and stretch
             }
         }

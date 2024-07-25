@@ -10,12 +10,18 @@ public partial class Player : CharacterBody2D
 
 	[Export]
 	private Label _velocityLabel;
+	[Export]
+	public Timer Timer;
+	[Export]
+	public Timer IFrameTimer;
 	
 	private StateMachine _stateMachine;
 
 	public override void _Ready()
 	{
 		_stateMachine = GetNode<StateMachine>("StateMachine");
+		Area2D hitbox = GetNode<Area2D>("Hitbox");
+		hitbox.AreaEntered += _On_Hitbox_Collision;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -23,4 +29,15 @@ public partial class Player : CharacterBody2D
 		_velocityLabel.Text = $"Velocity: {Velocity}\nState: {_stateMachine.CurrentState.Name}";
         MoveAndSlide();
     }
+
+	private void _On_Hitbox_Collision(Area2D area)
+	{
+		if (area.IsInGroup("Damage") && IFrameTimer.IsStopped())
+		{
+			if (_stateMachine.CurrentState.Name.Equals("Dash"))
+				return;
+			Timer.Stop();
+			_stateMachine.TransitionTo("Hurt");
+		}
+	}
 }
