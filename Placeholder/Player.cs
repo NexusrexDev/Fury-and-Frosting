@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class Player : CharacterBody2D
@@ -28,6 +29,11 @@ public partial class Player : CharacterBody2D
 	{
 		_velocityLabel.Text = $"Velocity: {Velocity}\nState: {_stateMachine.CurrentState.Name}";
         MoveAndSlide();
+    }
+
+	public void Jump()
+	{
+        _stateMachine.TransitionTo("Air", new Dictionary<string, Variant> { { "do_jump", true } });
     }
 
 	private void _On_Hitbox_Collision(Area2D area)

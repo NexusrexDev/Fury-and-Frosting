@@ -1,16 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://c34223pk0kywc"]
+[gd_scene load_steps=5 format=3 uid="uid://c34223pk0kywc"]
 
 [ext_resource type="Texture2D" uid="uid://ds0q7b6phl8vq" path="res://icon.svg" id="1_d78xr"]
+[ext_resource type="Script" path="res://Mechanics/Spring/Spring.cs" id="1_gnpkp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2m31v"]
-size = Vector2(128, 64)
+size = Vector2(128, 56)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yhl7s"]
-size = Vector2(124, 44)
+size = Vector2(126, 44)
 
 [node name="Spring" type="StaticBody2D" groups=["Spring"]]
+script = ExtResource("1_gnpkp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_2m31v")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
