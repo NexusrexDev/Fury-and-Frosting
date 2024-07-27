@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://xthdrphjuidn"]
+
+[ext_resource type="Texture2D" uid="uid://ds0q7b6phl8vq" path="res://icon.svg" id="1_gw1lc"]
+[ext_resource type="Script" path="res://Mechanics/Activatable Platform/ActivatablePlatform.cs" id="1_lcrqe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75pcy"]
+size = Vector2(128, 256)
+
+[node name="ActivatablePlatform" type="StaticBody2D"]
+script = ExtResource("1_lcrqe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1, 2)
+texture = ExtResource("1_gw1lc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_75pcy")

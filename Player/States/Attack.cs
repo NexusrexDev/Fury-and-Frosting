@@ -1,0 +1,35 @@
+using Godot;
+using Godot.Collections;
+using System;
+
+public partial class Attack : PlayerState
+{
+
+	public override void Enter(Dictionary<string, Variant> _message = null)
+	{
+		_player.Velocity = new Vector2(_player.Velocity.X, 0);
+		_player.SetDamageBox(true);
+
+		_player.AnimationPlayer.AnimationFinished += OnAnimationFinished;
+		_player.AnimationPlayer.Play("attack1");
+	}
+
+	private void OnAnimationFinished(StringName anim_name)
+	{
+		if (_player.IsOnFloor())
+		{
+			if (_player.Velocity == Vector2.Zero)
+				StateMachine.TransitionTo("Idle");
+			else
+				StateMachine.TransitionTo("Run");
+		}
+		else
+			StateMachine.TransitionTo("Air", new Dictionary<string, Variant> { { "canJump", false } });
+	}
+
+	public override void Exit()
+	{
+		_player.AnimationPlayer.AnimationFinished -= OnAnimationFinished;
+		_player.SetDamageBox(false);
+	}
+}

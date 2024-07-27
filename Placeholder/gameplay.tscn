@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5mttu2y0hjkm"]
+[gd_scene load_steps=5 format=3 uid="uid://c5mttu2y0hjkm"]
 
 [ext_resource type="Texture2D" uid="uid://ds0q7b6phl8vq" path="res://icon.svg" id="1_xq112"]
-[ext_resource type="PackedScene" uid="uid://cu4xrd20aho12" path="res://Placeholder/Player.tscn" id="2_drcq6"]
-[ext_resource type="PackedScene" uid="uid://c34223pk0kywc" path="res://Mechanics/Spring/Spring.tscn" id="3_61c21"]
+[ext_resource type="PackedScene" uid="uid://cu4xrd20aho12" path="res://Player/Player.tscn" id="2_drcq6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ph2po"]
 size = Vector2(64, 360)
@@ -49,6 +48,3 @@ _velocityLabel = NodePath("../Label")
 offset_left = 64.0
 offset_right = 304.0
 offset_bottom = 23.0
-
-[node name="Spring" parent="." instance=ExtResource("3_61c21")]
-position = Vector2(320, 288)

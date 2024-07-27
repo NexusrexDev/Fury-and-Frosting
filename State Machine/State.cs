@@ -9,7 +9,7 @@ public partial class State : Node
 
 	public virtual void Enter(Dictionary<string, Variant> _message = null) { }
 
-    public virtual void Exit() { }
+	public virtual void Exit() { }
 
 	public virtual void PhysicsProcess(double delta) { }
 

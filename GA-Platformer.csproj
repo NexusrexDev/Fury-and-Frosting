@@ -6,4 +6,8 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>GAPlatformer</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Mechanics\ActivatePlatform\**" />
+    <EmbeddedResource Remove="Mechanics\ActivatePlatform\**" />
+  </ItemGroup>
 </Project>
