@@ -37,7 +37,7 @@ public partial class Player : CharacterBody2D
 		AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		Area2D hitbox = GetNode<Area2D>("Hitbox");
 		hitbox.AreaEntered += _On_Hitbox_Collision;
-		damageBox.Monitorable = false;
+		damageBox.CollisionLayer = 0;
 		damageBox.Visible = false;
 	}
 
@@ -54,8 +54,8 @@ public partial class Player : CharacterBody2D
 
 	public void SetDamageBox(bool active)
 	{
-		damageBox.Monitorable = active;
-		damageBox.Visible = active;
+		damageBox.CollisionLayer = (uint)(active ? 1 : 0);
+        damageBox.Visible = active;
 	}
 
 	private void _On_Hitbox_Collision(Area2D area)

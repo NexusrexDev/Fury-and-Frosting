@@ -59,8 +59,6 @@ public partial class Air : PlayerState
 			_isHurt = false;
 		}
 
-		GD.Print("On wall: " + _player.IsOnWallOnly());
-
 		//Jumping
 		if (Input.IsActionJustPressed("game_jump"))
 		{

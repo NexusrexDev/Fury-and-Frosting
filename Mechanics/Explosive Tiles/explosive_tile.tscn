@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctgfrodnn7317"]
+
+[ext_resource type="Script" path="res://Mechanics/Explosive Tiles/ExplosiveTile.cs" id="1_shqfx"]
+[ext_resource type="Texture2D" uid="uid://ds0q7b6phl8vq" path="res://icon.svg" id="1_y0h4q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hhir3"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yallp"]
+size = Vector2(64, 64)
+
+[node name="ExplosiveTile" type="StaticBody2D"]
+collision_layer = 32769
+script = ExtResource("1_shqfx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_y0h4q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hhir3")
+
+[node name="RayLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-33, 0)
+collision_mask = 32768
+
+[node name="RayRight" type="RayCast2D" parent="."]
+target_position = Vector2(33, 0)
+collision_mask = 32768
+
+[node name="RayUp" type="RayCast2D" parent="."]
+target_position = Vector2(0, -33)
+collision_mask = 32768
+
+[node name="RayDown" type="RayCast2D" parent="."]
+target_position = Vector2(0, 33)
+collision_mask = 32768
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_yallp")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
