@@ -14,7 +14,7 @@ public partial class StateMachine : Node
 
 	public State CurrentState { set; get; }
 
-	public override void _Ready()
+	public override async void _Ready()
 	{
 		Debug.Assert(InitialState != null, "The InitialState must be set.");
 
@@ -24,6 +24,8 @@ public partial class StateMachine : Node
 		{
 			stateChildren.StateMachine = this;
 		}
+
+		await ToSignal(Owner, Node.SignalName.Ready);
 
 		CurrentState.Enter();
 	}
@@ -55,6 +57,6 @@ public partial class StateMachine : Node
 		CurrentState.Exit();
 		CurrentState = nextState;
 		CurrentState.Enter(message);
-		EmitSignal("StateChanged", newState);
+		EmitSignal(SignalName.StateChanged, newState);
 	}
 }

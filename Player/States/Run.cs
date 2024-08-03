@@ -6,6 +6,7 @@ public partial class Run : PlayerState
 {
 	public override void Enter(Dictionary<string, Variant> _message = null)
 	{
+		_player.SetRotation(4 * _player.Direction);
 		if (_message != null)
 		{
 			if (_message.ContainsKey("direction"))
@@ -18,7 +19,7 @@ public partial class Run : PlayerState
 			}
 			if (_message.ContainsKey("landed"))
 			{
-				//Squash and stretch
+				_player.SetScale(new Vector2(1.25f, 0.75f));
 			}
 		}
 	}
@@ -26,7 +27,7 @@ public partial class Run : PlayerState
 	public override void Update(double delta)
 	{
 		if (Input.IsActionJustPressed("game_attack"))
-			StateMachine.TransitionTo("Attack");
+			StateMachine.TransitionTo(Attack);
 	}
 
 	public override void PhysicsProcess(double delta)
@@ -38,27 +39,26 @@ public partial class Run : PlayerState
 		{
 			velocity.X = direction * Player.Speed;
 			_player.Direction = (sbyte)direction;
+			_player.SetRotation(4 * _player.Direction);
 		}
 
 		//Transitioning to the Idle state
 		if (_player.Velocity == Vector2.Zero)
-		{
-			StateMachine.TransitionTo("Idle");
-		}
+			StateMachine.TransitionTo(Idle);
 
 		_player.Velocity = velocity;
 
 		//Transitioning to the Air state
 		//By falling off a platform
 		if (!_player.IsOnFloor())
-			StateMachine.TransitionTo("Air");
+			StateMachine.TransitionTo(Air);
 
 		//By jumping
 		if (Input.IsActionJustPressed("game_jump") && _player.IsOnFloor())
-			StateMachine.TransitionTo("Air", new Dictionary<string, Variant> { { "do_jump", true } });
+			StateMachine.TransitionTo(Air, new Dictionary<string, Variant> { { "do_jump", true } });
 
 		//Transitioning to the Dash state
 		if (Input.IsActionJustPressed("game_dash"))
-			StateMachine.TransitionTo("Dash");
+			StateMachine.TransitionTo(Dash);
 	}
 }

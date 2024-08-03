@@ -15,7 +15,10 @@ public partial class Dash : PlayerState
 		velocity.Y = 0f;
 		_player.Velocity = velocity;
 
-		_player.Timer.WaitTime = 0.2f;
+        _player.SetRotation(4 * _player.Direction);
+		_player.SetScale(new Vector2(1.2f, 0.8f));
+
+        _player.Timer.WaitTime = 0.2f;
 		_player.Timer.Timeout += OnTimerTimeout;
 		_player.Timer.Start();
 	}
@@ -25,12 +28,12 @@ public partial class Dash : PlayerState
 		if (_player.IsOnFloor())
 		{
 			if (Mathf.IsEqualApprox(_previousSpeed, 0f))
-				StateMachine.TransitionTo("Idle");
+				StateMachine.TransitionTo(Idle);
 			else
-				StateMachine.TransitionTo("Run");
+				StateMachine.TransitionTo(Run);
 		}
 		else
-			StateMachine.TransitionTo("Air", new Dictionary<string, Variant> { { "canJump", false } });
+			StateMachine.TransitionTo(Air, new Dictionary<string, Variant> { { "canJump", false } });
 	}
 
 	public override void Exit()

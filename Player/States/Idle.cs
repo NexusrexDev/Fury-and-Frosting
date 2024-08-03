@@ -6,6 +6,7 @@ public partial class Idle : PlayerState
 {
 	public override void Enter(Dictionary<string, Variant> _message = null)
 	{
+		_player.SetRotation(0);
 		if (_message != null)
 		{
 			if (_message.ContainsKey("landed"))
@@ -19,7 +20,7 @@ public partial class Idle : PlayerState
 	public override void Update(double delta)
 	{
 		if (Input.IsActionJustPressed("game_attack"))
-			StateMachine.TransitionTo("Attack");
+			StateMachine.TransitionTo(Attack);
 	}
 
 	public override void PhysicsProcess(double delta)
@@ -28,20 +29,20 @@ public partial class Idle : PlayerState
 		float direction = Input.GetActionStrength("game_right") - Input.GetActionStrength("game_left");
 		if (direction != 0)
 		{
-			StateMachine.TransitionTo("Run", new Dictionary<string, Variant> { { "direction", direction } });
+			StateMachine.TransitionTo(Run, new Dictionary<string, Variant> { { "direction", direction } });
 		}
 
 		//Transitioning to the Air state
 		//By falling off a platform
 		if (!_player.IsOnFloor())
-			StateMachine.TransitionTo("Air");
+			StateMachine.TransitionTo(Air);
 
 		//By jumping
 		if (Input.IsActionJustPressed("game_jump") && _player.IsOnFloor())
-			StateMachine.TransitionTo("Air", new Dictionary<string, Variant> { { "do_jump", true } });
+			StateMachine.TransitionTo(Air, new Dictionary<string, Variant> { { "do_jump", true } });
 
 		//Transitioning to the Dash state
 		if (Input.IsActionJustPressed("game_dash"))
-			StateMachine.TransitionTo("Dash");
+			StateMachine.TransitionTo(Dash);
 	}
 }

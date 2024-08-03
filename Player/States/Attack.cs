@@ -9,9 +9,10 @@ public partial class Attack : PlayerState
 	{
 		_player.Velocity = new Vector2(_player.Velocity.X, 0);
 		_player.SetScale(new Vector2(1.15f, 0.9f));
-		PlayerSword sword = _player.SwordScene.Instantiate() as PlayerSword;
-        _player.SwordPosition.AddChild(sword);
-        sword.AttackEnd += OnAttackEnd;
+        _player.SetRotation(4 * _player.Direction);
+        PlayerSword sword = _player.SwordScene.Instantiate() as PlayerSword;
+		_player.SwordPosition.AddChild(sword);
+		sword.AttackEnd += OnAttackEnd;
 	}
 
 	private void OnAttackEnd()
@@ -19,11 +20,11 @@ public partial class Attack : PlayerState
 		if (_player.IsOnFloor())
 		{
 			if (_player.Velocity == Vector2.Zero)
-				StateMachine.TransitionTo("Idle");
+				StateMachine.TransitionTo(Idle);
 			else
-				StateMachine.TransitionTo("Run");
+				StateMachine.TransitionTo(Run);
 		}
 		else
-			StateMachine.TransitionTo("Air", new Dictionary<string, Variant> { { "canJump", false } });
+			StateMachine.TransitionTo(Air, new Dictionary<string, Variant> { { "canJump", false } });
 	}
 }

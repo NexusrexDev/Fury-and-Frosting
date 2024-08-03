@@ -60,22 +60,27 @@ public partial class Player : CharacterBody2D
 
 	public void Jump()
 	{
-		_stateMachine.TransitionTo("Air", new Dictionary<string, Variant> { { "do_jump", true } });
+		_stateMachine.TransitionTo(PlayerState.Air, new Dictionary<string, Variant> { { "do_jump", true } });
 	}
 
-    public void SetScale(Vector2 scale)
-    {
-        _sprite.Scale = scale;
-    }
+	public void SetScale(Vector2 scale)
+	{
+		_sprite.Scale = scale;
+	}
 
-    private void _On_Hitbox_Collision(Area2D area)
+	public void SetRotation(float rotation)
+	{
+		_sprite.RotationDegrees = rotation;
+	}
+
+	private void _On_Hitbox_Collision(Area2D area)
 	{
 		if (area.IsInGroup("Damage") && IFrameTimer.IsStopped())
 		{
 			if (_stateMachine.CurrentState.Name.Equals("Dash"))
 				return;
 			Timer.Stop();
-			_stateMachine.TransitionTo("Hurt");
+			_stateMachine.TransitionTo(PlayerState.Hurt);
 		}
 	}
 }
