@@ -44,7 +44,6 @@ public partial class ExplosiveTile : StaticBody2D
 			await ToSignal(timer, "timeout");
 		}
 		
-		GD.Print(Name + " Exploded");
 		foreach (var ray in _rayCasts)
 		{
 			if (ray.IsColliding())

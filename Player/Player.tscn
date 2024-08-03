@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://cu4xrd20aho12"]
+[gd_scene load_steps=14 format=3 uid="uid://cu4xrd20aho12"]
 
-[ext_resource type="Texture2D" uid="uid://ds0q7b6phl8vq" path="res://icon.svg" id="1_rjgw6"]
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_ugaps"]
+[ext_resource type="Texture2D" uid="uid://ds16wpim2i8at" path="res://Player/Assets/Player.png" id="2_1gv4s"]
+[ext_resource type="PackedScene" uid="uid://nbfpykbik5rn" path="res://Player/player_sword.tscn" id="2_nfggf"]
 [ext_resource type="Script" path="res://State Machine/StateMachine.cs" id="3_qmydp"]
 [ext_resource type="Script" path="res://Player/States/Idle.cs" id="4_ilqfk"]
 [ext_resource type="Script" path="res://Player/States/Run.cs" id="5_uxoyh"]
@@ -11,35 +12,30 @@
 [ext_resource type="Script" path="res://Player/States/Attack.cs" id="9_c33pr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vode2"]
-size = Vector2(64, 64)
+size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q7kxp"]
-size = Vector2(48, 48)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4081w"]
-size = Vector2(48, 48)
-
-[sub_resource type="Animation" id="Animation_706hj"]
-resource_name = "attack1"
-length = 0.5
+size = Vector2(12, 12)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pyieb"]
-_data = {
-"attack1": SubResource("Animation_706hj")
-}
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Timer", "IFrameTimer", "damageBox") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Timer", "IFrameTimer", "SwordPosition") groups=["Player"]]
 safe_margin = 0.1
 script = ExtResource("1_ugaps")
 Timer = NodePath("Timer")
 IFrameTimer = NodePath("iFrameTimer")
-damageBox = NodePath("DamageBox")
+SwordScene = ExtResource("2_nfggf")
+SwordPosition = NodePath("Marker2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_rjgw6")
+texture = ExtResource("2_1gv4s")
+offset = Vector2(0, -0.5)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(12, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_vode2")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
@@ -65,19 +61,10 @@ script = ExtResource("8_lmcqq")
 script = ExtResource("9_c33pr")
 
 [node name="Hitbox" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_q7kxp")
-
-[node name="DamageBox" type="Area2D" parent="." groups=["Attack"]]
-position = Vector2(48, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="DamageBox"]
-scale = Vector2(0.375, 0.375)
-texture = ExtResource("1_rjgw6")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageBox"]
-shape = SubResource("RectangleShape2D_4081w")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

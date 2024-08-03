@@ -8,13 +8,13 @@ public partial class Attack : PlayerState
 	public override void Enter(Dictionary<string, Variant> _message = null)
 	{
 		_player.Velocity = new Vector2(_player.Velocity.X, 0);
-		_player.SetDamageBox(true);
-
-		_player.AnimationPlayer.AnimationFinished += OnAnimationFinished;
-		_player.AnimationPlayer.Play("attack1");
+		_player.SetScale(new Vector2(1.15f, 0.9f));
+		PlayerSword sword = _player.SwordScene.Instantiate() as PlayerSword;
+        _player.SwordPosition.AddChild(sword);
+        sword.AttackEnd += OnAttackEnd;
 	}
 
-	private void OnAnimationFinished(StringName anim_name)
+	private void OnAttackEnd()
 	{
 		if (_player.IsOnFloor())
 		{
@@ -25,11 +25,5 @@ public partial class Attack : PlayerState
 		}
 		else
 			StateMachine.TransitionTo("Air", new Dictionary<string, Variant> { { "canJump", false } });
-	}
-
-	public override void Exit()
-	{
-		_player.AnimationPlayer.AnimationFinished -= OnAnimationFinished;
-		_player.SetDamageBox(false);
 	}
 }

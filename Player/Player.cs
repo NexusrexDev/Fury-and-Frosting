@@ -4,8 +4,9 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	public const float Speed = 300.0f;
-	public const float JumpVelocity = -400.0f;
+	public const float Speed = 150.0f;
+	public const float JumpVelocity = -325.0f;
+	public const float MaxFallSpeed = 500.0f;
 
 	private sbyte direction = 1;
 	public sbyte Direction
@@ -14,7 +15,9 @@ public partial class Player : CharacterBody2D
 		set
 		{
 			direction = value;
-			damageBox.Position = new Vector2(48 * direction, 0);
+			SwordPosition.Scale = new Vector2(direction, 1);
+			SwordPosition.Position = new Vector2(direction * 12, 0);
+			_sprite.FlipH = direction == -1;
 		}
 	}
 
@@ -25,20 +28,28 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public Timer IFrameTimer;
 	[Export]
-	public Area2D damageBox;
+	public PackedScene SwordScene;
+	[Export]
+	public Marker2D SwordPosition;
 
 	public AnimationPlayer AnimationPlayer;
 	
 	private StateMachine _stateMachine;
 
+	private Sprite2D _sprite;
+
 	public override void _Ready()
 	{
 		_stateMachine = GetNode<StateMachine>("StateMachine");
 		AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		_sprite = GetNode<Sprite2D>("Sprite2D");
 		Area2D hitbox = GetNode<Area2D>("Hitbox");
 		hitbox.AreaEntered += _On_Hitbox_Collision;
-		damageBox.CollisionLayer = 0;
-		damageBox.Visible = false;
+	}
+
+	public override void _Process(double delta)
+	{
+		_sprite.Scale = new Vector2(Mathf.MoveToward(_sprite.Scale.X, 1, (float)delta), Mathf.MoveToward(_sprite.Scale.Y, 1, (float)delta));
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -52,13 +63,12 @@ public partial class Player : CharacterBody2D
 		_stateMachine.TransitionTo("Air", new Dictionary<string, Variant> { { "do_jump", true } });
 	}
 
-	public void SetDamageBox(bool active)
-	{
-		damageBox.CollisionLayer = (uint)(active ? 1 : 0);
-        damageBox.Visible = active;
-	}
+    public void SetScale(Vector2 scale)
+    {
+        _sprite.Scale = scale;
+    }
 
-	private void _On_Hitbox_Collision(Area2D area)
+    private void _On_Hitbox_Collision(Area2D area)
 	{
 		if (area.IsInGroup("Damage") && IFrameTimer.IsStopped())
 		{

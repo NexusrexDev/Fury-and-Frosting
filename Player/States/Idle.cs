@@ -11,7 +11,7 @@ public partial class Idle : PlayerState
 			if (_message.ContainsKey("landed"))
 			{
 				_player.Velocity = Vector2.Zero;
-				//Squash and stretch
+				_player.SetScale(new Vector2(1.25f, 0.75f));
 			}
 		}
 	}

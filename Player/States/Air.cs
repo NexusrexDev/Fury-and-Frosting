@@ -19,6 +19,7 @@ public partial class Air : PlayerState
 				velocity.Y = Player.JumpVelocity;
 				_player.Velocity = velocity;
 				_hasJumped = true;
+				_player.SetScale(new Vector2(0.75f, 1.25f));
 			}
 
 			if (_message.ContainsKey("canJump"))
@@ -67,6 +68,7 @@ public partial class Air : PlayerState
 				if (Time.GetTicksMsec() - _fallTime < 150)
 				{
 					velocity.Y = Player.JumpVelocity;
+					_player.SetScale(new Vector2(0.75f, 1.25f));
 					_hasJumped = true;
 				}
 			}
@@ -78,11 +80,12 @@ public partial class Air : PlayerState
 					velocity.X = -_player.Direction * Player.Speed;
 					_player.Direction = (sbyte)-_player.Direction;
 					_hControl = false;
+					_player.SetScale(new Vector2(0.75f, 1.25f));
 				}
 			}
 		}
 
-		if (!_player.IsOnFloor())
+		if (!_player.IsOnFloor() && velocity.Y < Player.MaxFallSpeed)
 			velocity.Y += gravity * (float)delta;
 
 		_player.Velocity = velocity;
