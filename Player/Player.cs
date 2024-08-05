@@ -60,7 +60,7 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	public void Jump()
+	public void SpringJump()
 	{
 		CanDash = true;
 		CanAttack = true;

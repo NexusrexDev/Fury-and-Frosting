@@ -1,17 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5mttu2y0hjkm"]
+[gd_scene load_steps=3 format=3 uid="uid://c5mttu2y0hjkm"]
 
+[ext_resource type="TileSet" uid="uid://b7tfdsv58rgro" path="res://Tilesets/Forest/forest_tileset.tres" id="2_aibxn"]
 [ext_resource type="PackedScene" uid="uid://cu4xrd20aho12" path="res://Player/Player.tscn" id="2_drcq6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gds1j"]
-size = Vector2(16, 184)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4116d"]
-size = Vector2(288, 24)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0e4f"]
-size = Vector2(96, 32)
-
 [node name="Node2D" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_aibxn")
+format = 2
+layer_0/name = "Foreground"
+layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 196608, 1, 131072, 196608, 1, 196608, 196608, 1, 262144, 196608, 1, 327680, 196608, 1, 393216, 196608, 1, 458752, 196608, 1, 524288, 196608, 1, 19, 196608, 1, 65555, 196608, 1, 131091, 196608, 1, 196627, 196608, 1, 262163, 196608, 1, 458771, 196608, 1, 524307, 196608, 1, 589843, 196608, 1, 393235, 196608, 1, 327699, 196608, 1, 720896, 0, 2, 589824, 196608, 1, 655379, 458752, 2, 720915, 131072, 2, 720914, 65536, 2, 720913, 65536, 2, 720912, 65536, 2, 720911, 65536, 2, 720910, 65536, 2, 720909, 65536, 2, 720908, 65536, 2, 720907, 65536, 2, 720906, 65536, 2, 720905, 65536, 2, 720904, 65536, 2, 720903, 65536, 2, 720902, 65536, 2, 720901, 65536, 2, 720900, 65536, 2, 720899, 65536, 2, 720898, 65536, 2, 720897, 65536, 2, 655361, 65536, 0, 655362, 65536, 0, 655363, 65536, 0, 655364, 65536, 0, 655365, 65536, 0, 655366, 65536, 0, 655367, 65536, 0, 655368, 65536, 0, 655369, 65536, 0, 655370, 65536, 0, 655371, 65536, 0, 655374, 65536, 0, 655375, 65536, 0, 655376, 65536, 0, 655377, 65536, 0, 655378, 65536, 0, 655360, 262144, 2, 655372, 65536, 0, 655373, 65536, 0, -65536, 196608, 0, -65517, 196608, 0)
 
 [node name="Label" type="Label" parent="."]
 offset_right = 240.0
@@ -20,24 +18,6 @@ offset_bottom = 23.0
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(160, 90)
 zoom = Vector2(2, 2)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(8, 92)
-shape = SubResource("RectangleShape2D_gds1j")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(312, 92)
-shape = SubResource("RectangleShape2D_gds1j")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(160, 172)
-shape = SubResource("RectangleShape2D_4116d")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(112, 144)
-shape = SubResource("RectangleShape2D_p0e4f")
 
 [node name="Player" parent="." node_paths=PackedStringArray("_velocityLabel") instance=ExtResource("2_drcq6")]
 position = Vector2(40, 152)
