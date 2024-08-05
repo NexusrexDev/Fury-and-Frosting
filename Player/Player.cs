@@ -62,6 +62,8 @@ public partial class Player : CharacterBody2D
 
 	public void Jump()
 	{
+		CanDash = true;
+		CanAttack = true;
 		_stateMachine.TransitionTo(PlayerState.Air, new Dictionary<string, Variant> { { "do_jump", true } });
 	}
 

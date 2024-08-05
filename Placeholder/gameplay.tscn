@@ -9,7 +9,7 @@ size = Vector2(16, 184)
 size = Vector2(288, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0e4f"]
-size = Vector2(64, 32)
+size = Vector2(96, 32)
 
 [node name="Node2D" type="Node2D"]
 
@@ -36,7 +36,7 @@ position = Vector2(160, 172)
 shape = SubResource("RectangleShape2D_4116d")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(96, 144)
+position = Vector2(112, 144)
 shape = SubResource("RectangleShape2D_p0e4f")
 
 [node name="Player" parent="." node_paths=PackedStringArray("_velocityLabel") instance=ExtResource("2_drcq6")]

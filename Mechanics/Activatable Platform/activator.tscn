@@ -1,20 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://cdix1p0axpcd"]
 
 [ext_resource type="Script" path="res://Mechanics/Activatable Platform/Activator.cs" id="1_1ikig"]
-[ext_resource type="Texture2D" uid="uid://ds0q7b6phl8vq" path="res://icon.svg" id="1_kvw1p"]
+[ext_resource type="Texture2D" uid="uid://smvg28hwhb3i" path="res://Mechanics/Activatable Platform/Assets/ActivatorFrames.png" id="2_j2sd2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_27w1i"]
-size = Vector2(32, 32)
+size = Vector2(16, 16)
 
 [node name="Activator" type="Area2D" node_paths=PackedStringArray("activatablePlatforms")]
 script = ExtResource("1_1ikig")
 activatablePlatforms = []
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_kvw1p")
+texture = ExtResource("2_j2sd2")
+hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_27w1i")
 
 [node name="Timer" type="Timer" parent="."]
