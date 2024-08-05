@@ -12,8 +12,8 @@ public partial class Air : PlayerState
 	
 	public override void Enter(Dictionary<string, Variant> _message = null)
 	{
-        _player.SetRotation(0);
-        if (_message != null)
+		_player.SetRotation(0);
+		if (_message != null)
 		{
 			if (_message.ContainsKey("do_jump"))
 			{
@@ -37,6 +37,9 @@ public partial class Air : PlayerState
 				_hControl = false;
 				_hasJumped = true;
 				_player.SetScale(new Vector2(0.75f, 1.25f));
+
+				_player.CanAttack = true;
+				_player.CanDash = true;
 			}
 
 			if (_message.ContainsKey("canJump"))
@@ -62,7 +65,7 @@ public partial class Air : PlayerState
 
 	public override void Update(double delta)
 	{
-		if (Input.IsActionJustPressed("game_attack"))
+		if (Input.IsActionJustPressed("game_attack") && _player.CanAttack)
 			StateMachine.TransitionTo(Attack);
 	}
 
@@ -120,7 +123,7 @@ public partial class Air : PlayerState
 		}
 
 		//Transitioning to the Dash state
-		if (Input.IsActionJustPressed("game_dash"))
+		if (Input.IsActionJustPressed("game_dash") && _player.CanDash)
 			StateMachine.TransitionTo(Dash);
 	}
 

@@ -21,6 +21,8 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
+	public bool CanDash = true, CanAttack = true;
+
 	[Export]
 	private Label _velocityLabel;
 	[Export]

@@ -18,7 +18,9 @@ public partial class Dash : PlayerState
         _player.SetRotation(4 * _player.Direction);
 		_player.SetScale(new Vector2(1.2f, 0.8f));
 
-        _player.Timer.WaitTime = 0.2f;
+		_player.CanDash = false;
+
+        _player.Timer.WaitTime = 0.25f;
 		_player.Timer.Timeout += OnTimerTimeout;
 		_player.Timer.Start();
 	}

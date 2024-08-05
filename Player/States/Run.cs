@@ -7,6 +7,8 @@ public partial class Run : PlayerState
 	public override void Enter(Dictionary<string, Variant> _message = null)
 	{
 		_player.SetRotation(4 * _player.Direction);
+		_player.CanDash = true;
+		_player.CanAttack = true;
 		if (_message != null)
 		{
 			if (_message.ContainsKey("direction"))
@@ -17,16 +19,16 @@ public partial class Run : PlayerState
 				_player.Velocity = velocity;
 				_player.Direction = (sbyte)direction;
 			}
+
 			if (_message.ContainsKey("landed"))
-			{
 				_player.SetScale(new Vector2(1.25f, 0.75f));
-			}
+			
 		}
 	}
 
 	public override void Update(double delta)
 	{
-		if (Input.IsActionJustPressed("game_attack"))
+		if (Input.IsActionJustPressed("game_attack") && _player.CanAttack)
 			StateMachine.TransitionTo(Attack);
 	}
 

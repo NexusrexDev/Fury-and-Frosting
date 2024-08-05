@@ -7,6 +7,7 @@ public partial class Attack : PlayerState
 
 	public override void Enter(Dictionary<string, Variant> _message = null)
 	{
+		_player.CanAttack = false;
 		_player.Velocity = new Vector2(_player.Velocity.X, 0);
 		_player.SetScale(new Vector2(1.15f, 0.9f));
         _player.SetRotation(4 * _player.Direction);
