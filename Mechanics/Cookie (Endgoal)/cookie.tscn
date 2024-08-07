@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcgma0ebx3pdq"]
+
+[ext_resource type="Texture2D" uid="uid://c173wurlv7o4g" path="res://Mechanics/Cookie (Endgoal)/Cookie.png" id="1_e4bji"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qcjjj"]
+
+[node name="Cookie" type="Area2D" groups=["Cookie"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qcjjj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_e4bji")

@@ -8,6 +8,9 @@ public partial class Player : CharacterBody2D
 	public const float JumpVelocity = -325.0f;
 	public const float MaxFallSpeed = 500.0f;
 
+	[Signal]
+	public delegate void RageChangedEventHandler(float rage);
+
 	private sbyte direction = 1;
 	public sbyte Direction
 	{
@@ -18,6 +21,20 @@ public partial class Player : CharacterBody2D
 			SwordPosition.Scale = new Vector2(direction, 1);
 			SwordPosition.Position = new Vector2(direction * 12, 0);
 			_sprite.FlipH = direction == -1;
+		}
+	}
+
+	private float _rage = 0.0f;
+
+	public float Rage
+	{
+		get { return _rage; }
+		set
+		{
+			if (_rage >= 100)
+				GameOver();
+			_rage = Mathf.Clamp(value, 0, 100);
+			EmitSignal(SignalName.RageChanged, _rage);
 		}
 	}
 
@@ -56,7 +73,7 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		_velocityLabel.Text = $"Velocity: {Velocity}\nState: {_stateMachine.CurrentState.Name}";
+		_velocityLabel.Text = $"Velocity: {Velocity}\nState: {_stateMachine.CurrentState.Name}\nRage: {Rage}";
 		MoveAndSlide();
 	}
 
@@ -65,6 +82,11 @@ public partial class Player : CharacterBody2D
 		CanDash = true;
 		CanAttack = true;
 		_stateMachine.TransitionTo(PlayerState.Air, new Dictionary<string, Variant> { { "do_jump", true } });
+	}
+
+	private void GameOver()
+	{
+		QueueFree();
 	}
 
 	public void SetScale(Vector2 scale)
@@ -85,6 +107,10 @@ public partial class Player : CharacterBody2D
 				return;
 			Timer.Stop();
 			_stateMachine.TransitionTo(PlayerState.Hurt);
+		}
+		if (area.IsInGroup("Cookie"))
+		{
+			GetTree().Quit();
 		}
 	}
 }

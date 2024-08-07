@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5mttu2y0hjkm"]
+[gd_scene load_steps=5 format=3 uid="uid://c5mttu2y0hjkm"]
 
 [ext_resource type="TileSet" uid="uid://b7tfdsv58rgro" path="res://Tilesets/Forest/forest_tileset.tres" id="2_aibxn"]
 [ext_resource type="PackedScene" uid="uid://cu4xrd20aho12" path="res://Player/Player.tscn" id="2_drcq6"]
 [ext_resource type="Texture2D" uid="uid://cwbasbq0rmbm" path="res://Tilesets/Forest/background.png" id="3_wdfh6"]
+[ext_resource type="PackedScene" uid="uid://bcgma0ebx3pdq" path="res://Mechanics/Cookie (Endgoal)/cookie.tscn" id="4_k5mmg"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -45,3 +46,6 @@ texture = ExtResource("3_wdfh6")
 centered = false
 vframes = 2
 frame = 1
+
+[node name="Cookie" parent="." instance=ExtResource("4_k5mmg")]
+position = Vector2(280, 152)

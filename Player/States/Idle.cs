@@ -23,6 +23,8 @@ public partial class Idle : PlayerState
 	{
 		if (Input.IsActionJustPressed("game_attack") && _player.CanAttack)
 			StateMachine.TransitionTo(Attack);
+
+		_player.Rage += (float)delta * 10f;
 	}
 
 	public override void PhysicsProcess(double delta)
