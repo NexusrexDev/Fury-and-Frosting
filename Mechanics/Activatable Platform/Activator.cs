@@ -1,10 +1,11 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class Activator : Area2D
 {
 	[Export]
-	private ActivatablePlatform[] activatablePlatforms;
+	private Array<ActivatablePlatform> activatablePlatforms;
 
 	[Signal]
 	public delegate void StateChangeEventHandler(bool active);
