@@ -1,5 +1,8 @@
-[gd_scene format=3 uid="uid://bk20bkl01bljj"]
+[gd_scene load_steps=2 format=3 uid="uid://bk20bkl01bljj"]
+
+[ext_resource type="Script" path="res://Systems/Camera/Camera.cs" id="1_e704l"]
 
 [node name="Camera" type="Camera2D"]
 anchor_mode = 0
 zoom = Vector2(2, 2)
+script = ExtResource("1_e704l")

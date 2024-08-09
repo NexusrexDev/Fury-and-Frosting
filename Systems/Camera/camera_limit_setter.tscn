@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://de0ng8fsocgxd"]
+
+[ext_resource type="Script" path="res://Systems/Camera/CameraLimitSetter.cs" id="1_lwo0t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7etkn"]
+size = Vector2(16, 32)
+
+[node name="CameraLimitSetter" type="Area2D"]
+rotation = -0.00284658
+script = ExtResource("1_lwo0t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7etkn")
