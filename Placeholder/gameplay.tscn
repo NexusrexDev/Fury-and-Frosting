@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://c5mttu2y0hjkm"]
 
+[ext_resource type="PackedScene" uid="uid://bk20bkl01bljj" path="res://Systems/Camera/Camera.tscn" id="2_8pfsy"]
 [ext_resource type="TileSet" uid="uid://b7tfdsv58rgro" path="res://Tilesets/Forest/forest_tileset.tres" id="2_aibxn"]
 [ext_resource type="PackedScene" uid="uid://cu4xrd20aho12" path="res://Player/Player.tscn" id="2_drcq6"]
 [ext_resource type="Texture2D" uid="uid://cwbasbq0rmbm" path="res://Tilesets/Forest/background.png" id="3_wdfh6"]
-[ext_resource type="PackedScene" uid="uid://bcgma0ebx3pdq" path="res://Mechanics/Cookie (Endgoal)/cookie.tscn" id="4_k5mmg"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -13,14 +13,11 @@ format = 2
 layer_0/name = "Foreground"
 layer_0/tile_data = PackedInt32Array(0, 196608, 1, 65536, 196608, 1, 131072, 196608, 1, 196608, 196608, 1, 262144, 196608, 1, 327680, 196608, 1, 393216, 196608, 1, 458752, 196608, 1, 524288, 196608, 1, 19, 196608, 1, 65555, 196608, 1, 131091, 196608, 1, 196627, 196608, 1, 262163, 196608, 1, 458771, 196608, 1, 524307, 196608, 1, 589843, 196608, 1, 393235, 196608, 1, 327699, 196608, 1, 720896, 0, 2, 589824, 196608, 1, 655379, 458752, 2, 720915, 131072, 2, 720914, 65536, 2, 720913, 65536, 2, 720912, 65536, 2, 720911, 65536, 2, 720910, 65536, 2, 720909, 65536, 2, 720908, 65536, 2, 720907, 65536, 2, 720906, 65536, 2, 720905, 65536, 2, 720904, 65536, 2, 720903, 65536, 2, 720902, 65536, 2, 720901, 65536, 2, 720900, 65536, 2, 720899, 65536, 2, 720898, 65536, 2, 720897, 65536, 2, 655361, 65536, 0, 655362, 65536, 0, 655363, 65536, 0, 655364, 65536, 0, 655365, 65536, 0, 655366, 65536, 0, 655367, 65536, 0, 655368, 65536, 0, 655369, 65536, 0, 655370, 65536, 0, 655371, 65536, 0, 655374, 65536, 0, 655375, 65536, 0, 655376, 65536, 0, 655377, 65536, 0, 655378, 65536, 0, 655360, 262144, 2, 655372, 65536, 0, 655373, 65536, 0, -65536, 262144, 0, -65517, 458752, 0, -65535, 65536, 3, -65534, 65536, 3, -65533, 65536, 3, -65532, 65536, 3, -65531, 65536, 3, -65530, 65536, 3, -65529, 65536, 3, -65528, 65536, 3, -65527, 65536, 3, -65526, 65536, 3, -65525, 65536, 3, -65524, 65536, 3, -65523, 65536, 3, -65522, 65536, 3, -65521, 65536, 3, -65520, 65536, 3, -65519, 65536, 3, -65518, 65536, 3)
 
+[node name="Camera" parent="." instance=ExtResource("2_8pfsy")]
+
 [node name="Label" type="Label" parent="."]
 offset_right = 240.0
 offset_bottom = 23.0
-
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
-zoom = Vector2(2, 2)
-position_smoothing_speed = 1.0
 
 [node name="Player" parent="." node_paths=PackedStringArray("_velocityLabel") instance=ExtResource("2_drcq6")]
 position = Vector2(40, 152)
@@ -46,6 +43,3 @@ texture = ExtResource("3_wdfh6")
 centered = false
 vframes = 2
 frame = 1
-
-[node name="Cookie" parent="." instance=ExtResource("4_k5mmg")]
-position = Vector2(280, 152)

@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://bk20bkl01bljj"]
+
+[node name="Camera" type="Camera2D"]
+anchor_mode = 0
+zoom = Vector2(2, 2)
