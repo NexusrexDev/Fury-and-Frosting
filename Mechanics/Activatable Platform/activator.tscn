@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://cdix1p0axpcd"]
 
-[ext_resource type="Script" path="res://Mechanics/Activatable Platform/Activator.cs" id="1_1ikig"]
+[ext_resource type="Script" path="res://Mechanics/Activatable Platform/PlatformActivator.cs" id="1_1ikig"]
 [ext_resource type="Texture2D" uid="uid://smvg28hwhb3i" path="res://Mechanics/Activatable Platform/Assets/ActivatorFrames.png" id="2_j2sd2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_27w1i"]
 size = Vector2(16, 16)
 
-[node name="Activator" type="Area2D" node_paths=PackedStringArray("activatablePlatforms")]
+[node name="PlatformActivator" type="Area2D" node_paths=PackedStringArray("activatableObjects")]
 script = ExtResource("1_1ikig")
-activatablePlatforms = []
+activatableObjects = []
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_j2sd2")

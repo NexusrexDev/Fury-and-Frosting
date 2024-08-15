@@ -1,11 +1,11 @@
-using Godot;
+﻿using Godot;
 using Godot.Collections;
 using System;
 
-public partial class Activator : Area2D
+public abstract partial class ObjectActivator : Area2D
 {
 	[Export]
-	private Array<ActivatablePlatform> activatablePlatforms;
+	private Array<ActivatableObject> activatableObjects = new Array<ActivatableObject>();
 
 	[Signal]
 	public delegate void StateChangeEventHandler(bool active);
@@ -14,18 +14,17 @@ public partial class Activator : Area2D
 
 	private bool _activated = false;
 
-	private Sprite2D _sprite2D;
+	protected bool _deactivatable = false;
 
 	public override void _Ready()
 	{
 		_timer = GetNode<Timer>("Timer");
-		_sprite2D = GetNode<Sprite2D>("Sprite2D");
 
 		AreaEntered += _On_Area_Entered;
 		_timer.Timeout += _On_Timer_Timeout;
 
-		foreach (ActivatablePlatform platform in activatablePlatforms)
-			this.StateChange += platform.StateChange;
+		foreach (ActivatableObject activatableObject in activatableObjects)
+			StateChange += activatableObject.StateChange;
 	}
 
 	private void _On_Area_Entered(Area2D area)
@@ -34,8 +33,10 @@ public partial class Activator : Area2D
 		{
 			EmitSignal(SignalName.StateChange, true);
 			_activated = true;
-			_sprite2D.Frame = 1;
-			_timer.Start();
+			VisualEnable();
+
+			if (_deactivatable)
+				_timer.Start();
 		}
 	}
 
@@ -43,6 +44,10 @@ public partial class Activator : Area2D
 	{
 		EmitSignal(SignalName.StateChange, false);
 		_activated = false;
-		_sprite2D.Frame = 0;
+		VisualDisable();
 	}
+
+	public abstract void VisualEnable();
+
+	public abstract void VisualDisable();
 }

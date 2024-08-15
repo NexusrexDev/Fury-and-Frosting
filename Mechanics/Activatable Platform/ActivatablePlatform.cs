@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class ActivatablePlatform : StaticBody2D
+public partial class ActivatablePlatform : ActivatableObject
 {
 	[Export]
 	private Vector2 _startPosition;
@@ -46,15 +46,7 @@ public partial class ActivatablePlatform : StaticBody2D
 		DrawTextureRectRegion(_texture, new Rect2(_spritePosition + new Vector2(0, _shapeSize.Y - sliceSize), new Vector2(_shapeSize.X, sliceSize)), new Rect2(new Vector2(0, 32), spriteWidth));
 	}
 
-	public void StateChange(bool active)
-	{
-		if (active)
-			Activate();
-		else
-			Deactivate();
-	}
-
-	public void Activate()
+	public override void Activate()
 	{
 		if (_tween != null)
 			_tween.Kill();
@@ -64,7 +56,7 @@ public partial class ActivatablePlatform : StaticBody2D
 		_tween.TweenProperty(this, "_spritePosition", _endPosition, 0.2f).SetTrans(Tween.TransitionType.Circ).SetEase(Tween.EaseType.Out);
 	}
 
-	public void Deactivate()
+	public override void Deactivate()
 	{
 		if (_tween != null)
 			_tween.Kill();
