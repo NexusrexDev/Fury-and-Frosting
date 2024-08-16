@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdan152wd0xi3"]
+
+[ext_resource type="Script" path="res://UI/HUD/GameHUD.cs" id="1_jl32s"]
+[ext_resource type="Texture2D" uid="uid://cjaeml1no0bnx" path="res://UI/HUD/DashIcons.png" id="1_r8rtm"]
+[ext_resource type="Texture2D" uid="uid://pwtwvra7gt27" path="res://UI/HUD/SwordIcons.png" id="2_aok0j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxw57"]
+atlas = ExtResource("1_r8rtm")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6yoy"]
+atlas = ExtResource("2_aok0j")
+region = Rect2(0, 0, 16, 16)
+
+[node name="GameHUD" type="CanvasLayer" node_paths=PackedStringArray("_dashIcon", "_swordIcon")]
+script = ExtResource("1_jl32s")
+_dashIcon = NodePath("Control/IconContainer/DashIcon")
+_swordIcon = NodePath("Control/IconContainer/SwordIcon")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 180.0
+scale = Vector2(2, 2)
+
+[node name="IconContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DashIcon" type="TextureRect" parent="Control/IconContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_xxw57")
+stretch_mode = 2
+
+[node name="SwordIcon" type="TextureRect" parent="Control/IconContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_j6yoy")
+stretch_mode = 2

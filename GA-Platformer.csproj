@@ -10,4 +10,7 @@
     <Compile Remove="Mechanics\ActivatePlatform\**" />
     <EmbeddedResource Remove="Mechanics\ActivatePlatform\**" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mechanics\Dash Powerup\" />
+  </ItemGroup>
 </Project>

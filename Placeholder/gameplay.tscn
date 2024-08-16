@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5mttu2y0hjkm"]
+[gd_scene load_steps=8 format=3 uid="uid://c5mttu2y0hjkm"]
 
 [ext_resource type="PackedScene" uid="uid://bk20bkl01bljj" path="res://Systems/Camera/Camera.tscn" id="2_8pfsy"]
 [ext_resource type="TileSet" uid="uid://b7tfdsv58rgro" path="res://Tilesets/Forest/forest_tileset.tres" id="2_aibxn"]
@@ -6,8 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://btapkw3jskelm" path="res://Tilesets/Forest/forest_background.tscn" id="4_8vamb"]
 [ext_resource type="PackedScene" uid="uid://bcgma0ebx3pdq" path="res://Mechanics/Cookie (Endgoal)/cookie.tscn" id="4_k5mmg"]
 [ext_resource type="PackedScene" uid="uid://de0ng8fsocgxd" path="res://Systems/Camera/camera_limit_setter.tscn" id="5_nn8t4"]
+[ext_resource type="PackedScene" uid="uid://cdan152wd0xi3" path="res://UI/HUD/game_hud.tscn" id="7_4n7oc"]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="GameHUD" parent="." node_paths=PackedStringArray("_playerReference") instance=ExtResource("7_4n7oc")]
+_playerReference = NodePath("../Player")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("2_aibxn")
