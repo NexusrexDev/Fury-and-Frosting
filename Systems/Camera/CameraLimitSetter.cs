@@ -38,7 +38,7 @@ public partial class CameraLimitSetter : Area2D
 
 	private void cameraChange(Node2D body)
 	{
-		if (body != null && body.IsInGroup("Player"))
+		if (body != null && body is Player)
 		{
 			(_camera as Camera).SetLimitRect(_newLimit);
 		}

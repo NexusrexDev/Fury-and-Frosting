@@ -28,7 +28,7 @@ public partial class ExplosiveTile : StaticBody2D
 
 	private void _On_Area_Entered(Area2D area)
 	{
-		if (area.IsInGroup("Attack") && _centerTile)
+		if (area is PlayerSword && _centerTile)
 		{
 			Explode(0f);
 		}

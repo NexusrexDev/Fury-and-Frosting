@@ -15,6 +15,7 @@ public partial class Camera : Camera2D
 	private Tween _tween;
 
 	private float shakeValue = 0;
+	private float limitLerp = 0.2f;
 
 	public override void _Process(double delta)
 	{
@@ -28,11 +29,11 @@ public partial class Camera : Camera2D
 		if (_tween != null)
 			_tween.Kill();
 		_tween = CreateTween();
-		_tween.TweenProperty(this, "limit_left", rect.Position.X, 0.25f);
+		_tween.TweenProperty(this, "limit_left", rect.Position.X, limitLerp);
 		_tween.SetParallel();
-		_tween.TweenProperty(this, "limit_top", rect.Position.Y, 0.25f);
-		_tween.TweenProperty(this, "limit_right", rect.End.X, 0.25f);
-		_tween.TweenProperty(this, "limit_bottom", rect.End.Y, 0.25f);
+		_tween.TweenProperty(this, "limit_top", rect.Position.Y, limitLerp);
+		_tween.TweenProperty(this, "limit_right", rect.End.X, limitLerp);
+		_tween.TweenProperty(this, "limit_bottom", rect.End.Y, limitLerp);
 	}
 
 	public void SetShake(float value)

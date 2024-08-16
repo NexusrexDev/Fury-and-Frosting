@@ -18,7 +18,7 @@ public partial class Spring : StaticBody2D
 
 	private void _On_BounceArea_Collision(Node2D body)
 	{
-		if (body.IsInGroup("Player"))
+		if (body is Player)
 		{
 			Player player = body as Player;
 			player.SpringJump();
