@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci2e4fle00jwm"]
+
+[ext_resource type="Script" path="res://Mechanics/Dash Powerup/DashPowerup.cs" id="1_xgf6u"]
+[ext_resource type="Texture2D" uid="uid://dlrtt7epkf6kh" path="res://Mechanics/Dash Powerup/dashpower.png" id="2_aq73c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tevn1"]
+size = Vector2(16, 16)
+
+[node name="DashPowerup" type="Area2D"]
+script = ExtResource("1_xgf6u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_aq73c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tevn1")

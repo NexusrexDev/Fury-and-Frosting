@@ -11,6 +11,12 @@ public partial class Player : CharacterBody2D
 	[Signal]
 	public delegate void RageChangedEventHandler(float rage);
 
+	[Signal]
+	public delegate void DashStateEventHandler(bool newState);
+
+	[Signal]
+	public delegate void AttackStateEventHandler(bool newState);
+
 	private sbyte direction = 1;
 	public sbyte Direction
 	{
@@ -25,7 +31,6 @@ public partial class Player : CharacterBody2D
 	}
 
 	private float _rage = 0.0f;
-
 	public float Rage
 	{
 		get { return _rage; }
@@ -38,7 +43,25 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	public bool CanDash = true, CanAttack = true;
+	private bool _canDash = true, _canAttack = true;
+	public bool CanDash
+	{
+		get { return _canDash; }
+		set
+		{
+			_canDash = value;
+			EmitSignal(SignalName.DashState, _canDash);
+		}
+	}
+	public bool CanAttack
+	{
+		get { return _canAttack; }
+		set
+		{
+			_canAttack = value;
+			EmitSignal(SignalName.AttackState, _canAttack);
+		}
+	}
 
 	[Export]
 	private Label _velocityLabel;
@@ -108,9 +131,8 @@ public partial class Player : CharacterBody2D
 			Timer.Stop();
 			_stateMachine.TransitionTo(PlayerState.Hurt);
 		}
+
 		if (area.IsInGroup("Cookie"))
-		{
 			GetTree().Quit();
-		}
 	}
 }
