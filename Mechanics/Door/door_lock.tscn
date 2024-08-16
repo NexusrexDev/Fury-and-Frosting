@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhj7skwmwc06x"]
+
+[ext_resource type="Script" path="res://Mechanics/Door/DoorLock.cs" id="1_betyf"]
+[ext_resource type="Texture2D" uid="uid://xipbl3svyokb" path="res://Mechanics/Door/Doorlock.png" id="1_i7ari"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_on5ce"]
+size = Vector2(16, 16)
+
+[node name="DoorLock" type="Area2D"]
+script = ExtResource("1_betyf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_i7ari")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_on5ce")

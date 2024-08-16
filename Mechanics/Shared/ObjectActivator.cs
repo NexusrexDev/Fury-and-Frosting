@@ -19,9 +19,10 @@ public abstract partial class ObjectActivator : Area2D
 	public override void _Ready()
 	{
 		_timer = GetNode<Timer>("Timer");
+		if (_timer != null)
+			_timer.Timeout += _On_Timer_Timeout;
 
 		AreaEntered += _On_Area_Entered;
-		_timer.Timeout += _On_Timer_Timeout;
 
 		foreach (ActivatableObject activatableObject in activatableObjects)
 			StateChange += activatableObject.StateChange;
@@ -29,7 +30,7 @@ public abstract partial class ObjectActivator : Area2D
 
 	private void _On_Area_Entered(Area2D area)
 	{
-		if (area.IsInGroup("Attack") && !_activated)
+		if (area is PlayerSword && !_activated)
 		{
 			EmitSignal(SignalName.StateChange, true);
 			_activated = true;

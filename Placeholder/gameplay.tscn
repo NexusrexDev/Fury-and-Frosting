@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5mttu2y0hjkm"]
+[gd_scene load_steps=9 format=3 uid="uid://c5mttu2y0hjkm"]
 
 [ext_resource type="PackedScene" uid="uid://bk20bkl01bljj" path="res://Systems/Camera/Camera.tscn" id="2_8pfsy"]
 [ext_resource type="TileSet" uid="uid://b7tfdsv58rgro" path="res://Tilesets/Forest/forest_tileset.tres" id="2_aibxn"]
 [ext_resource type="PackedScene" uid="uid://cu4xrd20aho12" path="res://Player/Player.tscn" id="2_drcq6"]
-[ext_resource type="Texture2D" uid="uid://cwbasbq0rmbm" path="res://Tilesets/Forest/background.png" id="3_wdfh6"]
+[ext_resource type="PackedScene" uid="uid://btapkw3jskelm" path="res://Tilesets/Forest/forest_background.tscn" id="4_8vamb"]
 [ext_resource type="PackedScene" uid="uid://bcgma0ebx3pdq" path="res://Mechanics/Cookie (Endgoal)/cookie.tscn" id="4_k5mmg"]
 [ext_resource type="PackedScene" uid="uid://de0ng8fsocgxd" path="res://Systems/Camera/camera_limit_setter.tscn" id="5_nn8t4"]
+[ext_resource type="PackedScene" uid="uid://dhj7skwmwc06x" path="res://Mechanics/Door/door_lock.tscn" id="7_q7o13"]
+[ext_resource type="PackedScene" uid="uid://d4i844byq4v55" path="res://Mechanics/Door/door.tscn" id="8_w0f5x"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -31,26 +33,7 @@ offset_bottom = 23.0
 position = Vector2(40, 152)
 _velocityLabel = NodePath("../Label")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="BG2" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.4, 0.4)
-motion_mirroring = Vector2(320, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BG2"]
-texture = ExtResource("3_wdfh6")
-centered = false
-vframes = 2
-
-[node name="BG1" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.5, 0.5)
-motion_mirroring = Vector2(320, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BG1"]
-texture = ExtResource("3_wdfh6")
-centered = false
-vframes = 2
-frame = 1
+[node name="ForestBackground" parent="." instance=ExtResource("4_8vamb")]
 
 [node name="CameraLimitSetter" parent="." node_paths=PackedStringArray("_camera") instance=ExtResource("5_nn8t4")]
 position = Vector2(328, 144)
@@ -59,3 +42,10 @@ NewLimit = Rect2(320, 0, 320, 180)
 
 [node name="Cookie" parent="." instance=ExtResource("4_k5mmg")]
 position = Vector2(584, 56)
+
+[node name="DoorLock" parent="." node_paths=PackedStringArray("activatableObjects") instance=ExtResource("7_q7o13")]
+position = Vector2(160, 104)
+activatableObjects = [NodePath("../Door")]
+
+[node name="Door" parent="." instance=ExtResource("8_w0f5x")]
+position = Vector2(312, 144)
