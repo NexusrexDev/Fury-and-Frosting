@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cdan152wd0xi3"]
+[gd_scene load_steps=9 format=3 uid="uid://cdan152wd0xi3"]
 
 [ext_resource type="Script" path="res://UI/HUD/GameHUD.cs" id="1_jl32s"]
 [ext_resource type="Texture2D" uid="uid://cjaeml1no0bnx" path="res://UI/HUD/DashIcons.png" id="1_r8rtm"]
 [ext_resource type="Texture2D" uid="uid://pwtwvra7gt27" path="res://UI/HUD/SwordIcons.png" id="2_aok0j"]
+[ext_resource type="Texture2D" uid="uid://cu0d5n6ptcgmv" path="res://UI/HUD/PlayerBorder.png" id="2_jle7k"]
+[ext_resource type="Texture2D" uid="uid://o3d3e0v3nkxg" path="res://UI/HUD/PlayerBaseIcon.png" id="3_qy0oq"]
+[ext_resource type="Texture2D" uid="uid://dk3hrggfpte4q" path="res://UI/HUD/PlayerFrontIcon.png" id="4_xvwqe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xxw57"]
 atlas = ExtResource("1_r8rtm")
@@ -12,10 +15,11 @@ region = Rect2(0, 0, 16, 16)
 atlas = ExtResource("2_aok0j")
 region = Rect2(0, 0, 16, 16)
 
-[node name="GameHUD" type="CanvasLayer" node_paths=PackedStringArray("_dashIcon", "_swordIcon")]
+[node name="GameHUD" type="CanvasLayer" node_paths=PackedStringArray("_dashIcon", "_swordIcon", "_rageMeter")]
 script = ExtResource("1_jl32s")
 _dashIcon = NodePath("Control/IconContainer/DashIcon")
 _swordIcon = NodePath("Control/IconContainer/SwordIcon")
+_rageMeter = NodePath("Control/IconContainer/IconBorder/CenterContainer/PlayerIcon/RageProgress")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -28,6 +32,34 @@ scale = Vector2(2, 2)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="IconBorder" type="TextureRect" parent="Control/IconContainer"]
+layout_mode = 2
+texture = ExtResource("2_jle7k")
+expand_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/IconContainer/IconBorder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerIcon" type="TextureRect" parent="Control/IconContainer/IconBorder/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("3_qy0oq")
+
+[node name="RageProgress" type="TextureProgressBar" parent="Control/IconContainer/IconBorder/CenterContainer/PlayerIcon"]
+layout_mode = 2
+offset_top = 2.0
+offset_right = 20.0
+offset_bottom = 14.0
+max_value = 24.0
+value = 24.0
+rounded = true
+fill_mode = 3
+texture_progress = ExtResource("4_xvwqe")
 
 [node name="DashIcon" type="TextureRect" parent="Control/IconContainer"]
 layout_mode = 2

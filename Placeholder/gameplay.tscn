@@ -27,13 +27,8 @@ limit_bottom = 180
 editor_draw_limits = true
 _player = NodePath("../Player")
 
-[node name="Label" type="Label" parent="."]
-offset_right = 240.0
-offset_bottom = 23.0
-
-[node name="Player" parent="." node_paths=PackedStringArray("_velocityLabel") instance=ExtResource("2_drcq6")]
+[node name="Player" parent="." instance=ExtResource("2_drcq6")]
 position = Vector2(40, 152)
-_velocityLabel = NodePath("../Label")
 
 [node name="ForestBackground" parent="." instance=ExtResource("4_8vamb")]
 

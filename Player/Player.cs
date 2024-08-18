@@ -64,8 +64,6 @@ public partial class Player : CharacterBody2D
 	}
 
 	[Export]
-	private Label _velocityLabel;
-	[Export]
 	public Timer Timer;
 	[Export]
 	public Timer IFrameTimer;
@@ -96,7 +94,6 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		_velocityLabel.Text = $"Velocity: {Velocity}\nState: {_stateMachine.CurrentState.Name}\nRage: {Rage}";
 		MoveAndSlide();
 	}
 
