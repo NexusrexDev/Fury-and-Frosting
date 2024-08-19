@@ -2,8 +2,31 @@ using Godot;
 using Godot.Collections;
 using System;
 
+public enum MusicTitles
+{
+	None = -1,
+	NexJingle,
+	WinJingle,
+	MainMenu,
+	StoryScene,
+	Gameplay,
+	BossFight
+}
+
 public partial class AudioManager : Node
 {
+	public static AudioManager Instance { get; private set; }
+
+	private Dictionary musicDictionary = new Dictionary
+	{
+		{(int)MusicTitles.NexJingle, new StringName("res://Music/Jingles/NexJingle.ogg")},
+		{(int)MusicTitles.WinJingle, new StringName("res://Music/Jingles/WinJingle.ogg")},
+		{(int)MusicTitles.MainMenu, new StringName("res://Music/Tunes/MainMenu.ogg")},
+		{(int)MusicTitles.StoryScene, new StringName("res://Music/Tunes/StoryScene.ogg")},
+		{(int)MusicTitles.Gameplay, new StringName("res://Music/Tunes/ForestTheme.ogg")},
+		{(int)MusicTitles.BossFight, new StringName("res://Music/Tunes/WitchFight.ogg")}
+	};
+
 	private int _sfxPlayerCount = 16;
 	private string _sfxBus = "SFX", _musicBus = "Music";
 
@@ -11,8 +34,13 @@ public partial class AudioManager : Node
 
 	private Array<AudioStreamPlayer> _availableSFXPlayers = new Array<AudioStreamPlayer>(), _queueSFXPlayers = new Array<AudioStreamPlayer>();
 
+	private Tween _tween;
+
+	private MusicTitles _currentlyPlaying = MusicTitles.None;
+
 	public override void _Ready()
 	{
+		Instance = this;
 		ProcessMode = ProcessModeEnum.Always;
 
 		for (int i = 0; i < _sfxPlayerCount; i++)
@@ -29,15 +57,40 @@ public partial class AudioManager : Node
 		AddChild(_musicPlayer);
 	}
 
-	public void PlayMusic(string fileName)
+	public void PlayMusic(MusicTitles musicTrack, float fadeDuration = 0)
 	{
+		if (_currentlyPlaying == musicTrack)
+			return;
+
+		string fileName = (string)musicDictionary[(int)musicTrack];
+		_currentlyPlaying = musicTrack;
 		_musicPlayer.Stream = GD.Load<AudioStream>(fileName);
 		_musicPlayer.Play();
+		if (fadeDuration > 0)
+		{
+			_musicPlayer.VolumeDb = -80;
+			if (_tween != null)
+				_tween.Kill();
+			_tween = CreateTween();
+			_tween.TweenProperty(_musicPlayer, "volume_db", 0, fadeDuration);
+		}
 	}
 
-	public void StopMusic()
+	public void StopMusic(float fadeDuration = 0)
 	{
-		_musicPlayer.Stop();
+		if (fadeDuration > 0)
+		{
+			if (_tween != null)
+				_tween.Kill();
+			_tween = CreateTween();
+			_tween.TweenProperty(_musicPlayer, "volume_db", -80, fadeDuration);
+			_tween.Finished += () => { _musicPlayer.Stop(); };
+			_musicPlayer.VolumeDb = 0;
+		}
+		else
+			_musicPlayer.Stop();
+
+		_currentlyPlaying = MusicTitles.None;
 	}
 
 	public void PlaySFX(string fileName)

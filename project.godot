@@ -10,9 +10,12 @@ config_version=5
 
 [application]
 
-config/name="Berserk Bisquit Quest"
+config/name="Fury And Frosting"
 run/main_scene="res://Placeholder/gameplay.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0.0196078, 1)
+boot_splash/show_image=false
+boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [autoload]
