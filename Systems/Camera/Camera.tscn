@@ -5,4 +5,11 @@
 [node name="Camera" type="Camera2D"]
 anchor_mode = 0
 zoom = Vector2(2, 2)
+limit_left = 0
+limit_top = 0
+limit_right = 320
+limit_bottom = 180
+limit_smoothed = true
+position_smoothing_speed = 24.0
+editor_draw_limits = true
 script = ExtResource("1_e704l")

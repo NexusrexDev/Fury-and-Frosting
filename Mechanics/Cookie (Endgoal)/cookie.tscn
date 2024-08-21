@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c173wurlv7o4g" path="res://Mechanics/Cookie (Endgoal)/Cookie.png" id="1_e4bji"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qcjjj"]
+size = Vector2(16, 16)
 
 [node name="Cookie" type="Area2D" groups=["Cookie"]]
 

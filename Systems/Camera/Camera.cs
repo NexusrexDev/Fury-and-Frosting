@@ -26,14 +26,17 @@ public partial class Camera : Camera2D
 
 	public void SetLimitRect(Rect2 rect)
 	{
+		PositionSmoothingEnabled = true;
+
+		LimitLeft = (int) rect.Position.X;
+		LimitTop = (int) rect.Position.Y;
+		LimitRight = (int) rect.End.X;
+		LimitBottom = (int) rect.End.Y;
+
 		if (_tween != null)
 			_tween.Kill();
 		_tween = CreateTween();
-		_tween.TweenProperty(this, "limit_left", rect.Position.X, limitLerp);
-		_tween.SetParallel();
-		_tween.TweenProperty(this, "limit_top", rect.Position.Y, limitLerp);
-		_tween.TweenProperty(this, "limit_right", rect.End.X, limitLerp);
-		_tween.TweenProperty(this, "limit_bottom", rect.End.Y, limitLerp);
+		_tween.TweenProperty(this, "position_smoothing_enabled", false, 0.4);
 	}
 
 	public void SetShake(float value)
@@ -56,8 +59,8 @@ public partial class Camera : Camera2D
 		if (_player == null)
 			return;
 
-		var xPos = _player.Position.X - (320 / 2);
-		var yPos = _player.Position.Y - (180 / 2);
+		var xPos = _player.Position.X - ((640 / Zoom.X)/2);
+		var yPos = _player.Position.Y - ((360 / Zoom.Y)/2);
 		camPos = new Vector2(xPos, yPos);
 		Position = camPos;
 	}
