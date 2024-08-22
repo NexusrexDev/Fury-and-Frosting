@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bcgma0ebx3pdq"]
+[gd_scene load_steps=8 format=3 uid="uid://bcgma0ebx3pdq"]
 
 [ext_resource type="Texture2D" uid="uid://c173wurlv7o4g" path="res://Mechanics/Cookie (Endgoal)/Cookie.png" id="1_e4bji"]
 [ext_resource type="Texture2D" uid="uid://ddx61sld3l16d" path="res://Effects/3x3parts.png" id="1_yciba"]
@@ -16,9 +16,32 @@ point_count = 2
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qcjjj"]
 size = Vector2(16, 16)
 
+[sub_resource type="Animation" id="Animation_wmrwh"]
+resource_name = "Cookie"
+length = 0.95
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(0.5, 1, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -2), Vector2(0, 0), Vector2(0, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b25c6"]
+_data = {
+"Cookie": SubResource("Animation_wmrwh")
+}
+
 [node name="Cookie" type="Area2D" groups=["Cookie"]]
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+[node name="Sparkles" type="CPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_i70lj")
 speed_scale = 0.5
 texture = ExtResource("1_yciba")
@@ -33,4 +56,12 @@ anim_offset_max = 1.0
 shape = SubResource("RectangleShape2D_qcjjj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 0.222803)
 texture = ExtResource("1_e4bji")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_b25c6")
+}
+autoplay = "Cookie"
+speed_scale = 0.5
