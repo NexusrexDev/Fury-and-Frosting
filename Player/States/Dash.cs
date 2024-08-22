@@ -17,6 +17,7 @@ public partial class Dash : PlayerState
 
         _player.SetRotation(4 * _player.Direction);
 		_player.SetScale(new Vector2(1.2f, 0.8f));
+		_player.SetDashParticles(true);
 
 		_player.CanDash = false;
 
@@ -40,7 +41,7 @@ public partial class Dash : PlayerState
 
 	public override void Exit()
 	{
-		//Reset the dash
+		_player.SetDashParticles(false);
 		_player.Timer.Timeout -= OnTimerTimeout;
 		Vector2 velocity = _player.Velocity;
 		velocity.X = _previousSpeed;

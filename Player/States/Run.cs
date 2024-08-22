@@ -9,6 +9,7 @@ public partial class Run : PlayerState
 		_player.SetRotation(4 * _player.Direction);
 		_player.CanDash = true;
 		_player.CanAttack = true;
+		_player.SetRunParticles(true);
 		if (_message != null)
 		{
 			if (_message.ContainsKey("direction"))
@@ -21,46 +22,48 @@ public partial class Run : PlayerState
 			}
 
 			if (_message.ContainsKey("landed"))
+			{
 				_player.SetScale(new Vector2(1.25f, 0.75f));
-			
+				_player.EmitLandingParticles();
+			}
 		}
+	}
+
+	public override void Exit()
+	{
+		_player.SetRunParticles(false);
 	}
 
 	public override void Update(double delta)
 	{
-		if (Input.IsActionJustPressed("game_attack") && _player.CanAttack)
-			StateMachine.TransitionTo(Attack);
+		if (!_player.IsControllable)
+			return;
+
+		HandleInput();
 	}
 
 	public override void PhysicsProcess(double delta)
 	{
-		Vector2 velocity = _player.Velocity;
-		//Horizontal movement
-		float direction = Input.GetActionStrength("game_right") - Input.GetActionStrength("game_left");
-		if (direction != 0)
-		{
-			velocity.X = direction * Player.Speed;
-			_player.Direction = (sbyte)direction;
-			_player.SetRotation(4 * _player.Direction);
-		}
-
-		//Transitioning to the Idle state
 		if (_player.Velocity == Vector2.Zero)
 			StateMachine.TransitionTo(Idle);
 
-		_player.Velocity = velocity;
-
-		//Transitioning to the Air state
-		//By falling off a platform
 		if (!_player.IsOnFloor())
 			StateMachine.TransitionTo(Air);
+	}
 
-		//By jumping
+	private void HandleInput()
+	{
+		float direction = Input.GetActionStrength("game_right") - Input.GetActionStrength("game_left");
+		if (direction != 0)
+			StateMachine.TransitionTo(Run, new Dictionary<string, Variant> { { "direction", direction } });
+
 		if (Input.IsActionJustPressed("game_jump") && _player.IsOnFloor())
 			StateMachine.TransitionTo(Air, new Dictionary<string, Variant> { { "do_jump", true } });
 
-		//Transitioning to the Dash state
-		if (Input.IsActionJustPressed("game_dash"))
+		if (Input.IsActionJustPressed("game_attack") && _player.CanAttack)
+			StateMachine.TransitionTo(Attack);
+
+		if (Input.IsActionJustPressed("game_dash") && _player.CanDash)
 			StateMachine.TransitionTo(Dash);
 	}
 }

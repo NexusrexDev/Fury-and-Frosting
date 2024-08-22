@@ -1,23 +1,40 @@
-[gd_scene load_steps=14 format=3 uid="uid://cu4xrd20aho12"]
+[gd_scene load_steps=20 format=3 uid="uid://cu4xrd20aho12"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_ugaps"]
 [ext_resource type="Texture2D" uid="uid://ds16wpim2i8at" path="res://Player/Assets/Player.png" id="2_1gv4s"]
 [ext_resource type="PackedScene" uid="uid://nbfpykbik5rn" path="res://Player/player_sword.tscn" id="2_nfggf"]
+[ext_resource type="Script" path="res://Player/DashGhost.cs" id="3_ldflb"]
 [ext_resource type="Script" path="res://State Machine/StateMachine.cs" id="3_qmydp"]
+[ext_resource type="Script" path="res://Effects/ParticleEmitter.cs" id="4_701v0"]
 [ext_resource type="Script" path="res://Player/States/Idle.cs" id="4_ilqfk"]
 [ext_resource type="Script" path="res://Player/States/Run.cs" id="5_uxoyh"]
 [ext_resource type="Script" path="res://Player/States/Air.cs" id="6_2odrp"]
+[ext_resource type="Texture2D" uid="uid://cv8h6vyohepup" path="res://Effects/circle_02.png" id="6_m4yg1"]
 [ext_resource type="Script" path="res://Player/States/Dash.cs" id="7_gop2i"]
 [ext_resource type="Script" path="res://Player/States/Hurt.cs" id="8_lmcqq"]
 [ext_resource type="Script" path="res://Player/States/Attack.cs" id="9_c33pr"]
+
+[sub_resource type="Curve" id="Curve_4oei8"]
+_data = [Vector2(0.247573, 1), 0.0, 0.0, 0, 0, Vector2(0.839806, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_afc8r"]
+_data = [Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.475728, 0.505494), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_sugl1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.509709, 0.989011), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ufmob"]
+offsets = PackedFloat32Array(0.370787, 0.511236)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vode2"]
 size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q7kxp"]
 size = Vector2(12, 12)
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pyieb"]
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Timer", "IFrameTimer", "SwordPosition") groups=["Player"]]
 safe_margin = 0.1
@@ -27,9 +44,100 @@ IFrameTimer = NodePath("iFrameTimer")
 SwordScene = ExtResource("2_nfggf")
 SwordPosition = NodePath("Marker2D")
 
+[node name="DashGhost" type="Node2D" parent="."]
+script = ExtResource("3_ldflb")
+
+[node name="Timer" type="Timer" parent="DashGhost"]
+wait_time = 0.05
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_1gv4s")
 offset = Vector2(0, -0.5)
+
+[node name="RunParticles" type="CPUParticles2D" parent="."]
+position = Vector2(-8, 7)
+emitting = false
+amount = 2
+lifetime = 0.5
+explosiveness = 0.13
+randomness = 0.11
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(-1, 0)
+spread = 16.33
+gravity = Vector2(0, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0
+tangential_accel_min = 6.0
+tangential_accel_max = 20.0
+damping_max = 2.0
+scale_amount_min = 2.0
+scale_amount_max = 2.5
+scale_amount_curve = SubResource("Curve_4oei8")
+
+[node name="LandParticles" type="Node2D" parent="."]
+script = ExtResource("4_701v0")
+
+[node name="LeftEmitter" type="CPUParticles2D" parent="LandParticles"]
+position = Vector2(-8, 7)
+emitting = false
+amount = 1
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.13
+randomness = 0.11
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(-1, 0)
+spread = 16.33
+gravity = Vector2(0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 8.0
+tangential_accel_min = 6.0
+tangential_accel_max = 20.0
+damping_max = 2.0
+scale_amount_min = 3.0
+scale_amount_max = 3.5
+scale_amount_curve = SubResource("Curve_4oei8")
+
+[node name="RightEmitter" type="CPUParticles2D" parent="LandParticles"]
+position = Vector2(8, 7)
+emitting = false
+amount = 1
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.13
+randomness = 0.11
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 16.33
+gravity = Vector2(0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 8.0
+tangential_accel_min = -20.0
+tangential_accel_max = -6.0
+damping_max = 2.0
+scale_amount_min = 3.0
+scale_amount_max = 3.5
+scale_amount_curve = SubResource("Curve_4oei8")
+
+[node name="DashParticles" type="Node2D" parent="."]
+position = Vector2(32, 0)
+script = ExtResource("4_701v0")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="DashParticles"]
+emitting = false
+amount = 1
+lifetime = 0.5
+one_shot = true
+texture = ExtResource("6_m4yg1")
+gravity = Vector2(0, 0)
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+split_scale = true
+scale_curve_x = SubResource("Curve_afc8r")
+scale_curve_y = SubResource("Curve_sugl1")
+color_ramp = SubResource("Gradient_ufmob")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(12, 0)
@@ -72,8 +180,3 @@ one_shot = true
 [node name="iFrameTimer" type="Timer" parent="."]
 wait_time = 1.2
 one_shot = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_pyieb")
-}

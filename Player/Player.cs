@@ -27,6 +27,11 @@ public partial class Player : CharacterBody2D
 			SwordPosition.Scale = new Vector2(direction, 1);
 			SwordPosition.Position = new Vector2(direction * 12, 0);
 			_sprite.FlipH = direction == -1;
+			_runParticles.Position = new Vector2(-8 * direction, 7);
+			_runParticles.Direction = new Vector2(-direction, 1);
+			_runParticles.TangentialAccelMax = (direction == 1) ? 20f : -6f;
+			_runParticles.TangentialAccelMin = (direction == 1) ? 6f : -20f;
+			_dashParticles.Position = new Vector2(32 * direction, 0);
 		}
 	}
 
@@ -36,10 +41,10 @@ public partial class Player : CharacterBody2D
 		get { return _rage; }
 		set
 		{
-			if (_rage >= 100)
-				GameOver();
 			_rage = Mathf.Clamp(value, 0, 100);
 			EmitSignal(SignalName.RageChanged, _rage);
+			if (_rage >= 100)
+				GameOver();
 		}
 	}
 
@@ -63,6 +68,8 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
+	public bool IsControllable = true;
+
 	[Export]
 	public Timer Timer;
 	[Export]
@@ -71,20 +78,28 @@ public partial class Player : CharacterBody2D
 	public PackedScene SwordScene;
 	[Export]
 	public Marker2D SwordPosition;
-
-	public AnimationPlayer AnimationPlayer;
 	
 	private StateMachine _stateMachine;
 
 	private Sprite2D _sprite;
 
+	private CpuParticles2D _runParticles;
+	private ParticleEmitter _landParticles, _dashParticles;
+	private DashGhost _dashGhost;
+
 	public override void _Ready()
 	{
 		_stateMachine = GetNode<StateMachine>("StateMachine");
-		AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_sprite = GetNode<Sprite2D>("Sprite2D");
+
 		Area2D hitbox = GetNode<Area2D>("Hitbox");
 		hitbox.AreaEntered += _On_Hitbox_Collision;
+
+		_runParticles = GetNode<CpuParticles2D>("RunParticles");
+		_landParticles = GetNode<ParticleEmitter>("LandParticles");
+		_dashParticles = GetNode<ParticleEmitter>("DashParticles");
+		_dashGhost = GetNode<DashGhost>("DashGhost");
+		_dashGhost.Init(_sprite);
 	}
 
 	public override void _Process(double delta)
@@ -117,6 +132,30 @@ public partial class Player : CharacterBody2D
 	public void SetRotation(float rotation)
 	{
 		_sprite.RotationDegrees = rotation;
+	}
+
+	public void SetRunParticles(bool value)
+	{
+		_runParticles.Emitting = value;
+	}
+
+	public void EmitLandingParticles()
+	{
+		_landParticles.EmitParticles();
+	}
+
+	public void SetDashParticles(bool value)
+	{
+		if (value)
+		{
+			_dashParticles.EmitParticles();
+			_dashGhost.EmitGhosts();
+		}
+		else
+		{
+			_dashParticles.StopParticles();
+			_dashGhost.StopGhosts();
+		}
 	}
 
 	private void _On_Hitbox_Collision(Area2D area)
