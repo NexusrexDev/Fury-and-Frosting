@@ -63,10 +63,11 @@ texture_progress = ExtResource("4_xvwqe")
 
 [node name="DashIcon" type="TextureRect" parent="Control/IconContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture = SubResource("AtlasTexture_xxw57")
-stretch_mode = 2
 
 [node name="SwordIcon" type="TextureRect" parent="Control/IconContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 texture = SubResource("AtlasTexture_j6yoy")
-stretch_mode = 2
