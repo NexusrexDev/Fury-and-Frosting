@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Fury And Frosting"
-run/main_scene="res://Placeholder/gameplay.tscn"
+run/main_scene="res://UI/Title Screen/Nex logo/nex_logo.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0.0196078, 1)
 boot_splash/show_image=false
@@ -27,7 +27,7 @@ AudioManager="*res://Systems/AudioManager/AudioManager.cs"
 window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/resizable=false
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 
 [dotnet]
 

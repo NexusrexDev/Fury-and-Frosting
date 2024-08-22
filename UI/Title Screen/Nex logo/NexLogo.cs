@@ -6,6 +6,9 @@ public partial class NexLogo : Node2D
 	[Export]
 	private PackedScene _nextScene;
 
+	[Export]
+	private PackedScene _transitionScene;
+
 	public void PlayMusic()
 	{
 		AudioManager.Instance.PlayMusic(MusicTitles.NexJingle);
@@ -13,6 +16,8 @@ public partial class NexLogo : Node2D
 
 	public void AnimationEnd()
 	{
-		GetTree().ChangeSceneToPacked(_nextScene);
+		Transition transitionNode = _transitionScene.Instantiate<Transition>();
+		transitionNode._nextScene = _nextScene;
+		AddChild(transitionNode);
 	}
 }

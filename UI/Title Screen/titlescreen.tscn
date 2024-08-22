@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgfff724517oa"]
+
+[ext_resource type="PackedScene" uid="uid://btuwq7k5c240h" path="res://UI/Transition/entrance_transition.tscn" id="1_lr310"]
+
+[node name="TitleScreen" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(2, 2)
+
+[node name="EntranceTransition" parent="." instance=ExtResource("1_lr310")]
