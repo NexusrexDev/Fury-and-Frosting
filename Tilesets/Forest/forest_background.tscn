@@ -1,8 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://btapkw3jskelm"]
+[gd_scene load_steps=3 format=3 uid="uid://btapkw3jskelm"]
 
 [ext_resource type="Texture2D" uid="uid://cwbasbq0rmbm" path="res://Tilesets/Forest/background.png" id="1_d2t8x"]
+[ext_resource type="Texture2D" uid="uid://byr5qt2vu31ac" path="res://Tilesets/Forest/BackColor.png" id="1_lqcko"]
 
 [node name="ForestBackground" type="ParallaxBackground"]
+
+[node name="BackColor" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(320, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="BackColor"]
+scale = Vector2(80, 45)
+texture = ExtResource("1_lqcko")
+centered = false
 
 [node name="BG2" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0.4, 0.4)
