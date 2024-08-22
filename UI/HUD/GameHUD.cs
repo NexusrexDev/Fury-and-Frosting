@@ -30,16 +30,9 @@ public partial class GameHUD : CanvasLayer
 			return;
 
 		_dashState = state;
-		AtlasTexture texture = (_dashIcon.Texture as AtlasTexture);
-		switch (state)
-		{
-			case true:
-				texture.Region = new Rect2(0, 0, 16, 16);
-				break;
-			case false:
-				texture.Region = new Rect2(16, 0, 16, 16);
-				break;
-		}
+		
+		SwitchIcon(_dashIcon, state);
+
 		ScaleIcon(_dashIcon);
 	}
 
@@ -49,22 +42,22 @@ public partial class GameHUD : CanvasLayer
 			return;
 
 		_attackState = state;
-		AtlasTexture texture = (_swordIcon.Texture as AtlasTexture);
-		switch (state)
-		{
-			case true:
-				texture.Region = new Rect2(0, 0, 16, 16);
-				break;
-			case false:
-				texture.Region = new Rect2(16, 0, 16, 16);
-				break;
-		}
+		
+		SwitchIcon(_swordIcon, state);
+
 		ScaleIcon(_swordIcon);
 	}
 
 	private void OnRageChanged(float rage)
 	{
 		_rageMeter.Value = 24 - Mathf.Remap(rage, 0, 100, 0, 24);
+	}
+
+	private void SwitchIcon(TextureRect icon, bool state)
+	{
+		AtlasTexture texture = (icon.Texture as AtlasTexture);
+		float startPos = (state) ? 0 : 16;
+		texture.Region = new Rect2(startPos, 0, 16, 16);
 	}
 
 	private void ScaleIcon(TextureRect icon)
