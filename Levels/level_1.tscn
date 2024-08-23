@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bui51f5va11tc"]
+[gd_scene load_steps=13 format=3 uid="uid://bui51f5va11tc"]
 
 [ext_resource type="PackedScene" uid="uid://btapkw3jskelm" path="res://Tilesets/Forest/forest_background.tscn" id="1_0tf7u"]
 [ext_resource type="PackedScene" uid="uid://cdan152wd0xi3" path="res://UI/HUD/game_hud.tscn" id="1_bw2t7"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cu4xrd20aho12" path="res://Player/Player.tscn" id="5_j271d"]
 [ext_resource type="PackedScene" uid="uid://de0ng8fsocgxd" path="res://Systems/Camera/camera_limit_setter.tscn" id="7_ixgcy"]
 [ext_resource type="PackedScene" uid="uid://bcgma0ebx3pdq" path="res://Mechanics/Cookie (Endgoal)/cookie.tscn" id="8_3wniq"]
+[ext_resource type="PackedScene" uid="uid://pl5hsmx17t24" path="res://UI/level_entrance.tscn" id="11_rdl7d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ig4t5"]
 size = Vector2(15.9999, 63.9997)
@@ -67,4 +68,10 @@ shape = SubResource("RectangleShape2D_ig4t5")
 z_index = -1
 position = Vector2(1233, 64)
 
+[node name="LevelEntrance" parent="." instance=ExtResource("11_rdl7d")]
+
+[node name="ReadyCanvas" parent="LevelEntrance" index="0" node_paths=PackedStringArray("_player")]
+_player = NodePath("../../Player")
+
 [editable path="CameraLimitSetter"]
+[editable path="LevelEntrance"]

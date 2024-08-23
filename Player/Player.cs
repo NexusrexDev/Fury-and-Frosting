@@ -68,7 +68,8 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	public bool IsControllable = true;
+	[Export]
+	public bool IsControllable = false;
 
 	[Export]
 	public Timer Timer;

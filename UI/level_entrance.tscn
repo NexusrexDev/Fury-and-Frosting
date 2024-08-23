@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://pl5hsmx17t24"]
+
+[ext_resource type="PackedScene" uid="uid://bnph62ue0bsu" path="res://UI/ReadyStart/ready_canvas.tscn" id="1_x5aip"]
+[ext_resource type="PackedScene" uid="uid://btuwq7k5c240h" path="res://UI/Transition/entrance_transition.tscn" id="2_5h252"]
+
+[node name="LevelEntrance" type="Node"]
+
+[node name="ReadyCanvas" parent="." node_paths=PackedStringArray("_player") instance=ExtResource("1_x5aip")]
+_player = NodePath("")
+
+[node name="EntranceTransition" parent="." instance=ExtResource("2_5h252")]
