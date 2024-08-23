@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcgma0ebx3pdq"]
+[gd_scene load_steps=9 format=3 uid="uid://bcgma0ebx3pdq"]
 
 [ext_resource type="Texture2D" uid="uid://c173wurlv7o4g" path="res://Mechanics/Cookie (Endgoal)/Cookie.png" id="1_e4bji"]
+[ext_resource type="Texture2D" uid="uid://b0v2l4tnlk4qw" path="res://Effects/Godray_small2.png" id="1_jl5pb"]
 [ext_resource type="Texture2D" uid="uid://ddx61sld3l16d" path="res://Effects/3x3parts.png" id="1_yciba"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_i70lj"]
@@ -14,7 +15,7 @@ _data = [Vector2(0.315534, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qcjjj"]
-size = Vector2(16, 16)
+size = Vector2(16, 10)
 
 [sub_resource type="Animation" id="Animation_wmrwh"]
 resource_name = "Cookie"
@@ -31,7 +32,19 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
 "transitions": PackedFloat32Array(0.5, 1, 0.5, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, -2), Vector2(0, 0), Vector2(0, 2)]
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, 0), Vector2(0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Godray:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.95),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.5708]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b25c6"]
@@ -40,6 +53,11 @@ _data = {
 }
 
 [node name="Cookie" type="Area2D" groups=["Cookie"]]
+
+[node name="Godray" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.6)
+rotation = 0.813534
+texture = ExtResource("1_jl5pb")
 
 [node name="Sparkles" type="CPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_i70lj")
@@ -56,7 +74,7 @@ anim_offset_max = 1.0
 shape = SubResource("RectangleShape2D_qcjjj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 0.222803)
+position = Vector2(0, -0.0319352)
 texture = ExtResource("1_e4bji")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

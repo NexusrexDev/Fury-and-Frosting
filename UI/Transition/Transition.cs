@@ -34,11 +34,11 @@ public partial class Transition : CanvasLayer
 	private void OnAnimationFinished(StringName animationName)
 	{
 		if (_transitionType == TransitionType.EXIT)
-			GetTree().ChangeSceneToPacked(_nextScene);
-		else
 		{
-			//Emit signal to use w/ other stuff
-			QueueFree();
+			GetTree().Paused = false;
+			GetTree().ChangeSceneToPacked(_nextScene);
 		}
+		else
+			QueueFree();
 	}
 }

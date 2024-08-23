@@ -169,6 +169,10 @@ public partial class Player : CharacterBody2D
 		}
 
 		if (area.IsInGroup("Cookie"))
-			GetTree().Quit();
+		{
+			PackedScene winCanvasRef = GD.Load<PackedScene>(@"res://UI/Cookie Get/win_canvas.tscn");
+			WinCanvas winCanvas = winCanvasRef.Instantiate<WinCanvas>();
+			GetParent().AddChild(winCanvas);
+		}
 	}
 }
