@@ -84,8 +84,11 @@ public partial class AudioManager : Node
 				_tween.Kill();
 			_tween = CreateTween();
 			_tween.TweenProperty(_musicPlayer, "volume_db", -80, fadeDuration);
-			_tween.Finished += () => { _musicPlayer.Stop(); };
-			_musicPlayer.VolumeDb = 0;
+			_tween.Finished += () => 
+			{ 
+				_musicPlayer.Stop();
+				_musicPlayer.VolumeDb = 0;
+			};
 		}
 		else
 			_musicPlayer.Stop();
