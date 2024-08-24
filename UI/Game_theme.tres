@@ -1,3 +1,13 @@
-[gd_resource type="Theme" format=3 uid="uid://curp6twkpqer4"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://curp6twkpqer4"]
+
+[ext_resource type="FontFile" uid="uid://hckfkair3er6" path="res://UI/Fonts/ThaleahFat.ttf" id="1_1s8xp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8iasv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/fonts/font = ExtResource("1_1s8xp")
+Button/styles/focus = SubResource("StyleBoxFlat_8iasv")
+Label/fonts/font = ExtResource("1_1s8xp")

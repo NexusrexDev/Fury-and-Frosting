@@ -1,11 +1,146 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgfff724517oa"]
+[gd_scene load_steps=18 format=3 uid="uid://bgfff724517oa"]
 
+[ext_resource type="Script" path="res://UI/Title Screen/TitleScreen.cs" id="1_chcev"]
 [ext_resource type="PackedScene" uid="uid://btuwq7k5c240h" path="res://UI/Transition/entrance_transition.tscn" id="1_lr310"]
+[ext_resource type="PackedScene" uid="uid://b78mrpfan5eee" path="res://UI/Transition/exit_transition.tscn" id="2_auwia"]
+[ext_resource type="Script" path="res://Systems/AudioManager/MusicAutoPlayer.cs" id="2_xv1al"]
+[ext_resource type="PackedScene" uid="uid://btapkw3jskelm" path="res://Tilesets/Forest/forest_background.tscn" id="3_q3cjj"]
+[ext_resource type="PackedScene" uid="uid://bui51f5va11tc" path="res://Levels/level_1.tscn" id="3_vsau2"]
+[ext_resource type="Texture2D" uid="uid://dl8uestf2jus6" path="res://UI/Title Screen/GameTitle.png" id="4_c4mna"]
+[ext_resource type="Theme" uid="uid://curp6twkpqer4" path="res://UI/Game_theme.tres" id="5_8gr3a"]
 
-[node name="TitleScreen" type="Node2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vk0hl"]
+atlas = ExtResource("4_c4mna")
+region = Rect2(0, 0, 118, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ns5su"]
+atlas = ExtResource("4_c4mna")
+region = Rect2(118, 0, 118, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77fvl"]
+atlas = ExtResource("4_c4mna")
+region = Rect2(236, 0, 118, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jsa8"]
+atlas = ExtResource("4_c4mna")
+region = Rect2(354, 0, 118, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0uq20"]
+atlas = ExtResource("4_c4mna")
+region = Rect2(472, 0, 118, 58)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewmqd"]
+atlas = ExtResource("4_c4mna")
+region = Rect2(590, 0, 118, 58)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hhou8"]
+animations = [{
+"frames": [{
+"duration": 24.0,
+"texture": SubResource("AtlasTexture_vk0hl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ns5su")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77fvl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0jsa8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0uq20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewmqd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="Animation" id="Animation_47uh8"]
+resource_name = "started"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StartButton:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x7428"]
+_data = {
+"started": SubResource("Animation_47uh8")
+}
+
+[node name="TitleScreen" type="Node2D" node_paths=PackedStringArray("_startButton")]
+script = ExtResource("1_chcev")
+_startButton = NodePath("StartButton")
+_transitionScene = ExtResource("2_auwia")
+_nextScene = ExtResource("3_vsau2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 zoom = Vector2(2, 2)
 
 [node name="EntranceTransition" parent="." instance=ExtResource("1_lr310")]
+
+[node name="MusicAutoPlay" type="Node" parent="."]
+script = ExtResource("2_xv1al")
+_trackName = 2
+_fadeTime = 0.1
+
+[node name="ForestBackground" parent="." instance=ExtResource("3_q3cjj")]
+
+[node name="LogoSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(160, 37)
+sprite_frames = SubResource("SpriteFrames_hhou8")
+autoplay = "default"
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 105.0
+offset_top = 161.0
+offset_right = 216.0
+offset_bottom = 176.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_8gr3a")
+text = "Nexusrex - 2024"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 104.0
+offset_top = 100.0
+offset_right = 216.0
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(56, 11)
+mouse_filter = 2
+theme = ExtResource("5_8gr3a")
+button_mask = 0
+text = "[ Press Enter ]"
+flat = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x7428")
+}

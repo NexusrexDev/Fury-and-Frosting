@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://btapkw3jskelm"]
+[gd_scene load_steps=7 format=3 uid="uid://btapkw3jskelm"]
 
 [ext_resource type="Texture2D" uid="uid://cwbasbq0rmbm" path="res://Tilesets/Forest/background.png" id="1_d2t8x"]
 [ext_resource type="Texture2D" uid="uid://byr5qt2vu31ac" path="res://Tilesets/Forest/BackColor.png" id="1_lqcko"]
@@ -9,6 +9,18 @@ particles_animation = true
 particles_anim_h_frames = 2
 particles_anim_v_frames = 1
 particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_wqqpq"]
+min_value = -20.0
+max_value = 20.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.326633, 3.73626), 0.0, 0.0, 0, 0, Vector2(0.693467, -2.19781), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_7a2kn"]
+min_value = -20.0
+max_value = 20.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.326633, 3.73626), 0.0, 0.0, 0, 0, Vector2(0.693467, -2.19781), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [node name="ForestBackground" type="ParallaxBackground"]
 
@@ -46,12 +58,19 @@ local_coords = true
 texture = ExtResource("3_d07m0")
 emission_shape = 3
 emission_rect_extents = Vector2(200, 16)
+particle_flag_align_y = true
 direction = Vector2(0, 1)
 gravity = Vector2(0, 32)
 initial_velocity_min = 64.0
 initial_velocity_max = 64.0
 orbit_velocity_min = -0.1
 orbit_velocity_max = 0.08
+radial_accel_min = -10.0
+radial_accel_max = 10.0
+radial_accel_curve = SubResource("Curve_wqqpq")
+tangential_accel_min = -10.0
+tangential_accel_max = 10.0
+tangential_accel_curve = SubResource("Curve_7a2kn")
 damping_min = 6.194
 damping_max = 6.194
 
