@@ -4,9 +4,6 @@ using System.Runtime.CompilerServices;
 
 public partial class Camera : Camera2D
 {
-	//Desired features:
-	//Screenshake
-
 	[Export]
 	private Player _player;
 
@@ -16,6 +13,19 @@ public partial class Camera : Camera2D
 
 	private float shakeValue = 0;
 	private float limitLerp = 0.2f;
+
+	private bool followPlayer = true;
+
+	public override void _Ready()
+	{
+		GameManager.Instance.ScreenShake += SetShake;
+		GameManager.Instance.GameOver += () => { followPlayer = false; };
+		TreeExiting += () =>
+		{
+			GameManager.Instance.ScreenShake -= SetShake;
+			GameManager.Instance.GameOver -= () => { followPlayer = false; };
+		};
+	}
 
 	public override void _Process(double delta)
 	{
@@ -56,6 +66,9 @@ public partial class Camera : Camera2D
 
 	private void handleCameraFollow()
 	{
+		if (!followPlayer)
+			return;
+
 		if (_player == null)
 			return;
 
