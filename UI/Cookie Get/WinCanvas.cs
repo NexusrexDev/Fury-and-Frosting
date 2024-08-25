@@ -17,7 +17,7 @@ public partial class WinCanvas : CanvasLayer
 	public void AnimationEnd()
 	{
 		Transition transitionNode = _transitionScene.Instantiate<Transition>();
-		transitionNode._nextScene = _nextScene;
+		transitionNode.NextScene = _nextScene;
 		AddChild(transitionNode);
 	}
 }
