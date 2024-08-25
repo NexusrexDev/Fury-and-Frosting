@@ -12,5 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mechanics\Dash Powerup\" />
+    <Folder Include="Systems\GameManager\" />
   </ItemGroup>
 </Project>

@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://btuwq7k5c240h" path="res://UI/Transition/entrance_transition.tscn" id="1_lr310"]
 [ext_resource type="PackedScene" uid="uid://b78mrpfan5eee" path="res://UI/Transition/exit_transition.tscn" id="2_auwia"]
 [ext_resource type="Script" path="res://Systems/AudioManager/MusicAutoPlayer.cs" id="2_xv1al"]
+[ext_resource type="PackedScene" uid="uid://bbq0cxqlf2nh" path="res://UI/Story Segment/story_segment.tscn" id="3_0pyqy"]
 [ext_resource type="PackedScene" uid="uid://btapkw3jskelm" path="res://Tilesets/Forest/forest_background.tscn" id="3_q3cjj"]
-[ext_resource type="PackedScene" uid="uid://bui51f5va11tc" path="res://Levels/level_1.tscn" id="3_vsau2"]
 [ext_resource type="Texture2D" uid="uid://dl8uestf2jus6" path="res://UI/Title Screen/GameTitle.png" id="4_c4mna"]
 [ext_resource type="Theme" uid="uid://curp6twkpqer4" path="res://UI/Game_theme.tres" id="5_8gr3a"]
 
@@ -85,7 +85,7 @@ _data = {
 script = ExtResource("1_chcev")
 _startButton = NodePath("StartButton")
 _transitionScene = ExtResource("2_auwia")
-_nextScene = ExtResource("3_vsau2")
+_nextScene = ExtResource("3_0pyqy")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0

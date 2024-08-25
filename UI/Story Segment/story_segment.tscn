@@ -1,0 +1,192 @@
+[gd_scene load_steps=19 format=3 uid="uid://bbq0cxqlf2nh"]
+
+[ext_resource type="PackedScene" uid="uid://btuwq7k5c240h" path="res://UI/Transition/entrance_transition.tscn" id="1_fa4ti"]
+[ext_resource type="Script" path="res://Systems/AudioManager/MusicAutoPlayer.cs" id="1_gi64l"]
+[ext_resource type="Script" path="res://UI/Story Segment/StorySegment.cs" id="1_v8ok2"]
+[ext_resource type="PackedScene" uid="uid://b78mrpfan5eee" path="res://UI/Transition/exit_transition.tscn" id="2_3yabp"]
+[ext_resource type="Texture2D" uid="uid://ctw666ym646h8" path="res://UI/Story Segment/Frame.png" id="2_viqms"]
+[ext_resource type="PackedScene" uid="uid://bui51f5va11tc" path="res://Levels/level_1.tscn" id="3_1pxch"]
+[ext_resource type="Texture2D" uid="uid://31k5pafabap3" path="res://UI/Story Segment/Background.png" id="3_yl10w"]
+[ext_resource type="Texture2D" uid="uid://re3tyrowvx1r" path="res://UI/Story Segment/Bard.png" id="5_20yq3"]
+[ext_resource type="Theme" uid="uid://curp6twkpqer4" path="res://UI/Game_theme.tres" id="6_jbtfh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xns0c"]
+atlas = ExtResource("5_20yq3")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftjku"]
+atlas = ExtResource("5_20yq3")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i1o51"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xns0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ftjku")
+}],
+"loop": true,
+"name": &"talk",
+"speed": 10.0
+}]
+
+[sub_resource type="Curve" id="Curve_e21r2"]
+_data = [Vector2(1e-05, 0.835165), 0.0, 0.0, 0, 0, Vector2(0.59799, 0.021978), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_aeoli"]
+offsets = PackedFloat32Array(0, 0.0526316, 0.134503, 0.269006, 0.812865, 1)
+colors = PackedColorArray(1, 0.666667, 0.196078, 0, 1, 0.666667, 0.196078, 1, 1, 0.666667, 0.196078, 1, 0.843137, 0.176471, 0.176471, 1, 0.843137, 0.176471, 0.176471, 1, 0.843137, 0.176471, 0.176471, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4yqh7"]
+atlas = ExtResource("3_yl10w")
+region = Rect2(0, 80, 160, 16)
+
+[sub_resource type="Animation" id="Animation_t8b44"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.264151]
+}
+
+[sub_resource type="Animation" id="Animation_6irtb"]
+resource_name = "story"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3.3, 5.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["", "[center]Gather 'round, young and old, for a tale oh so sweet,[/center]", "[center]Of a noble knight, [color=ffaa32]Sir Crumbleton[/color], who loved every treat.[/center]", "[center]In his humble abode, with dough in his hands,[/center]"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RichTextLabel:visible_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.4, 1.6, 2, 2.2, 2.6, 2.8, 3.3, 3.7, 3.9, 4.3, 4.5, 4.9, 5.1, 5.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.283019, 0.283019, 0.566038, 0.566, 1.22642, 1.0, 0.0, 0.333333, 0.333, 0.614035, 0.614, 1.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eg042"]
+_data = {
+"RESET": SubResource("Animation_t8b44"),
+"story": SubResource("Animation_6irtb")
+}
+
+[node name="StorySegment" type="Node2D" node_paths=PackedStringArray("_bardSprite", "_textLabel", "_timer")]
+script = ExtResource("1_v8ok2")
+_transitionScene = ExtResource("2_3yabp")
+_nextScene = ExtResource("3_1pxch")
+_bardSprite = NodePath("Frame/Bard")
+_textLabel = NodePath("RichTextLabel")
+_timer = NodePath("Timer")
+_fullText = "[center]Gather 'round, young and old, for a tale oh so sweet,[/center]
+[center]Of a noble knight, [color=ffaa32]Sir Crumbleton[/color], who loved every treat.[/center]
+[center]In his humble abode, with dough in his hands,[/center]
+[center]He baked tasty cookies, the finest in all lands.[/center]
+[center]But from out of the shadows, a [wave]wicked witch[/wave] came,[/center]
+[center]As the cookies cooled down, she laid claim to his fame.[/center]
+[center]With a cackle so sly and a flash of her spell,[/center]
+[center]She stole all his treats, and fled to her dark dell![/center]
+[center]Now [color=ffaa32]Sir Crumbleton[/color], once calm, is filled with [shake rate=10 level=1]pure ire[/shake],[/center]
+[center]His patience now gone, like a flame to the fire.[/center]
+[center]He can't sit still, for his rage is too grand,[/center]
+[center]If he doesn't reclaim them, who knows where he'll land![/center]
+[center]So listen, dear friends, as his quest doth unfold,[/center]
+[center]To find the sweet cookies, and reclaim what was sold.[/center]
+[center]For if he should fail, and his anger remains,[/center]
+[center][color=ffaa32]Sir Crumbleton[/color] may [color=d72d2d]burst[/color], and bring an end to his pains![/center]"
+
+[node name="EntranceTransition" parent="." instance=ExtResource("1_fa4ti")]
+
+[node name="MusicAutoPlay" type="Node" parent="."]
+script = ExtResource("1_gi64l")
+_trackName = 3
+
+[node name="BlackBg" type="ColorRect" parent="."]
+offset_right = 320.0
+offset_bottom = 180.0
+color = Color(0, 0, 0.0196078, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+zoom = Vector2(2, 2)
+
+[node name="Frame" type="Sprite2D" parent="."]
+position = Vector2(160, 62)
+texture = ExtResource("2_viqms")
+
+[node name="Background" type="Sprite2D" parent="Frame"]
+texture = ExtResource("3_yl10w")
+
+[node name="Bard" type="AnimatedSprite2D" parent="Frame"]
+position = Vector2(-32, 20)
+sprite_frames = SubResource("SpriteFrames_i1o51")
+animation = &"talk"
+
+[node name="Flame" type="CPUParticles2D" parent="Frame"]
+position = Vector2(0, 32)
+amount = 80
+lifetime = 0.8
+explosiveness = 0.05
+emission_shape = 1
+emission_sphere_radius = 4.0
+direction = Vector2(0, -1)
+spread = 8.67
+gravity = Vector2(0, 0)
+initial_velocity_min = 60.0
+initial_velocity_max = 60.0
+radial_accel_min = -100.0
+radial_accel_max = -70.0
+damping_min = 2.752
+damping_max = 2.752
+scale_amount_min = 6.0
+scale_amount_max = 12.0
+scale_amount_curve = SubResource("Curve_e21r2")
+color_ramp = SubResource("Gradient_aeoli")
+
+[node name="Foreground" type="Sprite2D" parent="Frame"]
+position = Vector2(0, 40)
+texture = SubResource("AtlasTexture_4yqh7")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 56.0
+offset_top = 128.0
+offset_right = 264.0
+offset_bottom = 176.0
+theme = ExtResource("6_jbtfh")
+bbcode_enabled = true
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+visible_characters = 0
+visible_characters_behavior = 1
+visible_ratio = 0.264151
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eg042")
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
