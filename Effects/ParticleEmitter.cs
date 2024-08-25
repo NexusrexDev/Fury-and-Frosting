@@ -7,6 +7,9 @@ public partial class ParticleEmitter : Node2D
 	[Export]
 	private bool _destroyOnEmit = false;
 
+	[Export]
+	private bool _emitOnReady = false;
+
 	private Array<CpuParticles2D> cpuParticles2Ds = new Array<CpuParticles2D>();
 
 	public override void _Ready()
@@ -16,6 +19,9 @@ public partial class ParticleEmitter : Node2D
 			if (child is CpuParticles2D cpuParticles2D)
 				cpuParticles2Ds.Add(cpuParticles2D);
 		}
+
+		if (_emitOnReady)
+			EmitParticles();
 	}
 
 	public void EmitParticles()
