@@ -34,6 +34,7 @@ public partial class DashGhost : Node2D
 		ghost.Rotation = _reference.Rotation;
 		ghost.FlipH = _reference.FlipH;
 		ghost.Position = _player.Position;
+		ghost.Hframes = _reference.Hframes;
 		ghost.Modulate = new Color(1f, 1f, 1f, 0.5f);
 		ghost.ZIndex = -1;
 		_level.AddChild(ghost);

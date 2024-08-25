@@ -88,6 +88,9 @@ public partial class Player : CharacterBody2D
 	private ParticleEmitter _landParticles, _dashParticles;
 	private DashGhost _dashGhost;
 
+	[Export]
+	private PackedScene _deathAnimation;
+
 	public override void _Ready()
 	{
 		_stateMachine = GetNode<StateMachine>("StateMachine");
@@ -122,6 +125,11 @@ public partial class Player : CharacterBody2D
 
 	private void GameOver()
 	{
+		GameManager.Instance.EmitSignal(GameManager.SignalName.GameOver);
+		PlayerDeath playerDeath = _deathAnimation.Instantiate<PlayerDeath>();
+		playerDeath.Position = Position;
+		playerDeath.FlipH = direction == -1;
+		GetParent().AddChild(playerDeath);
 		QueueFree();
 	}
 
@@ -161,12 +169,12 @@ public partial class Player : CharacterBody2D
 
 	private void _On_Hitbox_Collision(Area2D area)
 	{
-		if (area.IsInGroup("Damage") && IFrameTimer.IsStopped())
+		if (area is IDamaging && IFrameTimer.IsStopped())
 		{
 			if (_stateMachine.CurrentState.Name.Equals("Dash"))
 				return;
 			Timer.Stop();
-			_stateMachine.TransitionTo(PlayerState.Hurt);
+			_stateMachine.TransitionTo(PlayerState.Hurt, new Dictionary<string, Variant> { { "value", (area as IDamaging).Damage } });
 		}
 
 		if (area.IsInGroup("Cookie"))

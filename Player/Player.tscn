@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://cu4xrd20aho12"]
+[gd_scene load_steps=21 format=3 uid="uid://cu4xrd20aho12"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_ugaps"]
 [ext_resource type="Texture2D" uid="uid://ds16wpim2i8at" path="res://Player/Assets/Player.png" id="2_1gv4s"]
 [ext_resource type="PackedScene" uid="uid://nbfpykbik5rn" path="res://Player/player_sword.tscn" id="2_nfggf"]
 [ext_resource type="Script" path="res://Player/DashGhost.cs" id="3_ldflb"]
 [ext_resource type="Script" path="res://State Machine/StateMachine.cs" id="3_qmydp"]
+[ext_resource type="PackedScene" uid="uid://cg3tnxd6vs8qu" path="res://Player/player_death.tscn" id="3_vpc6b"]
 [ext_resource type="Script" path="res://Effects/ParticleEmitter.cs" id="4_701v0"]
 [ext_resource type="Script" path="res://Player/States/Idle.cs" id="4_ilqfk"]
 [ext_resource type="Script" path="res://Player/States/Run.cs" id="5_uxoyh"]
@@ -43,6 +44,7 @@ Timer = NodePath("Timer")
 IFrameTimer = NodePath("iFrameTimer")
 SwordScene = ExtResource("2_nfggf")
 SwordPosition = NodePath("Marker2D")
+_deathAnimation = ExtResource("3_vpc6b")
 
 [node name="DashGhost" type="Node2D" parent="."]
 script = ExtResource("3_ldflb")
@@ -53,6 +55,7 @@ wait_time = 0.05
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_1gv4s")
 offset = Vector2(0, -0.5)
+hframes = 2
 
 [node name="RunParticles" type="CPUParticles2D" parent="."]
 position = Vector2(-8, 7)
