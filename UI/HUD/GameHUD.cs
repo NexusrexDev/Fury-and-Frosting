@@ -24,6 +24,16 @@ public partial class GameHUD : CanvasLayer
 		_playerReference.RageChanged += OnRageChanged;
 	}
 
+	public override void _ExitTree()
+	{
+		_playerReference.DashState -= OnDashStateChange;
+		_playerReference.AttackState -= OnAttackStateChange;
+		_playerReference.RageChanged -= OnRageChanged;
+
+		SwitchIcon(_dashIcon, true);
+		SwitchIcon(_swordIcon, true);
+	}
+
 	private void OnDashStateChange(bool state)
 	{
 		if (_dashState == state)
