@@ -4,7 +4,7 @@ using System;
 public partial class WinCanvas : CanvasLayer
 {
 	[Export]
-	private PackedScene _nextScene;
+	public PackedScene NextScene;
 
 	[Export]
 	private PackedScene _transitionScene;
@@ -17,7 +17,7 @@ public partial class WinCanvas : CanvasLayer
 	public void AnimationEnd()
 	{
 		Transition transitionNode = _transitionScene.Instantiate<Transition>();
-		transitionNode.NextScene = _nextScene;
+		transitionNode.NextScene = NextScene;
 		AddChild(transitionNode);
 	}
 }

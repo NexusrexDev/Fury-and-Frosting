@@ -169,19 +169,10 @@ public partial class Player : CharacterBody2D
 
 	private void _On_Hitbox_Collision(Area2D area)
 	{
-		if (area is IDamaging && IFrameTimer.IsStopped())
+		if (area is IDamaging damaging && IFrameTimer.IsStopped())
 		{
-			if (_stateMachine.CurrentState.Name.Equals("Dash"))
-				return;
 			Timer.Stop();
-			_stateMachine.TransitionTo(PlayerState.Hurt, new Dictionary<string, Variant> { { "value", (area as IDamaging).Damage } });
-		}
-
-		if (area.IsInGroup("Cookie"))
-		{
-			PackedScene winCanvasRef = GD.Load<PackedScene>(@"res://UI/Cookie Get/win_canvas.tscn");
-			WinCanvas winCanvas = winCanvasRef.Instantiate<WinCanvas>();
-			GetParent().AddChild(winCanvas);
+			_stateMachine.TransitionTo(PlayerState.Hurt, new Dictionary<string, Variant> { { "value", (damaging).Damage } });
 		}
 	}
 }

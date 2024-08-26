@@ -1,18 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bcgma0ebx3pdq"]
+[gd_scene load_steps=8 format=3 uid="uid://bcgma0ebx3pdq"]
 
 [ext_resource type="Texture2D" uid="uid://c173wurlv7o4g" path="res://Mechanics/Cookie (Endgoal)/Cookie.png" id="1_e4bji"]
 [ext_resource type="Texture2D" uid="uid://b0v2l4tnlk4qw" path="res://Effects/Godray_small2.png" id="1_jl5pb"]
-[ext_resource type="Texture2D" uid="uid://ddx61sld3l16d" path="res://Effects/3x3parts.png" id="1_yciba"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_i70lj"]
-particles_animation = true
-particles_anim_h_frames = 4
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="Curve" id="Curve_xuvas"]
-_data = [Vector2(0.315534, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+[ext_resource type="Script" path="res://Mechanics/Cookie (Endgoal)/Cookie.cs" id="1_s7kh4"]
+[ext_resource type="PackedScene" uid="uid://cqytdsvemflwm" path="res://Effects/Particle Nodes/sparkles.tscn" id="2_q6d0o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qcjjj"]
 size = Vector2(16, 10)
@@ -53,22 +44,14 @@ _data = {
 }
 
 [node name="Cookie" type="Area2D" groups=["Cookie"]]
+script = ExtResource("1_s7kh4")
 
 [node name="Godray" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.6)
 rotation = 0.813534
 texture = ExtResource("1_jl5pb")
 
-[node name="Sparkles" type="CPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_i70lj")
-speed_scale = 0.5
-texture = ExtResource("1_yciba")
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 20.0
-initial_velocity_max = 25.0
-scale_amount_curve = SubResource("Curve_xuvas")
-anim_offset_max = 1.0
+[node name="Sparkles" parent="." instance=ExtResource("2_q6d0o")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qcjjj")
