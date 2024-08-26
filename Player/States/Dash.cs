@@ -4,8 +4,10 @@ using System;
 
 public partial class Dash : PlayerState
 {
+	[Export]
+	private AudioStream _dashSFX;
+
 	private float _previousSpeed;
-	private int _dashnum = 0;
 	
 	public override void Enter(Dictionary<string, Variant> _message = null)
 	{
@@ -18,10 +20,11 @@ public partial class Dash : PlayerState
         _player.SetRotation(4 * _player.Direction);
 		_player.SetScale(new Vector2(1.2f, 0.8f));
 		_player.SetDashParticles(true);
+		AudioManager.Instance.PlaySFX(_dashSFX);
 
 		_player.CanDash = false;
 
-        _player.Timer.WaitTime = 0.25f;
+        _player.Timer.WaitTime = 0.3f;
 		_player.Timer.Timeout += OnTimerTimeout;
 		_player.Timer.Start();
 	}

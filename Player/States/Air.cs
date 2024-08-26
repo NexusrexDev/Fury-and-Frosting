@@ -4,6 +4,9 @@ using System;
 
 public partial class Air : PlayerState
 {
+	[Export]
+	private AudioStream _jumpSFX;
+
 	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
 	private bool _hasJumped = false, _isHurt = false, _hControl = true, _applyVelocity;
@@ -24,6 +27,7 @@ public partial class Air : PlayerState
 				
 				_hasJumped = true;
 				_player.SetScale(new Vector2(0.75f, 1.25f));
+				AudioManager.Instance.PlaySFX(_jumpSFX);
 			}
 
 			if (_message.ContainsKey("do_wallJump"))
@@ -37,6 +41,7 @@ public partial class Air : PlayerState
 				_hControl = false;
 				_hasJumped = true;
 				_player.SetScale(new Vector2(0.75f, 1.25f));
+				AudioManager.Instance.PlaySFX(_jumpSFX);
 
 				_player.CanAttack = true;
 				_player.CanDash = true;

@@ -4,6 +4,9 @@ using System;
 public partial class TitleScreen : Node2D
 {
 	[Export]
+	private AudioStream _startSFX;
+
+	[Export]
 	private Button _startButton;
 
 	[Export]
@@ -25,6 +28,7 @@ public partial class TitleScreen : Node2D
 	{
 		AudioManager.Instance.StopMusic(0.1f);
 		_startButton.ReleaseFocus();
+		AudioManager.Instance.PlaySFX(_startSFX);
 		_animationPlayer.Play("started");
 		Transition transitionNode = _transitionScene.Instantiate<Transition>();
 		transitionNode.NextScene = _nextScene;

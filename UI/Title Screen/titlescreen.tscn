@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://bgfff724517oa"]
+[gd_scene load_steps=19 format=3 uid="uid://bgfff724517oa"]
 
 [ext_resource type="Script" path="res://UI/Title Screen/TitleScreen.cs" id="1_chcev"]
 [ext_resource type="PackedScene" uid="uid://btuwq7k5c240h" path="res://UI/Transition/entrance_transition.tscn" id="1_lr310"]
 [ext_resource type="PackedScene" uid="uid://b78mrpfan5eee" path="res://UI/Transition/exit_transition.tscn" id="2_auwia"]
+[ext_resource type="AudioStream" uid="uid://qpmaxli0crkn" path="res://UI/Title Screen/start.wav" id="2_ucqo0"]
 [ext_resource type="Script" path="res://Systems/AudioManager/MusicAutoPlayer.cs" id="2_xv1al"]
 [ext_resource type="PackedScene" uid="uid://bbq0cxqlf2nh" path="res://UI/Story Segment/story_segment.tscn" id="3_0pyqy"]
 [ext_resource type="PackedScene" uid="uid://btapkw3jskelm" path="res://Tilesets/Forest/forest_background.tscn" id="3_q3cjj"]
@@ -83,6 +84,7 @@ _data = {
 
 [node name="TitleScreen" type="Node2D" node_paths=PackedStringArray("_startButton")]
 script = ExtResource("1_chcev")
+_startSFX = ExtResource("2_ucqo0")
 _startButton = NodePath("StartButton")
 _transitionScene = ExtResource("2_auwia")
 _nextScene = ExtResource("3_0pyqy")

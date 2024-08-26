@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cu4xrd20aho12"]
+[gd_scene load_steps=25 format=3 uid="uid://cu4xrd20aho12"]
 
 [ext_resource type="Script" path="res://Player/Player.cs" id="1_ugaps"]
 [ext_resource type="Texture2D" uid="uid://ds16wpim2i8at" path="res://Player/Assets/Player.png" id="2_1gv4s"]
@@ -14,6 +14,10 @@
 [ext_resource type="Script" path="res://Player/States/Dash.cs" id="7_gop2i"]
 [ext_resource type="Script" path="res://Player/States/Hurt.cs" id="8_lmcqq"]
 [ext_resource type="Script" path="res://Player/States/Attack.cs" id="9_c33pr"]
+[ext_resource type="AudioStream" uid="uid://7hjyyww8ibaa" path="res://Player/SFX/jump.wav" id="12_7qxs1"]
+[ext_resource type="AudioStream" uid="uid://dwm72tv5ogse" path="res://Player/SFX/dash.wav" id="14_8kwf7"]
+[ext_resource type="AudioStream" uid="uid://brmlj3xiu5nij" path="res://Player/SFX/hit.wav" id="16_4omtu"]
+[ext_resource type="AudioStream" uid="uid://of6jswf57s62" path="res://Player/SFX/sword_slash.wav" id="18_ycy51"]
 
 [sub_resource type="Curve" id="Curve_4oei8"]
 _data = [Vector2(0.247573, 1), 0.0, 0.0, 0, 0, Vector2(0.839806, 0), 0.0, 0.0, 0, 0]
@@ -161,15 +165,19 @@ script = ExtResource("5_uxoyh")
 
 [node name="Air" type="Node" parent="StateMachine"]
 script = ExtResource("6_2odrp")
+_jumpSFX = ExtResource("12_7qxs1")
 
 [node name="Dash" type="Node" parent="StateMachine"]
 script = ExtResource("7_gop2i")
+_dashSFX = ExtResource("14_8kwf7")
 
 [node name="Hurt" type="Node" parent="StateMachine"]
 script = ExtResource("8_lmcqq")
+_hurtSFX = ExtResource("16_4omtu")
 
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("9_c33pr")
+_attackSFX = ExtResource("18_ycy51")
 
 [node name="Hitbox" type="Area2D" parent="."]
 visible = false

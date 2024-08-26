@@ -96,10 +96,10 @@ public partial class AudioManager : Node
 		_currentlyPlaying = MusicTitles.None;
 	}
 
-	public void PlaySFX(string fileName)
+	public void PlaySFX(AudioStream audioStream)
 	{
 		AudioStreamPlayer player = _availableSFXPlayers[0];
-		player.Stream = GD.Load<AudioStream>(fileName);
+		player.Stream = audioStream;
 		player.Play();
 		_availableSFXPlayers.RemoveAt(0);
 	}
