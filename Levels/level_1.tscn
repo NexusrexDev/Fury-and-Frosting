@@ -40,13 +40,13 @@ z_index = -2
 [node name="RunSign" type="Sprite2D" parent="Signs"]
 position = Vector2(160, 136)
 texture = ExtResource("5_3sbov")
-hframes = 2
+hframes = 4
 frame = 1
 
 [node name="JumpSign" type="Sprite2D" parent="Signs"]
 position = Vector2(352, 136)
 texture = ExtResource("5_3sbov")
-hframes = 2
+hframes = 4
 
 [node name="Camera" parent="." node_paths=PackedStringArray("_player") instance=ExtResource("2_vboil")]
 limit_right = 960
