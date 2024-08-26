@@ -10,6 +10,7 @@ public abstract partial class ObjectActivator : Area2D
 	[Signal]
 	public delegate void StateChangeEventHandler(bool active);
 
+	[Export]
 	private Timer _timer;
 
 	private bool _activated = false;
@@ -18,7 +19,6 @@ public abstract partial class ObjectActivator : Area2D
 
 	public override void _Ready()
 	{
-		_timer = GetNode<Timer>("Timer");
 		if (_timer != null)
 			_timer.Timeout += _On_Timer_Timeout;
 

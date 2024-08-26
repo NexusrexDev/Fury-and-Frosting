@@ -6,9 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_27w1i"]
 size = Vector2(16, 16)
 
-[node name="PlatformActivator" type="Area2D" node_paths=PackedStringArray("activatableObjects")]
+[node name="PlatformActivator" type="Area2D" node_paths=PackedStringArray("_timer")]
 script = ExtResource("1_1ikig")
-activatableObjects = []
+_timer = NodePath("Timer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_j2sd2")
