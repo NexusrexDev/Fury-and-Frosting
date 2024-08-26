@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqytdsvemflwm"]
+
+[ext_resource type="Texture2D" uid="uid://ddx61sld3l16d" path="res://Effects/3x3parts.png" id="1_2x6qg"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_i70lj"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_xuvas"]
+_data = [Vector2(0.315534, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Sparkles" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_i70lj")
+speed_scale = 0.5
+texture = ExtResource("1_2x6qg")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 25.0
+scale_amount_curve = SubResource("Curve_xuvas")
+anim_offset_max = 1.0
