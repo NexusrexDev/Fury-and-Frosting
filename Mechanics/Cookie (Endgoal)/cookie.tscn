@@ -44,6 +44,7 @@ _data = {
 }
 
 [node name="Cookie" type="Area2D" groups=["Cookie"]]
+z_index = -1
 script = ExtResource("1_s7kh4")
 
 [node name="Godray" type="Sprite2D" parent="."]
