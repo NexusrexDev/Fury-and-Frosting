@@ -17,14 +17,14 @@ public partial class AudioManager : Node
 {
 	public static AudioManager Instance { get; private set; }
 
-	private Dictionary musicDictionary = new Dictionary
+	private Dictionary<MusicTitles, StringName> musicDictionary = new Dictionary<MusicTitles, StringName>
 	{
-		{(int)MusicTitles.NexJingle, new StringName("res://Music/Jingles/NexJingle.ogg")},
-		{(int)MusicTitles.WinJingle, new StringName("res://Music/Jingles/WinJingle.ogg")},
-		{(int)MusicTitles.MainMenu, new StringName("res://Music/Tunes/MainMenu.ogg")},
-		{(int)MusicTitles.StoryScene, new StringName("res://Music/Tunes/StoryScene.ogg")},
-		{(int)MusicTitles.Gameplay, new StringName("res://Music/Tunes/ForestTheme.ogg")},
-		{(int)MusicTitles.BossFight, new StringName("res://Music/Tunes/WitchFight.ogg")}
+		{ MusicTitles.NexJingle, new StringName("res://Music/Jingles/NexJingle.ogg") },
+		{ MusicTitles.WinJingle, new StringName("res://Music/Jingles/WinJingle.ogg") },
+		{ MusicTitles.MainMenu, new StringName("res://Music/Tunes/MainMenu.ogg") },
+		{ MusicTitles.StoryScene, new StringName("res://Music/Tunes/StoryScene.ogg") },
+		{ MusicTitles.Gameplay, new StringName("res://Music/Tunes/ForestTheme.ogg") },
+		{ MusicTitles.BossFight, new StringName("res://Music/Tunes/WitchFight.ogg") }
 	};
 
 	private int _sfxPlayerCount = 16;
@@ -62,7 +62,7 @@ public partial class AudioManager : Node
 		if (_currentlyPlaying == musicTrack)
 			return;
 
-		string fileName = (string)musicDictionary[(int)musicTrack];
+		string fileName = (string)musicDictionary[musicTrack];
 		_currentlyPlaying = musicTrack;
 		_musicPlayer.Stream = GD.Load<AudioStream>(fileName);
 		_musicPlayer.Play();
