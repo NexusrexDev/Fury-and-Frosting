@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://bui51f5va11tc"]
 
-[ext_resource type="PackedScene" uid="uid://btapkw3jskelm" path="res://Tilesets/Forest/forest_background.tscn" id="1_0tf7u"]
 [ext_resource type="PackedScene" uid="uid://cdan152wd0xi3" path="res://UI/HUD/game_hud.tscn" id="1_bw2t7"]
 [ext_resource type="Script" path="res://Misc/LevelGrid.cs" id="1_mxyj0"]
 [ext_resource type="Script" path="res://Systems/AudioManager/MusicAutoPlayer.cs" id="2_q3ucj"]
 [ext_resource type="PackedScene" uid="uid://bk20bkl01bljj" path="res://Systems/Camera/Camera.tscn" id="2_vboil"]
+[ext_resource type="PackedScene" uid="uid://ddrfeuqmhfq7b" path="res://Tilesets/Forest/background.tscn" id="4_0ldip"]
 [ext_resource type="TileSet" uid="uid://b7tfdsv58rgro" path="res://Tilesets/Forest/forest_tileset.tres" id="4_qya6o"]
 [ext_resource type="Texture2D" uid="uid://bwlitfyqp6qov" path="res://Tilesets/Signs/ControlSigns.png" id="5_3sbov"]
 [ext_resource type="PackedScene" uid="uid://cu4xrd20aho12" path="res://Player/Player.tscn" id="5_j271d"]
@@ -26,8 +26,7 @@ _trackName = 4
 [node name="GameHUD" parent="." node_paths=PackedStringArray("_playerReference") instance=ExtResource("1_bw2t7")]
 _playerReference = NodePath("../Player")
 
-[node name="ForestBackground" parent="." instance=ExtResource("1_0tf7u")]
-scroll_offset = Vector2(50, -148)
+[node name="Background" parent="." instance=ExtResource("4_0ldip")]
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -2

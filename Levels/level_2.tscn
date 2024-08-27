@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Misc/LevelGrid.cs" id="1_ceykv"]
 [ext_resource type="Script" path="res://Systems/AudioManager/MusicAutoPlayer.cs" id="2_n1vte"]
 [ext_resource type="PackedScene" uid="uid://cdan152wd0xi3" path="res://UI/HUD/game_hud.tscn" id="3_a3upb"]
+[ext_resource type="PackedScene" uid="uid://ddrfeuqmhfq7b" path="res://Tilesets/Forest/background.tscn" id="3_acu44"]
 [ext_resource type="PackedScene" uid="uid://bk20bkl01bljj" path="res://Systems/Camera/Camera.tscn" id="4_xihp2"]
-[ext_resource type="PackedScene" uid="uid://btapkw3jskelm" path="res://Tilesets/Forest/forest_background.tscn" id="5_c1xfg"]
 [ext_resource type="TileSet" uid="uid://b7tfdsv58rgro" path="res://Tilesets/Forest/forest_tileset.tres" id="5_gisr2"]
 [ext_resource type="Texture2D" uid="uid://bwlitfyqp6qov" path="res://Tilesets/Signs/ControlSigns.png" id="6_ipb62"]
 [ext_resource type="PackedScene" uid="uid://cu4xrd20aho12" path="res://Player/Player.tscn" id="7_js4ab"]
@@ -34,10 +34,10 @@ script = ExtResource("1_ceykv")
 script = ExtResource("2_n1vte")
 _trackName = 4
 
+[node name="Background" parent="." instance=ExtResource("3_acu44")]
+
 [node name="GameHUD" parent="." node_paths=PackedStringArray("_playerReference") instance=ExtResource("3_a3upb")]
 _playerReference = NodePath("../Player")
-
-[node name="ForestBackground" parent="." instance=ExtResource("5_c1xfg")]
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -2

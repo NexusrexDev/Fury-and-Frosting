@@ -23,6 +23,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.326633, 3.73626), 0.0, 0.0, 0,
 point_count = 4
 
 [node name="ForestBackground" type="ParallaxBackground"]
+layer = -10
 
 [node name="BackColor" type="ParallaxLayer" parent="."]
 motion_mirroring = Vector2(320, 0)

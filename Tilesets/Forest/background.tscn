@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddrfeuqmhfq7b"]
+
+[ext_resource type="Script" path="res://Tilesets/Forest/Background.cs" id="1_knvt3"]
+[ext_resource type="PackedScene" uid="uid://btapkw3jskelm" path="res://Tilesets/Forest/forest_background.tscn" id="1_nro7f"]
+[ext_resource type="Script" path="res://Effects/DayNightEffect.cs" id="2_w6cak"]
+[ext_resource type="Texture2D" uid="uid://dqs43jsijwnv" path="res://Tilesets/Forest/gradient.tres" id="4_twxgc"]
+
+[sub_resource type="Gradient" id="Gradient_h07lh"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.5)
+colors = PackedColorArray(0.0784314, 0.411765, 0.764706, 1, 0.0588235, 0.215686, 0.607843, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5x167"]
+gradient = SubResource("Gradient_h07lh")
+
+[node name="Background" type="Node2D" node_paths=PackedStringArray("_foregroundEffect", "_backgroundEffect", "_sky")]
+script = ExtResource("1_knvt3")
+_foregroundEffect = NodePath("DayLightFG")
+_backgroundEffect = NodePath("ForestBackground/DayLightBG")
+_sky = NodePath("ForestBackground/BackColor/Sprite2D")
+_skyGradient = SubResource("GradientTexture1D_5x167")
+
+[node name="ForestBackground" parent="." instance=ExtResource("1_nro7f")]
+scroll_offset = Vector2(50, -148)
+
+[node name="Sprite2D" parent="ForestBackground/BackColor" index="0"]
+modulate = Color(0.0784314, 0.411765, 0.764706, 1)
+
+[node name="DayLightBG" type="CanvasModulate" parent="ForestBackground"]
+script = ExtResource("2_w6cak")
+_gradientTexture = ExtResource("4_twxgc")
+
+[node name="DayLightFG" type="CanvasModulate" parent="."]
+script = ExtResource("2_w6cak")
+_gradientTexture = ExtResource("4_twxgc")
+
+[editable path="ForestBackground"]
