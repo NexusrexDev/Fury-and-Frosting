@@ -1,5 +1,16 @@
 using Godot;
+using Godot.Collections;
 using System;
+
+public enum SceneNames
+{
+	None = -1,
+	NexLogo,
+	TitleScreen,
+	StorySegment,
+	Level1,
+	Level2
+}
 
 public partial class GameManager : Node
 {
@@ -10,6 +21,15 @@ public partial class GameManager : Node
 
 	[Signal]
 	public delegate void ScreenShakeEventHandler(float value);
+
+	public static Dictionary<SceneNames, PackedScene> Scenes = new Dictionary<SceneNames, PackedScene>
+	{
+		{ SceneNames.NexLogo, GD.Load<PackedScene>("res://UI/Title Screen/Nex logo/nex_logo.tscn") },
+		{ SceneNames.TitleScreen, GD.Load<PackedScene>("res://UI/Title Screen/titlescreen.tscn") },
+		{ SceneNames.StorySegment, GD.Load<PackedScene>("res://UI/Story Segment/story_segment.tscn") },
+		{ SceneNames.Level1, GD.Load<PackedScene>("res://Levels/level_1.tscn") },
+		{ SceneNames.Level2, GD.Load<PackedScene>("res://Levels/level_2.tscn") }
+	};
 
 	public override void _Ready()
 	{

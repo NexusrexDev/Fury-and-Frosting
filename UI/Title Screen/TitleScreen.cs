@@ -13,7 +13,7 @@ public partial class TitleScreen : Node2D
 	private PackedScene _transitionScene;
 
 	[Export]
-	private PackedScene _nextScene;
+	private SceneNames _nextScene;
 
 	private AnimationPlayer _animationPlayer;
 

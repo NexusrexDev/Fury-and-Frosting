@@ -62,9 +62,8 @@ public partial class AudioManager : Node
 		if (_currentlyPlaying == musicTrack)
 			return;
 
-		string fileName = (string)musicDictionary[musicTrack];
 		_currentlyPlaying = musicTrack;
-		_musicPlayer.Stream = GD.Load<AudioStream>(fileName);
+		_musicPlayer.Stream = GD.Load<AudioStream>(musicDictionary[musicTrack]);
 		_musicPlayer.Play();
 		if (fadeDuration > 0)
 		{

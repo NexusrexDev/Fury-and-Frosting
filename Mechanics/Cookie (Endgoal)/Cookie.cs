@@ -4,7 +4,7 @@ using System;
 public partial class Cookie : Area2D
 {
 	[Export]
-	private PackedScene _nextLevel;
+	private SceneNames _nextLevel;
 
 	public override void _Ready()
 	{

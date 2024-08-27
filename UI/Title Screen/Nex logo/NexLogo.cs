@@ -4,7 +4,7 @@ using System;
 public partial class NexLogo : Node2D
 {
 	[Export]
-	private PackedScene _nextScene;
+	private SceneNames _nextScene;
 
 	[Export]
 	private PackedScene _transitionScene;

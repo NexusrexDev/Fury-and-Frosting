@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bui51f5va11tc"]
+[gd_scene load_steps=13 format=3 uid="uid://bui51f5va11tc"]
 
 [ext_resource type="PackedScene" uid="uid://cdan152wd0xi3" path="res://UI/HUD/game_hud.tscn" id="1_bw2t7"]
 [ext_resource type="Script" path="res://Misc/LevelGrid.cs" id="1_mxyj0"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://de0ng8fsocgxd" path="res://Systems/Camera/camera_limit_setter.tscn" id="7_ixgcy"]
 [ext_resource type="PackedScene" uid="uid://bcgma0ebx3pdq" path="res://Mechanics/Cookie (Endgoal)/cookie.tscn" id="8_3wniq"]
 [ext_resource type="PackedScene" uid="uid://pl5hsmx17t24" path="res://UI/level_entrance.tscn" id="11_rdl7d"]
-[ext_resource type="PackedScene" uid="uid://damc5u0luenlb" path="res://Levels/level_2.tscn" id="11_rt6bo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ig4t5"]
 size = Vector2(15.9999, 63.9997)
@@ -67,7 +66,7 @@ shape = SubResource("RectangleShape2D_ig4t5")
 [node name="Cookie" parent="." instance=ExtResource("8_3wniq")]
 z_index = -1
 position = Vector2(1233, 64)
-_nextLevel = ExtResource("11_rt6bo")
+_nextLevel = 4
 
 [node name="LevelEntrance" parent="." instance=ExtResource("11_rdl7d")]
 

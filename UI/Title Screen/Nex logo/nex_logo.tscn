@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cs5f3otq0ahv1"]
+[gd_scene load_steps=6 format=3 uid="uid://cs5f3otq0ahv1"]
 
 [ext_resource type="Texture2D" uid="uid://tufwek8gpcjc" path="res://UI/Title Screen/Nex logo/Nexlogo.png" id="1_sgx4e"]
 [ext_resource type="Script" path="res://UI/Title Screen/Nex logo/NexLogo.cs" id="1_w2akx"]
-[ext_resource type="PackedScene" uid="uid://bgfff724517oa" path="res://UI/Title Screen/titlescreen.tscn" id="2_lrryt"]
 [ext_resource type="PackedScene" uid="uid://b78mrpfan5eee" path="res://UI/Transition/exit_transition.tscn" id="3_0u4i7"]
 
 [sub_resource type="Animation" id="Animation_l8057"]
@@ -45,7 +44,7 @@ _data = {
 
 [node name="NexLogo" type="Node2D"]
 script = ExtResource("1_w2akx")
-_nextScene = ExtResource("2_lrryt")
+_nextScene = 1
 _transitionScene = ExtResource("3_0u4i7")
 
 [node name="Background" type="Control" parent="."]

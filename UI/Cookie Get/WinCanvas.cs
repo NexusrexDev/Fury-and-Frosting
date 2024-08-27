@@ -4,7 +4,7 @@ using System;
 public partial class WinCanvas : CanvasLayer
 {
 	[Export]
-	public PackedScene NextScene;
+	public SceneNames NextScene;
 
 	[Export]
 	private PackedScene _transitionScene;

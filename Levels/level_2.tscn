@@ -127,12 +127,12 @@ _camera = NodePath("../Camera")
 NewLimit = Rect2(1920, 0, 320, 180)
 ToolColor = Color(0, 0.529412, 0, 1)
 
-[node name="Cookie" parent="." instance=ExtResource("13_6qgpq")]
-position = Vector2(2200, 128)
-
 [node name="LevelEntrance" parent="." instance=ExtResource("8_att5k")]
 
 [node name="ReadyCanvas" parent="LevelEntrance" index="0" node_paths=PackedStringArray("_player")]
 _player = NodePath("../../Player")
+
+[node name="Cookie" parent="." instance=ExtResource("13_6qgpq")]
+position = Vector2(2200, 128)
 
 [editable path="LevelEntrance"]

@@ -13,7 +13,7 @@ public partial class Transition : CanvasLayer
 	private TransitionType _transitionType;
 
 	[Export]
-	public PackedScene NextScene;
+	public SceneNames NextScene = SceneNames.None;
 
 	public override void _Ready()
 	{
@@ -36,8 +36,9 @@ public partial class Transition : CanvasLayer
 		if (_transitionType == TransitionType.EXIT)
 		{
 			GetTree().Paused = false;
-			if (NextScene != null)
-				GetTree().ChangeSceneToPacked(NextScene);
+
+			if (NextScene != SceneNames.None)
+				GetTree().ChangeSceneToPacked(GameManager.Scenes[NextScene]);
 			else
 				GetTree().ReloadCurrentScene();
 		}

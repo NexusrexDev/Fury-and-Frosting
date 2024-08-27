@@ -9,7 +9,7 @@ public partial class StorySegment : Node2D
 	public PackedScene _transitionScene;
 
 	[Export]
-	public PackedScene _nextScene;
+	public SceneNames _nextScene;
 
 	[Export]
 	private AnimatedSprite2D _bardSprite;

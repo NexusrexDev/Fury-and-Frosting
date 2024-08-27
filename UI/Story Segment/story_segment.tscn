@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://bbq0cxqlf2nh"]
+[gd_scene load_steps=18 format=3 uid="uid://bbq0cxqlf2nh"]
 
 [ext_resource type="PackedScene" uid="uid://btuwq7k5c240h" path="res://UI/Transition/entrance_transition.tscn" id="1_fa4ti"]
 [ext_resource type="Script" path="res://Systems/AudioManager/MusicAutoPlayer.cs" id="1_gi64l"]
 [ext_resource type="Script" path="res://UI/Story Segment/StorySegment.cs" id="1_v8ok2"]
 [ext_resource type="PackedScene" uid="uid://b78mrpfan5eee" path="res://UI/Transition/exit_transition.tscn" id="2_3yabp"]
 [ext_resource type="Texture2D" uid="uid://ctw666ym646h8" path="res://UI/Story Segment/Frame.png" id="2_viqms"]
-[ext_resource type="PackedScene" uid="uid://bui51f5va11tc" path="res://Levels/level_1.tscn" id="3_1pxch"]
 [ext_resource type="Texture2D" uid="uid://31k5pafabap3" path="res://UI/Story Segment/Background.png" id="3_yl10w"]
 [ext_resource type="Texture2D" uid="uid://re3tyrowvx1r" path="res://UI/Story Segment/Bard.png" id="5_20yq3"]
 [ext_resource type="Theme" uid="uid://curp6twkpqer4" path="res://UI/Game_theme.tres" id="6_jbtfh"]
@@ -96,7 +95,7 @@ _data = {
 [node name="StorySegment" type="Node2D" node_paths=PackedStringArray("_bardSprite", "_textLabel", "_timer")]
 script = ExtResource("1_v8ok2")
 _transitionScene = ExtResource("2_3yabp")
-_nextScene = ExtResource("3_1pxch")
+_nextScene = 3
 _bardSprite = NodePath("Frame/Bard")
 _textLabel = NodePath("RichTextLabel")
 _timer = NodePath("Timer")
