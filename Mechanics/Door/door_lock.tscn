@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhj7skwmwc06x"]
+[gd_scene load_steps=9 format=3 uid="uid://dhj7skwmwc06x"]
 
 [ext_resource type="Script" path="res://Mechanics/Door/DoorLock.cs" id="1_betyf"]
 [ext_resource type="Texture2D" uid="uid://xipbl3svyokb" path="res://Mechanics/Door/Doorlock.png" id="1_i7ari"]
 [ext_resource type="PackedScene" uid="uid://cuk5lpr75xn6w" path="res://Effects/Particle Nodes/explosion_particle.tscn" id="2_5116r"]
 [ext_resource type="PackedScene" uid="uid://cqytdsvemflwm" path="res://Effects/Particle Nodes/sparkles.tscn" id="2_fl8wa"]
+[ext_resource type="AudioStream" uid="uid://b762jgj0cfs5i" path="res://Shared SFX/small_explosion.wav" id="3_bmhcc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_on5ce"]
 size = Vector2(16, 16)
@@ -33,6 +34,7 @@ _data = {
 z_index = -1
 script = ExtResource("1_betyf")
 _explosionScene = ExtResource("2_5116r")
+_explosionSFX = ExtResource("3_bmhcc")
 
 [node name="Sparkles" parent="." instance=ExtResource("2_fl8wa")]
 
