@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=3 uid="uid://bnuvdauiorwo3"]
+
+[ext_resource type="Script" path="res://Misc/LevelGrid.cs" id="1_2pt26"]
+[ext_resource type="PackedScene" uid="uid://cdan152wd0xi3" path="res://UI/HUD/game_hud.tscn" id="2_ptxm7"]
+[ext_resource type="PackedScene" uid="uid://bk20bkl01bljj" path="res://Systems/Camera/Camera.tscn" id="3_mk7nm"]
+[ext_resource type="PackedScene" uid="uid://c34223pk0kywc" path="res://Mechanics/Spring/Spring.tscn" id="3_uqiv3"]
+[ext_resource type="PackedScene" uid="uid://ddrfeuqmhfq7b" path="res://Tilesets/Forest/background.tscn" id="4_dhtpv"]
+[ext_resource type="PackedScene" uid="uid://cu4xrd20aho12" path="res://Player/Player.tscn" id="5_xa76l"]
+[ext_resource type="TileSet" uid="uid://b7tfdsv58rgro" path="res://Tilesets/Forest/forest_tileset.tres" id="6_uqef0"]
+
+[node name="Level3" type="Node2D"]
+script = ExtResource("1_2pt26")
+
+[node name="GameHUD" parent="." node_paths=PackedStringArray("_playerReference") instance=ExtResource("2_ptxm7")]
+_playerReference = NodePath("../Player")
+
+[node name="Camera" parent="." node_paths=PackedStringArray("_player") instance=ExtResource("3_mk7nm")]
+_player = NodePath("../Player")
+
+[node name="Background" parent="." instance=ExtResource("4_dhtpv")]
+
+[node name="Player" parent="." instance=ExtResource("5_xa76l")]
+position = Vector2(24, 152)
+IsControllable = true
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("6_uqef0")
+format = 2
+layer_0/tile_data = PackedInt32Array(720896, 65536, 2, 720897, 65536, 2, 720898, 65536, 2, 720899, 65536, 2, 720900, 65536, 2, 720901, 65536, 2, 720915, 131072, 2, 720914, 65536, 2, 720913, 65536, 2, 720912, 65536, 2, 720911, 65536, 2, 720910, 65536, 2, 720909, 65536, 2, 720908, 65536, 2, 720907, 65536, 2, 720906, 65536, 2, 720905, 65536, 2, 720904, 65536, 2, 720903, 65536, 2, 720902, 65536, 2, 655360, 65536, 0, 655361, 65536, 0, 655363, 65536, 0, 655362, 65536, 0, 655364, 65536, 0, 655365, 65536, 0, 655366, 65536, 0, 655367, 65536, 0, 655368, 65536, 0, 655369, 65536, 0, 655370, 65536, 0, 655371, 65536, 0, 655372, 65536, 0, 655373, 65536, 0, 655374, 65536, 0, 655375, 65536, 0, 655376, 65536, 0, 655377, 65536, 0, 655378, 65536, 0, 655379, 131072, 0, 786431, 0, 2, 720895, 262144, 2, 655359, 196608, 1, 589823, 196608, 1, 524287, 196608, 1, 458751, 196608, 1, 393215, 196608, 1, 327679, 196608, 1, 262143, 196608, 1, -1, 196608, 0, 65535, 196608, 1, 131071, 196608, 1, 196607, 196608, 1)
+
+[node name="Spring" parent="." instance=ExtResource("3_uqiv3")]
+position = Vector2(256, 160)
