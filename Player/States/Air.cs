@@ -19,33 +19,13 @@ public partial class Air : PlayerState
 		if (_message != null)
 		{
 			if (_message.ContainsKey("do_jump"))
-			{
-				_intermediaryVelocity = _player.Velocity;
-				_intermediaryVelocity.Y = Player.JumpVelocity;
-				_applyVelocity = true;
-				_player.Velocity = _intermediaryVelocity;
-				
-				_hasJumped = true;
-				_player.SetScale(new Vector2(0.75f, 1.25f));
-				AudioManager.Instance.PlaySFX(_jumpSFX);
-			}
+				Jump(false);
 
 			if (_message.ContainsKey("do_wallJump"))
-			{
-				_intermediaryVelocity = _player.Velocity;
-				_intermediaryVelocity.Y = Player.JumpVelocity;
-				_intermediaryVelocity.X = -_player.Direction * Player.Speed;
-				_player.Direction = (sbyte)-_player.Direction;
-				_applyVelocity = true;
+				Jump(true);
 
-				_hControl = false;
-				_hasJumped = true;
-				_player.SetScale(new Vector2(0.75f, 1.25f));
-				AudioManager.Instance.PlaySFX(_jumpSFX);
-
-				_player.CanAttack = true;
-				_player.CanDash = true;
-			}
+			if (_message.ContainsKey("do_springJump"))
+				Jump(false, 1.2f);
 
 			if (_message.ContainsKey("canJump"))
 				_hasJumped = !(bool)_message["canJump"];
@@ -57,6 +37,29 @@ public partial class Air : PlayerState
 		{
 			_fallTime = Time.GetTicksMsec();
 		}
+	}
+
+	private void Jump(bool isWallJump, float velocityMultiplier = 1f)
+	{
+		_intermediaryVelocity = _player.Velocity;
+		_intermediaryVelocity.Y = Player.JumpVelocity * velocityMultiplier;
+
+		if (isWallJump)
+		{
+			_intermediaryVelocity.X = -_player.Direction * Player.Speed;
+			_player.Direction = (sbyte)-_player.Direction;
+
+			_hControl = false;
+			_player.CanAttack = true;
+			_player.CanDash = true;
+		}
+
+		_applyVelocity = true;
+		_player.Velocity = _intermediaryVelocity;
+
+		_hasJumped = true;
+		_player.SetScale(new Vector2(0.75f, 1.25f));
+		AudioManager.Instance.PlaySFX(_jumpSFX);
 	}
 
 	public override void Exit()

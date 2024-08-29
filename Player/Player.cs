@@ -120,7 +120,7 @@ public partial class Player : CharacterBody2D
 	{
 		CanDash = true;
 		CanAttack = true;
-		_stateMachine.TransitionTo(PlayerState.Air, new Dictionary<string, Variant> { { "do_jump", true } });
+		_stateMachine.TransitionTo(PlayerState.Air, new Dictionary<string, Variant> { { "do_springJump", true } });
 	}
 
 	private void GameOver()
