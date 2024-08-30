@@ -45,6 +45,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(20, 20)
 
 [node name="PlayerIcon" type="TextureRect" parent="Control/IconContainer/IconBorder/CenterContainer"]
 layout_mode = 2

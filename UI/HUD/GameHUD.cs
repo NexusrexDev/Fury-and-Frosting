@@ -60,7 +60,16 @@ public partial class GameHUD : CanvasLayer
 
 	private void OnRageChanged(float rage)
 	{
-		_rageMeter.Value = 24 - Mathf.Remap(rage, 0, 100, 0, 24);
+		int newValue = Mathf.RoundToInt( 24 - Mathf.Remap(rage, 0, 100, 0, 24) );
+
+		if (_rageMeter.Value - newValue <= 1)
+		{
+			_rageMeter.Value = newValue;
+			return;
+		}
+
+		Tween tween = CreateTween();
+		tween.TweenProperty(_rageMeter, "value", newValue, 0.1f);
 	}
 
 	private void SwitchIcon(TextureRect icon, bool state)

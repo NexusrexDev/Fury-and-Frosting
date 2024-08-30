@@ -95,9 +95,13 @@ public partial class Player : CharacterBody2D
 	{
 		_stateMachine = GetNode<StateMachine>("StateMachine");
 		_sprite = GetNode<Sprite2D>("Sprite2D");
+		SetSpriteFlash(false);
+		SetSpriteAlpha(1);
 
 		Area2D hitbox = GetNode<Area2D>("Hitbox");
 		hitbox.AreaEntered += _On_Hitbox_Collision;
+
+		IFrameTimer.Timeout += () => { SetSpriteAlpha(1); };
 
 		_runParticles = GetNode<CpuParticles2D>("RunParticles");
 		_landParticles = GetNode<ParticleEmitter>("LandParticles");
@@ -141,6 +145,16 @@ public partial class Player : CharacterBody2D
 	public void SetRotation(float rotation)
 	{
 		_sprite.RotationDegrees = rotation;
+	}
+
+	public void SetSpriteFlash(bool value)
+	{
+		(_sprite.Material as ShaderMaterial).SetShaderParameter("Enabled", value);
+	}
+
+	public void SetSpriteAlpha(float value)
+	{
+		_sprite.Modulate = new Color(1, 1, 1, value);
 	}
 
 	public void SetRunParticles(bool value)
