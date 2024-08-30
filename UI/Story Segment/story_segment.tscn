@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bbq0cxqlf2nh"]
+[gd_scene load_steps=19 format=3 uid="uid://bbq0cxqlf2nh"]
 
 [ext_resource type="PackedScene" uid="uid://btuwq7k5c240h" path="res://UI/Transition/entrance_transition.tscn" id="1_fa4ti"]
 [ext_resource type="Script" path="res://Systems/AudioManager/MusicAutoPlayer.cs" id="1_gi64l"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://31k5pafabap3" path="res://UI/Story Segment/Background.png" id="3_yl10w"]
 [ext_resource type="Texture2D" uid="uid://re3tyrowvx1r" path="res://UI/Story Segment/Bard.png" id="5_20yq3"]
 [ext_resource type="Theme" uid="uid://curp6twkpqer4" path="res://UI/Game_theme.tres" id="6_jbtfh"]
+[ext_resource type="Texture2D" uid="uid://b7j0743837hgj" path="res://Effects/roundedsquare.png" id="8_2m5w6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xns0c"]
 atlas = ExtResource("5_20yq3")
@@ -148,6 +149,8 @@ position = Vector2(0, 32)
 amount = 80
 lifetime = 0.8
 explosiveness = 0.05
+draw_order = 1
+texture = ExtResource("8_2m5w6")
 emission_shape = 1
 emission_sphere_radius = 4.0
 direction = Vector2(0, -1)
@@ -159,8 +162,7 @@ radial_accel_min = -100.0
 radial_accel_max = -70.0
 damping_min = 2.752
 damping_max = 2.752
-scale_amount_min = 6.0
-scale_amount_max = 12.0
+scale_amount_min = 0.75
 scale_amount_curve = SubResource("Curve_e21r2")
 color_ramp = SubResource("Gradient_aeoli")
 
