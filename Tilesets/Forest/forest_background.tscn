@@ -26,6 +26,7 @@ point_count = 4
 layer = -10
 
 [node name="BackColor" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
 motion_mirroring = Vector2(320, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="BackColor"]
@@ -41,6 +42,13 @@ motion_mirroring = Vector2(320, 0)
 texture = ExtResource("1_d2t8x")
 centered = false
 vframes = 2
+
+[node name="Sprite2D3" type="Sprite2D" parent="BG2"]
+modulate = Color(0.0784314, 0.27451, 0.352941, 1)
+position = Vector2(0, 180)
+scale = Vector2(80, 16)
+texture = ExtResource("1_lqcko")
+centered = false
 
 [node name="FartherParticles" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0.4, 0.4)
@@ -78,6 +86,13 @@ damping_max = 6.194
 [node name="BG1" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0.5, 0.5)
 motion_mirroring = Vector2(320, 0)
+
+[node name="Sprite2D2" type="Sprite2D" parent="BG1"]
+modulate = Color(0.0588235, 0.647059, 0.411765, 1)
+position = Vector2(0, -96)
+scale = Vector2(80, 24)
+texture = ExtResource("1_lqcko")
+centered = false
 
 [node name="Sprite2D" type="Sprite2D" parent="BG1"]
 texture = ExtResource("1_d2t8x")

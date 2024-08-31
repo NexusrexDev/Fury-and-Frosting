@@ -6,7 +6,6 @@
 size = Vector2(16, 32)
 
 [node name="CameraLimitSetter" type="Area2D"]
-rotation = -0.00284658
 script = ExtResource("1_lwo0t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

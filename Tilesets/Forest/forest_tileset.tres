@@ -1,7 +1,9 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://b7tfdsv58rgro"]
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://b7tfdsv58rgro"]
 
 [ext_resource type="Texture2D" uid="uid://dswxol6dwg255" path="res://Tilesets/Forest/foreground.png" id="1_tslmb"]
 [ext_resource type="Texture2D" uid="uid://d0nb2ij1djm4r" path="res://Tilesets/Forest/spikes.png" id="2_2y1q5"]
+[ext_resource type="Texture2D" uid="uid://3lslfv4ctmd5" path="res://Mechanics/Spring/Mushroom_leg.png" id="3_qo2b0"]
+[ext_resource type="PackedScene" uid="uid://c34223pk0kywc" path="res://Mechanics/Spring/Spring.tscn" id="4_o7kbe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7d726"]
 resource_name = "Foreground"
@@ -489,10 +491,28 @@ texture = ExtResource("2_2y1q5")
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hbtim"]
+texture = ExtResource("3_qo2b0")
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_xdhwc"]
+resource_name = "Mechanics"
+scenes/1/scene = ExtResource("4_o7kbe")
+
 [resource]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 2
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Foreground 0"
 terrain_set_0/terrain_0/color = Color(0.410991, 0.394978, 0.153112, 1)
 sources/0 = SubResource("TileSetAtlasSource_7d726")
 sources/1 = SubResource("TileSetAtlasSource_ngx48")
+sources/2 = SubResource("TileSetAtlasSource_hbtim")
+sources/4 = SubResource("TileSetScenesCollectionSource_xdhwc")

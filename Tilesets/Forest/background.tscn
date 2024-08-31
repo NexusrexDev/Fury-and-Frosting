@@ -21,7 +21,9 @@ _sky = NodePath("ForestBackground/BackColor/Sprite2D")
 _skyGradient = SubResource("GradientTexture1D_5x167")
 
 [node name="ForestBackground" parent="." instance=ExtResource("1_nro7f")]
-scroll_offset = Vector2(50, -148)
+
+[node name="BackColor" parent="ForestBackground" index="0"]
+motion_mirroring = Vector2(320, 180)
 
 [node name="Sprite2D" parent="ForestBackground/BackColor" index="0"]
 modulate = Color(0.0784314, 0.411765, 0.764706, 1)
