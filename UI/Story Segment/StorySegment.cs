@@ -27,6 +27,8 @@ public partial class StorySegment : Node2D
 
 	private int _currentTextIndex = 0;
 
+	private Tween _tween;
+
 	public override void _Ready()
 	{
 		_textArray = new Array<string>(_fullText.Split("\n"));
@@ -38,10 +40,7 @@ public partial class StorySegment : Node2D
 	{
 		if (_currentTextIndex < _textArray.Count)
 		{
-			_textLabel.VisibleCharacters = 0;
-			_textLabel.Text = _textArray[_currentTextIndex];
-			ReadText();
-			_currentTextIndex++;
+			ReadText(_textArray[_currentTextIndex]);
 		}
 		else
 		{
@@ -52,18 +51,23 @@ public partial class StorySegment : Node2D
 		}
 	}
 
-	private async void ReadText()
+	private async void ReadText(string text)
 	{
-		if (_textLabel.VisibleCharacters >= _textLabel.Text.Length)
-			return;
-		
+		_textLabel.VisibleRatio = 0;
+		_textLabel.Text = text;
+		int fullCount = _textLabel.GetTotalCharacterCount();
+
 		StartAnimation();
-		while (_textLabel.VisibleRatio < 1)
-		{
-			_textLabel.VisibleCharacters += 1;
-			await ToSignal(GetTree().CreateTimer(0.035f), SceneTreeTimer.SignalName.Timeout);
-		}
+
+		if (_tween != null)
+			_tween.Kill();
+		_tween = CreateTween();
+		_tween.TweenProperty(_textLabel, "visible_ratio", 1, 0.035f * fullCount);
+
+		await ToSignal(_tween, Tween.SignalName.Finished);
+
 		StopAnimation();
+		_currentTextIndex++;
 
 		_timer.WaitTime = 1f;
 		_timer.Start();

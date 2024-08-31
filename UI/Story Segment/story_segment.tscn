@@ -190,4 +190,5 @@ libraries = {
 }
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.7
 one_shot = true
