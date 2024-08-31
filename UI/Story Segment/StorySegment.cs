@@ -1,15 +1,14 @@
 using Godot;
 using Godot.Collections;
 using System;
-using static System.Net.Mime.MediaTypeNames;
 
 public partial class StorySegment : Node2D
 {
 	[Export]
-	public PackedScene _transitionScene;
+	private PackedScene _transitionScene;
 
 	[Export]
-	public SceneNames _nextScene;
+	private SceneNames _nextScene;
 
 	[Export]
 	private AnimatedSprite2D _bardSprite;
@@ -25,29 +24,44 @@ public partial class StorySegment : Node2D
 
 	private Array<string> _textArray;
 
-	private int _currentTextIndex = 0;
+	private int _currentLineIndex = 0;
 
 	private Tween _tween;
+
+	[Export]
+	private Dictionary<int, NodePath> _fadeInQueue, _fadeOutQueue; //key is line index, value is scene index
+
+	[Export]
+	private Button _skipButton;
+
+	[Export]
+	private AudioStream _selectSFX;
 
 	public override void _Ready()
 	{
 		_textArray = new Array<string>(_fullText.Split("\n"));
+
+		_skipButton.Pressed += () => { End(true); };
+		_skipButton.GrabFocus();
+
 		_timer.Timeout += Start;
 		_timer.Start();
 	}
 
+	public override void _ExitTree()
+	{
+		_timer.Timeout -= Start;
+	}
+
 	private void Start()
 	{
-		if (_currentTextIndex < _textArray.Count)
+		if (_currentLineIndex < _textArray.Count)
 		{
-			ReadText(_textArray[_currentTextIndex]);
+			ReadText(_textArray[_currentLineIndex]);
 		}
 		else
 		{
-			AudioManager.Instance.StopMusic(0.75f);
-			Transition transitionNode = _transitionScene.Instantiate<Transition>();
-			transitionNode.NextScene = _nextScene;
-			AddChild(transitionNode);
+			End(false);
 		}
 	}
 
@@ -64,10 +78,23 @@ public partial class StorySegment : Node2D
 		_tween = CreateTween();
 		_tween.TweenProperty(_textLabel, "visible_ratio", 1, 0.035f * fullCount);
 
+		if (_fadeInQueue.ContainsKey(_currentLineIndex))
+		{
+			_tween.SetParallel();
+			Sprite2D scene = GetNode<Sprite2D>(_fadeInQueue[_currentLineIndex]);
+			_tween.TweenProperty(scene, "modulate", new Color(scene.Modulate, 1), 0.6f);
+		}
+		if (_fadeOutQueue.ContainsKey(_currentLineIndex))
+		{
+			_tween.SetParallel();
+			Sprite2D scene = GetNode<Sprite2D>(_fadeOutQueue[_currentLineIndex]);
+			_tween.TweenProperty(scene, "modulate", new Color(scene.Modulate, 0), 0.6f);
+		}
+
 		await ToSignal(_tween, Tween.SignalName.Finished);
 
 		StopAnimation();
-		_currentTextIndex++;
+		_currentLineIndex++;
 
 		_timer.WaitTime = 1f;
 		_timer.Start();
@@ -82,5 +109,18 @@ public partial class StorySegment : Node2D
 	{
 		_bardSprite.Stop();
 		_bardSprite.Frame = 0;
+	}
+
+	private void End(bool skipped)
+	{
+		_skipButton.ReleaseFocus();
+		AudioManager.Instance.StopMusic(0.75f);
+		
+		if (skipped)
+			AudioManager.Instance.PlaySFX(_selectSFX);
+		
+		Transition transitionNode = _transitionScene.Instantiate<Transition>();
+		transitionNode.NextScene = _nextScene;
+		AddChild(transitionNode);
 	}
 }

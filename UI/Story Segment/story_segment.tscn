@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://UI/Story Segment/StorySegment.cs" id="1_v8ok2"]
 [ext_resource type="PackedScene" uid="uid://b78mrpfan5eee" path="res://UI/Transition/exit_transition.tscn" id="2_3yabp"]
 [ext_resource type="Texture2D" uid="uid://ctw666ym646h8" path="res://UI/Story Segment/Frame.png" id="2_viqms"]
+[ext_resource type="AudioStream" uid="uid://qpmaxli0crkn" path="res://UI/Title Screen/start.wav" id="3_3c6iv"]
 [ext_resource type="Texture2D" uid="uid://31k5pafabap3" path="res://UI/Story Segment/Background.png" id="3_yl10w"]
 [ext_resource type="Texture2D" uid="uid://re3tyrowvx1r" path="res://UI/Story Segment/Bard.png" id="5_20yq3"]
 [ext_resource type="Theme" uid="uid://curp6twkpqer4" path="res://UI/Game_theme.tres" id="6_jbtfh"]
@@ -44,56 +45,28 @@ colors = PackedColorArray(1, 0.666667, 0.196078, 0, 1, 0.666667, 0.196078, 1, 1,
 atlas = ExtResource("3_yl10w")
 region = Rect2(0, 80, 160, 16)
 
-[sub_resource type="Animation" id="Animation_t8b44"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_e7o15"]
+resource_name = "button"
+length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("RichTextLabel:visible_ratio")
+tracks/0/path = NodePath("SkipButton:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(1, 1.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.264151]
-}
-
-[sub_resource type="Animation" id="Animation_6irtb"]
-resource_name = "story"
-length = 10.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RichTextLabel:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 3.3, 5.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": ["", "[center]Gather 'round, young and old, for a tale oh so sweet,[/center]", "[center]Of a noble knight, [color=ffaa32]Sir Crumbleton[/color], who loved every treat.[/center]", "[center]In his humble abode, with dough in his hands,[/center]"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("RichTextLabel:visible_ratio")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 1.4, 1.6, 2, 2.2, 2.6, 2.8, 3.3, 3.7, 3.9, 4.3, 4.5, 4.9, 5.1, 5.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1),
-"update": 0,
-"values": [0.0, 0.0, 0.283019, 0.283019, 0.566038, 0.566, 1.22642, 1.0, 0.0, 0.333333, 0.333, 0.614035, 0.614, 1.0, 1.0, 0.0]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eg042"]
 _data = {
-"RESET": SubResource("Animation_t8b44"),
-"story": SubResource("Animation_6irtb")
+"button": SubResource("Animation_e7o15")
 }
 
-[node name="StorySegment" type="Node2D" node_paths=PackedStringArray("_bardSprite", "_textLabel", "_timer")]
+[node name="StorySegment" type="Node2D" node_paths=PackedStringArray("_bardSprite", "_textLabel", "_timer", "_skipButton")]
 script = ExtResource("1_v8ok2")
 _transitionScene = ExtResource("2_3yabp")
 _nextScene = 3
@@ -116,6 +89,10 @@ _fullText = "[center]Gather 'round, young and old, for a tale oh so sweet,[/cent
 [center]To find the sweet cookies, and reclaim what was sold.[/center]
 [center]For if he should fail, and his anger remains,[/center]
 [center][color=ffaa32]Sir Crumbleton[/color] may [color=d72d2d]burst[/color], and bring an end to his pains![/center]"
+_fadeInQueue = {}
+_fadeOutQueue = {}
+_skipButton = NodePath("SkipButton")
+_selectSFX = ExtResource("3_3c6iv")
 
 [node name="EntranceTransition" parent="." instance=ExtResource("1_fa4ti")]
 
@@ -182,13 +159,33 @@ deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 visible_characters = 0
 visible_characters_behavior = 1
-visible_ratio = 0.264151
+visible_ratio = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_eg042")
 }
+autoplay = "button"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.7
 one_shot = true
+
+[node name="SkipButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 236.0
+offset_top = 164.0
+offset_right = 348.0
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(56, 11)
+theme = ExtResource("6_jbtfh")
+button_mask = 0
+text = "[ Press Enter ]"
+flat = true

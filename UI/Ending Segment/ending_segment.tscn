@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://cva4edp48kydx"]
+
+[ext_resource type="PackedScene" uid="uid://bbq0cxqlf2nh" path="res://UI/Story Segment/story_segment.tscn" id="1_pcsc6"]
+[ext_resource type="Texture2D" uid="uid://br1y61cdcrmht" path="res://UI/Ending Segment/Background.png" id="2_lsf5k"]
+[ext_resource type="PackedScene" uid="uid://bcgma0ebx3pdq" path="res://Mechanics/Cookie (Endgoal)/cookie.tscn" id="3_18dwg"]
+[ext_resource type="Texture2D" uid="uid://dtx5fuldt8fcb" path="res://Player/Assets/PlayerSword.png" id="3_f6h5j"]
+
+[node name="EndingSegment" instance=ExtResource("1_pcsc6")]
+_nextScene = 0
+_fullText = "[center]With cookies in hand, [color=ffaa32]Sir Crumbleton[/color] stood,[/center]
+[center]He'd vanquished the witch, as only he could.[/center]
+[center]His rage now at ease, his quest at an end,[/center]
+[center]He returned to his home, with cookies to tend.[/center]
+[center]He dashed through the land, with courage so true,[/center]
+[center]All for the cookies, his heart's greatest due.[/center]
+[center]So remember this tale of a knight with a bite,[/center]
+[center]Whose love for his sweets led him through every fight.[/center]
+[center]Now peace fills his days, his kitchen aglow,[/center]
+[center]For [color=ffaa32]Sir Crumbleton[/color]'s cookies are the best, as you know![/center]
+[center]The End.[/center]"
+_fadeOutQueue = {
+6: NodePath("Frame/SceneBackground")
+}
+
+[node name="MusicAutoPlay" parent="." index="1"]
+_trackName = 6
+
+[node name="SceneBackground" type="Sprite2D" parent="Frame" index="4"]
+texture = ExtResource("2_lsf5k")
+
+[node name="Sword" type="Sprite2D" parent="Frame/SceneBackground" index="0"]
+position = Vector2(18, 19)
+rotation = -1.02044
+texture = ExtResource("3_f6h5j")
+
+[node name="Cookie" parent="Frame/SceneBackground" index="1" instance=ExtResource("3_18dwg")]
+z_index = 0
+position = Vector2(56, 10)
+
+[node name="Cookie2" parent="Frame/SceneBackground" index="2" instance=ExtResource("3_18dwg")]
+z_index = 0
+position = Vector2(-56, 10)
+
+[node name="Cookie3" parent="Frame/SceneBackground" index="3" instance=ExtResource("3_18dwg")]
+z_index = 0
+position = Vector2(0, -30)
+
+[node name="Cookie4" parent="Frame/SceneBackground" index="4" instance=ExtResource("3_18dwg")]
+z_index = 0
+position = Vector2(-32, -14)
+
+[node name="Cookie5" parent="Frame/SceneBackground" index="5" instance=ExtResource("3_18dwg")]
+z_index = 0
+position = Vector2(32, -14)
+
+[node name="Timer" parent="." index="7"]
+wait_time = 0.6
