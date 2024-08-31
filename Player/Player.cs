@@ -32,6 +32,7 @@ public partial class Player : CharacterBody2D
 			_runParticles.TangentialAccelMax = (direction == 1) ? 20f : -6f;
 			_runParticles.TangentialAccelMin = (direction == 1) ? 6f : -20f;
 			_dashParticles.Position = new Vector2(32 * direction, 0);
+			CollisionRayCast.TargetPosition = new Vector2(9 * direction, 0);
 		}
 	}
 
@@ -79,6 +80,8 @@ public partial class Player : CharacterBody2D
 	public PackedScene SwordScene;
 	[Export]
 	public Marker2D SwordPosition;
+	[Export]
+	public RayCast2D CollisionRayCast;
 	
 	private StateMachine _stateMachine;
 

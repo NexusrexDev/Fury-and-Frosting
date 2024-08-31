@@ -128,11 +128,9 @@ public partial class Air : PlayerState
 				if (Time.GetTicksMsec() - _fallTime < 150)
 					StateMachine.TransitionTo(Air, new Dictionary<string, Variant> { { "do_jump", true } });
 			}
-			else
-			{
-				if (_player.IsOnWallOnly())
-					StateMachine.TransitionTo(Air, new Dictionary<string, Variant> { { "do_wallJump", true } });
-			}
+			
+			if (_player.CollisionRayCast.IsColliding())
+				StateMachine.TransitionTo(Air, new Dictionary<string, Variant> { { "do_wallJump", true } });
 		}
 
 		if (Input.IsActionJustPressed("game_attack") && _player.CanAttack)
