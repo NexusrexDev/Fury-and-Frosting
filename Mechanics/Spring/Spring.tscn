@@ -7,14 +7,16 @@
 size = Vector2(48, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yhl7s"]
-size = Vector2(48, 16)
+size = Vector2(50, 16)
 
 [node name="Spring" type="StaticBody2D" groups=["Spring"]]
+position = Vector2(0, 8)
 script = ExtResource("1_gnpkp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_2m31v")
+one_way_collision = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_0emop")

@@ -18,9 +18,9 @@ public partial class Spring : StaticBody2D
 
 	private void _On_BounceArea_Collision(Node2D body)
 	{
-		if (body is Player)
+		if (body is Player player)
 		{
-			Player player = body as Player;
+			player.Position = new Vector2(player.Position.X, Position.Y - 22);
 			player.SpringJump();
 			_sprite.Scale = new Vector2(1.25f, 0.75f);
 		}

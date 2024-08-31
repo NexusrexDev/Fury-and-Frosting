@@ -25,7 +25,7 @@ public partial class Air : PlayerState
 				Jump(true);
 
 			if (_message.ContainsKey("do_springJump"))
-				Jump(false, 1.2f);
+				Jump(false, 1.3f);
 
 			if (_message.ContainsKey("canJump"))
 				_hasJumped = !(bool)_message["canJump"];
