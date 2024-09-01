@@ -14,16 +14,14 @@ public partial class Camera : Camera2D
 	private float shakeValue = 0;
 	private float limitLerp = 0.2f;
 
-	private bool followPlayer = true;
-
 	public override void _Ready()
 	{
 		GameManager.Instance.ScreenShake += SetShake;
-		GameManager.Instance.GameOver += () => { followPlayer = false; };
+		GameManager.Instance.GameOver += () => { _player = null; };
 		TreeExiting += () =>
 		{
 			GameManager.Instance.ScreenShake -= SetShake;
-			GameManager.Instance.GameOver -= () => { followPlayer = false; };
+			GameManager.Instance.GameOver -= () => { _player = null; };
 		};
 	}
 
@@ -66,9 +64,6 @@ public partial class Camera : Camera2D
 
 	private void handleCameraFollow()
 	{
-		if (!followPlayer)
-			return;
-
 		if (_player == null)
 			return;
 
