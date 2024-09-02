@@ -50,7 +50,7 @@ public partial class ActivatablePlatform : ActivatableObject
 	{
 		if (_tween != null)
 			_tween.Kill();
-		CollisionLayer = 1;
+		CollisionLayer = 2;
 		Visible = true;
 		_tween = CreateTween();
 		_tween.TweenProperty(this, "_spritePosition", _endPosition, 0.2f).SetTrans(Tween.TransitionType.Circ).SetEase(Tween.EaseType.Out);
