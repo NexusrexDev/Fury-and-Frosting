@@ -1,23 +1,125 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdix1p0axpcd"]
+[gd_scene load_steps=17 format=3 uid="uid://cdix1p0axpcd"]
 
 [ext_resource type="Script" path="res://Mechanics/Activatable Platform/PlatformActivator.cs" id="1_1ikig"]
+[ext_resource type="PackedScene" uid="uid://cqytdsvemflwm" path="res://Effects/Particle Nodes/sparkles.tscn" id="2_d3u62"]
 [ext_resource type="Texture2D" uid="uid://smvg28hwhb3i" path="res://Mechanics/Activatable Platform/Assets/ActivatorFrames.png" id="2_j2sd2"]
+[ext_resource type="AudioStream" uid="uid://dv6cqji3cnur6" path="res://Mechanics/Activatable Platform/SFX/platform_appear.wav" id="2_rlrlh"]
+[ext_resource type="AudioStream" uid="uid://ddphtu4slc3wl" path="res://Mechanics/Activatable Platform/SFX/clock_tick.wav" id="3_2wam5"]
+[ext_resource type="Script" path="res://Effects/ParticleEmitter.cs" id="3_7lp0c"]
+[ext_resource type="AudioStream" uid="uid://0oem5pugj4px" path="res://Mechanics/Activatable Platform/SFX/platform_disappear.wav" id="3_k5o1c"]
+[ext_resource type="Texture2D" uid="uid://b7j0743837hgj" path="res://Effects/roundedsquare.png" id="3_xjtxy"]
+[ext_resource type="Texture2D" uid="uid://cv8h6vyohepup" path="res://Effects/circle_02.png" id="5_wn026"]
+
+[sub_resource type="Curve" id="Curve_phctr"]
+_data = [Vector2(1e-05, 0.835165), 0.0, 0.0, 0, 0, Vector2(0.59799, 0.021978), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_eugeg"]
+offsets = PackedFloat32Array(0, 0.0526316, 0.134503, 0.269006, 0.812865, 1)
+colors = PackedColorArray(0.254902, 0.843137, 0.843137, 0, 0.254902, 0.843137, 0.843137, 1, 0.254902, 0.843137, 0.843137, 1, 0.0784314, 0.411765, 0.764706, 1, 0.0588235, 0.215686, 0.607843, 1, 0.0588235, 0.215686, 0.607843, 0)
+
+[sub_resource type="Curve" id="Curve_4rji3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.751908, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_r7ou3"]
+offsets = PackedFloat32Array(0, 0.678571)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_27w1i"]
-size = Vector2(16, 16)
+size = Vector2(18, 18)
 
-[node name="PlatformActivator" type="Area2D" node_paths=PackedStringArray("_timer")]
+[sub_resource type="Animation" id="Animation_yqvip"]
+resource_name = "hover"
+length = 0.95
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(0.5, 1, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, 0), Vector2(0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ecb2j"]
+_data = {
+"hover": SubResource("Animation_yqvip")
+}
+
+[node name="PlatformActivator" type="Area2D" node_paths=PackedStringArray("_emitter", "_timer")]
+z_index = -1
 script = ExtResource("1_1ikig")
+_emitter = NodePath("Sprite2D/ParticleEmitter")
+_enableSFX = Array[AudioStream]([ExtResource("2_rlrlh"), ExtResource("3_2wam5")])
+_disableSFX = Array[AudioStream]([ExtResource("3_k5o1c")])
 _timer = NodePath("Timer")
+
+[node name="Sparkles" parent="." instance=ExtResource("2_d3u62")]
+z_index = -1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_j2sd2")
 hframes = 2
 
+[node name="ParticleEmitter" type="Node2D" parent="Sprite2D"]
+script = ExtResource("3_7lp0c")
+
+[node name="Flame" type="CPUParticles2D" parent="Sprite2D/ParticleEmitter"]
+z_index = -1
+position = Vector2(0, -2)
+emitting = false
+amount = 80
+lifetime = 0.6
+explosiveness = 0.05
+local_coords = true
+draw_order = 1
+texture = ExtResource("3_xjtxy")
+emission_shape = 1
+emission_sphere_radius = 2.0
+direction = Vector2(0, -1)
+spread = 8.67
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 50.0
+radial_accel_min = -100.0
+radial_accel_max = -70.0
+damping_min = 2.752
+damping_max = 2.752
+scale_amount_min = 0.25
+scale_amount_max = 0.5
+scale_amount_curve = SubResource("Curve_phctr")
+color_ramp = SubResource("Gradient_eugeg")
+
+[node name="Explosion" type="CPUParticles2D" parent="Sprite2D/ParticleEmitter"]
+z_index = 1
+emitting = false
+amount = 1
+lifetime = 0.5
+one_shot = true
+speed_scale = 0.6
+texture = ExtResource("5_wn026")
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_4rji3")
+color = Color(1, 1, 1, 0.780392)
+color_ramp = SubResource("Gradient_r7ou3")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_27w1i")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 4.0
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ecb2j")
+}
+autoplay = "hover"
+speed_scale = 0.5
