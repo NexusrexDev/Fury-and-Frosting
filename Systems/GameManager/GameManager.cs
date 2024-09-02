@@ -12,7 +12,6 @@ public enum SceneNames
 	Level2,
 	Level3,
 	Level4,
-	Level5,
 	BossFight,
 	CreditsSegment
 }
@@ -34,7 +33,10 @@ public partial class GameManager : Node
 		{ SceneNames.StorySegment, GD.Load<PackedScene>("res://UI/Story Segment/story_segment.tscn") },
 		{ SceneNames.Level1, GD.Load<PackedScene>("res://Levels/level_1.tscn") },
 		{ SceneNames.Level2, GD.Load<PackedScene>("res://Levels/level_2.tscn") },
-		{ SceneNames.Level3, GD.Load<PackedScene>("res://Levels/level_3.tscn") }
+		{ SceneNames.Level3, GD.Load<PackedScene>("res://Levels/level_3.tscn") },
+		{ SceneNames.Level4, GD.Load<PackedScene>("res://Levels/level_4.tscn") },
+
+		{ SceneNames.CreditsSegment, GD.Load<PackedScene>("res://UI/Ending Segment/ending_segment.tscn") }
 	};
 
 	public override void _Ready()

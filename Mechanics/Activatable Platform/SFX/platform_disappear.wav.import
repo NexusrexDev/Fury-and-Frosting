@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://0oem5pugj4px"
+path="res://.godot/imported/platform_disappear.wav-cec3901fbf4bd836e0225d73a27453cd.sample"
+
+[deps]
+
+source_file="res://Mechanics/Activatable Platform/SFX/platform_disappear.wav"
+dest_files=["res://.godot/imported/platform_disappear.wav-cec3901fbf4bd836e0225d73a27453cd.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
