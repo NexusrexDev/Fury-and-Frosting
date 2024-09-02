@@ -37,6 +37,7 @@ public partial class PlatformActivator : ObjectActivator
 
 		foreach (AudioStream SFXFile in _enableSFX)
 			AudioManager.Instance.PlaySFX(SFXFile);
+		AudioManager.Instance.SetMusicHiPass(true);
 
 		GameManager.Instance.EmitSignal(GameManager.SignalName.ScreenShake, 0.15f);
 	}
@@ -48,5 +49,6 @@ public partial class PlatformActivator : ObjectActivator
 
 		foreach (AudioStream SFXFile in _disableSFX)
 			AudioManager.Instance.PlaySFX(SFXFile);
+		AudioManager.Instance.SetMusicHiPass(false);
 	}
 }

@@ -97,6 +97,16 @@ public partial class AudioManager : Node
 		_currentlyPlaying = MusicTitles.None;
 	}
 
+	public void SetMusicLevel(float level)
+	{
+		AudioServer.SetBusVolumeDb(2, level);
+	}
+
+	public void SetMusicHiPass(bool enabled)
+	{
+		AudioServer.SetBusEffectEnabled(2, 0, enabled);
+	}
+
 	public void PlaySFX(AudioStream audioStream)
 	{
 		AudioStreamPlayer player = _availableSFXPlayers[0];
