@@ -7,6 +7,9 @@ public partial class ActivatablePlatform : ActivatableObject
 	[Export]
 	private Vector2 _startPosition;
 
+	[Export(PropertyHint.Range, "0,10,0.05")]
+	private float _tweenDelay;
+
 	private Vector2 _endPosition, _shapeSize, _spritePosition;
 
 	[Export]
@@ -53,6 +56,7 @@ public partial class ActivatablePlatform : ActivatableObject
 		CollisionLayer = 2;
 		Visible = true;
 		_tween = CreateTween();
+		_tween.TweenInterval(_tweenDelay);
 		_tween.TweenProperty(this, "_spritePosition", _endPosition, 0.2f).SetTrans(Tween.TransitionType.Circ).SetEase(Tween.EaseType.Out);
 	}
 
