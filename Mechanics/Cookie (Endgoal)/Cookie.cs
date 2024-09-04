@@ -18,7 +18,7 @@ public partial class Cookie : Area2D
 			PackedScene winCanvasRef = GD.Load<PackedScene>(@"res://UI/Cookie Get/win_canvas.tscn");
 			WinCanvas winCanvas = winCanvasRef.Instantiate<WinCanvas>();
 			winCanvas.NextScene = _nextLevel;
-			GetParent().AddChild(winCanvas);
+			AddSibling(winCanvas);
 		}
 	}
 }

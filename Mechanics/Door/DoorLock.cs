@@ -15,7 +15,7 @@ public partial class DoorLock : ObjectActivator
 	{
 		ParticleEmitter explosion = _explosionScene.Instantiate<ParticleEmitter>();
 		explosion.Position = Position;
-		GetParent().AddChild(explosion);
+		AddSibling(explosion);
 		AudioManager.Instance.PlaySFX(_explosionSFX);
 		GameManager.Instance.EmitSignal(GameManager.SignalName.ScreenShake, 0.25f);
 		QueueFree();
