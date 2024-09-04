@@ -45,8 +45,8 @@ vframes = 2
 
 [node name="Sprite2D3" type="Sprite2D" parent="BG2"]
 modulate = Color(0.0784314, 0.27451, 0.352941, 1)
-position = Vector2(0, 180)
-scale = Vector2(80, 16)
+position = Vector2(0, 168)
+scale = Vector2(80, 22)
 texture = ExtResource("1_lqcko")
 centered = false
 
@@ -90,7 +90,7 @@ motion_mirroring = Vector2(320, 0)
 [node name="Sprite2D2" type="Sprite2D" parent="BG1"]
 modulate = Color(0.0588235, 0.647059, 0.411765, 1)
 position = Vector2(0, -96)
-scale = Vector2(80, 24)
+scale = Vector2(80, 26)
 texture = ExtResource("1_lqcko")
 centered = false
 

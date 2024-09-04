@@ -132,11 +132,15 @@ public partial class Player : CharacterBody2D
 
 	private void GameOver()
 	{
+		AudioManager.Instance.StopAllSFX();
+		AudioManager.Instance.SetMusicHiPass(false);
 		GameManager.Instance.EmitSignal(GameManager.SignalName.GameOver);
+
 		PlayerDeath playerDeath = _deathAnimation.Instantiate<PlayerDeath>();
 		playerDeath.Position = Position;
 		playerDeath.FlipH = direction == -1;
-		GetParent().AddChild(playerDeath);
+		AddSibling(playerDeath);
+
 		QueueFree();
 	}
 

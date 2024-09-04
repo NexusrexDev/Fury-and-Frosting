@@ -49,7 +49,7 @@ public partial class AudioManager : Node
 		{
 			AudioStreamPlayer player = new AudioStreamPlayer();
 			player.Bus = _sfxBus;
-			player.Finished += () => { _availableSFXPlayers.Add(player); };
+			player.Finished += () => { _availableSFXPlayers.Add(player); _queueSFXPlayers.Remove(player); };
 			_availableSFXPlayers.Add(player);
 			AddChild(player);
 		}
@@ -113,5 +113,16 @@ public partial class AudioManager : Node
 		player.Stream = audioStream;
 		player.Play();
 		_availableSFXPlayers.RemoveAt(0);
+		_queueSFXPlayers.Add(player);
+	}
+
+	public void StopAllSFX()
+	{
+		foreach (AudioStreamPlayer player in _queueSFXPlayers)
+		{
+			player.Stop();
+			_availableSFXPlayers.Add(player);
+		}
+		_queueSFXPlayers.Clear();
 	}
 }

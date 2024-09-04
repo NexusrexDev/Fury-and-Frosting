@@ -12,6 +12,8 @@ public partial class WinCanvas : CanvasLayer
 	public override void _Ready()
 	{
 		GetTree().Paused = true;
+		AudioManager.Instance.StopAllSFX();
+		AudioManager.Instance.SetMusicHiPass(false);
 	}
 
 	public void AnimationEnd()
