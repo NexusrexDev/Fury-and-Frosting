@@ -35,7 +35,7 @@ public partial class GameManager : Node
 		{ SceneNames.Level2, GD.Load<PackedScene>("res://Levels/level_2.tscn") },
 		{ SceneNames.Level3, GD.Load<PackedScene>("res://Levels/level_3.tscn") },
 		{ SceneNames.Level4, GD.Load<PackedScene>("res://Levels/level_4.tscn") },
-
+		{ SceneNames.BossFight, GD.Load<PackedScene>("res://Levels/boss_fight.tscn") },
 		{ SceneNames.CreditsSegment, GD.Load<PackedScene>("res://UI/Ending Segment/ending_segment.tscn") }
 	};
 
