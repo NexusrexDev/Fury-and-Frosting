@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c34223pk0kywc"]
+[gd_scene load_steps=9 format=3 uid="uid://c34223pk0kywc"]
 
 [ext_resource type="Script" path="res://Mechanics/Spring/Spring.cs" id="1_gnpkp"]
 [ext_resource type="Texture2D" uid="uid://b65hcq163l8v4" path="res://Mechanics/Spring/Spring.png" id="2_0emop"]
@@ -10,6 +10,51 @@ size = Vector2(48, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yhl7s"]
 size = Vector2(50, 16)
+
+[sub_resource type="Animation" id="Animation_ovrnd"]
+resource_name = "grow"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BounceArea:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4y0v8"]
+_data = {
+"grow": SubResource("Animation_ovrnd")
+}
 
 [node name="Spring" type="StaticBody2D" groups=["Spring"]]
 position = Vector2(0, 8)
@@ -31,3 +76,8 @@ offset = Vector2(0, -10)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BounceArea"]
 position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_yhl7s")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4y0v8")
+}

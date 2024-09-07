@@ -13,11 +13,18 @@ public partial class Spring : StaticBody2D
 	private AudioStream _explosionSFX;
 
 	private Sprite2D _sprite;
+
+	private AnimationPlayer _animationPlayer;
+
 	public override void _Ready()
 	{
 		_sprite = GetNode<Sprite2D>("Sprite2D");
+		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		Area2D bounceArea = GetNode<Area2D>("BounceArea");
 		bounceArea.BodyEntered += _On_BounceArea_Collision;
+
+		if (_oneTimeUse)
+			_animationPlayer.Play("grow");
 	}
 
 	public override void _Process(double delta)
