@@ -3,6 +3,15 @@ using System;
 
 public partial class Spring : StaticBody2D
 {
+	[Export]
+	private bool _oneTimeUse = false;
+
+	[Export]
+	private PackedScene _explosionReference;
+
+	[Export]
+	private AudioStream _explosionSFX;
+
 	private Sprite2D _sprite;
 	public override void _Ready()
 	{
@@ -23,6 +32,14 @@ public partial class Spring : StaticBody2D
 			player.Position = new Vector2(player.Position.X, Position.Y - 22);
 			player.SpringJump();
 			_sprite.Scale = new Vector2(1.25f, 0.75f);
+			if (_oneTimeUse)
+			{
+				ParticleEmitter explosionParticles = _explosionReference.Instantiate<ParticleEmitter>();
+				explosionParticles.Position = new Vector2(Position.X, Position.Y - 10);
+				AddSibling(explosionParticles);
+				AudioManager.Instance.PlaySFX(_explosionSFX);
+				QueueFree();
+			}
 		}
 	}
 
