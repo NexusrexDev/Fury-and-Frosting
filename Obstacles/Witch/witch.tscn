@@ -1,0 +1,155 @@
+[gd_scene load_steps=22 format=3 uid="uid://d2bj36q7pgt6j"]
+
+[ext_resource type="Texture2D" uid="uid://c6v0hmypyg55k" path="res://Obstacles/Witch/Witch.png" id="1_044h0"]
+[ext_resource type="Script" path="res://Obstacles/Witch/Witch.cs" id="1_xijip"]
+[ext_resource type="Shader" uid="uid://cffb2urwskd66" path="res://Effects/flashShader.tres" id="2_dhu02"]
+[ext_resource type="PackedScene" uid="uid://qsbr3bko4j66" path="res://Obstacles/Witch/witch_projectile.tscn" id="2_kpu6m"]
+[ext_resource type="PackedScene" uid="uid://m8hfqcuamckb" path="res://Obstacles/Witch/witch_fade_in.tscn" id="3_3eic6"]
+[ext_resource type="Script" path="res://State Machine/StateMachine.cs" id="3_w4axm"]
+[ext_resource type="PackedScene" uid="uid://c6iw8bcfwexwl" path="res://Obstacles/Witch/witch_fade_out.tscn" id="4_pl8wc"]
+[ext_resource type="Script" path="res://Obstacles/Witch/States/WitchAttack1.cs" id="5_ojopq"]
+[ext_resource type="Script" path="res://Obstacles/IdleObstacle.cs" id="5_txf3w"]
+[ext_resource type="AudioStream" uid="uid://dnaq82x43x82j" path="res://Obstacles/Witch/SFX/MagicShot.wav" id="5_y8qb2"]
+[ext_resource type="Script" path="res://Effects/ParticleEmitter.cs" id="6_lbo01"]
+[ext_resource type="Script" path="res://Obstacles/Witch/States/WitchHurt.cs" id="7_2uuh2"]
+[ext_resource type="Script" path="res://Obstacles/Witch/States/WitchAttack2.cs" id="7_bkoll"]
+[ext_resource type="Script" path="res://Obstacles/Witch/States/WitchAttack3.cs" id="8_j32a8"]
+[ext_resource type="AudioStream" uid="uid://brmlj3xiu5nij" path="res://Player/SFX/hit.wav" id="8_jtd5p"]
+[ext_resource type="AudioStream" uid="uid://7hjyyww8ibaa" path="res://Player/SFX/jump.wav" id="9_g57pp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nr8iv"]
+resource_local_to_scene = true
+shader = ExtResource("2_dhu02")
+shader_parameter/Enabled = false
+shader_parameter/Tint = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4j42d"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkt07"]
+size = Vector2(12, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gr5rt"]
+size = Vector2(18, 18)
+
+[sub_resource type="Curve" id="Curve_br4r7"]
+_data = [Vector2(0.247573, 1), 0.0, 0.0, 0, 0, Vector2(0.839806, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Witch" type="CharacterBody2D" node_paths=PackedStringArray("_positionMarker")]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_xijip")
+_projectileReference = ExtResource("2_kpu6m")
+_positionMarker = NodePath("ProjectileMarker")
+FadeInReference = ExtResource("3_3eic6")
+FadeOutReference = ExtResource("4_pl8wc")
+_shootSFX = ExtResource("5_y8qb2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_nr8iv")
+texture = ExtResource("1_044h0")
+offset = Vector2(0, -4)
+hframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_4j42d")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("3_w4axm")
+InitialState = NodePath("Attack1")
+
+[node name="Attack1" type="Node" parent="StateMachine" node_paths=PackedStringArray("_phaseTimer")]
+script = ExtResource("5_ojopq")
+jumpSFX = ExtResource("9_g57pp")
+_phaseTimer = NodePath("../../PhaseTimer")
+
+[node name="Attack2" type="Node" parent="StateMachine" node_paths=PackedStringArray("_phaseTimer")]
+script = ExtResource("7_bkoll")
+_phaseTimer = NodePath("../../PhaseTimer")
+
+[node name="Attack3" type="Node" parent="StateMachine" node_paths=PackedStringArray("_phaseTimer")]
+script = ExtResource("8_j32a8")
+_phaseTimer = NodePath("../../PhaseTimer")
+
+[node name="Hurt" type="Node" parent="StateMachine"]
+script = ExtResource("7_2uuh2")
+_hurtSFX = ExtResource("8_jtd5p")
+
+[node name="PhaseTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="IFrameTimer" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true
+
+[node name="Hurtbox" type="Area2D" parent="."]
+visible = false
+monitoring = false
+script = ExtResource("5_txf3w")
+Damage = 25
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_qkt07")
+
+[node name="Hitbox" type="Area2D" parent="."]
+visible = false
+position = Vector2(-1, 0)
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_gr5rt")
+
+[node name="LandParticles" type="Node2D" parent="."]
+position = Vector2(-1, 0)
+script = ExtResource("6_lbo01")
+
+[node name="LeftEmitter" type="CPUParticles2D" parent="LandParticles"]
+position = Vector2(-8, 7)
+emitting = false
+amount = 1
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.13
+randomness = 0.11
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(-1, 0)
+spread = 16.33
+gravity = Vector2(0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 8.0
+tangential_accel_min = 6.0
+tangential_accel_max = 20.0
+damping_max = 2.0
+scale_amount_min = 3.0
+scale_amount_max = 3.5
+scale_amount_curve = SubResource("Curve_br4r7")
+
+[node name="RightEmitter" type="CPUParticles2D" parent="LandParticles"]
+position = Vector2(8, 7)
+emitting = false
+amount = 1
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.13
+randomness = 0.11
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 16.33
+gravity = Vector2(0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 8.0
+tangential_accel_min = -20.0
+tangential_accel_max = -6.0
+damping_max = 2.0
+scale_amount_min = 3.0
+scale_amount_max = 3.5
+scale_amount_curve = SubResource("Curve_br4r7")
+
+[node name="ProjectileMarker" type="Marker2D" parent="."]
+position = Vector2(-1, 0)

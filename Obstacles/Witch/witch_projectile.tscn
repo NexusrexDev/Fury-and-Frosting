@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://qsbr3bko4j66"]
+
+[ext_resource type="Script" path="res://Obstacles/Witch/WitchProjectile.cs" id="1_c0q4g"]
+[ext_resource type="Texture2D" uid="uid://b7j0743837hgj" path="res://Effects/roundedsquare.png" id="1_ygmg6"]
+
+[sub_resource type="Curve" id="Curve_eao2j"]
+_data = [Vector2(1e-05, 0.835165), 0.0, 0.0, 0, 0, Vector2(0.503906, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_oti66"]
+offsets = PackedFloat32Array(0, 0.0526316, 0.134503, 0.269006, 0.812865, 1)
+colors = PackedColorArray(0.901961, 0.352941, 0.901961, 0, 0.901961, 0.352941, 0.901961, 1, 0.901961, 0.352941, 0.901961, 1, 0.392157, 0.176471, 0.705882, 1, 0.392157, 0.176471, 0.705882, 1, 0.392157, 0.176471, 0.705882, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fi7e"]
+size = Vector2(16, 16)
+
+[node name="WitchProjectile" type="Area2D"]
+script = ExtResource("1_c0q4g")
+Damage = 25
+_speed = 300.0
+
+[node name="Flame" type="CPUParticles2D" parent="." groups=["WitchProjectile"]]
+amount = 120
+lifetime = 0.5
+draw_order = 1
+texture = ExtResource("1_ygmg6")
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(0, -1)
+spread = 8.67
+gravity = Vector2(0, 0)
+radial_accel_min = -100.0
+radial_accel_max = -70.0
+damping_min = 2.752
+damping_max = 2.752
+scale_amount_min = 0.75
+scale_amount_curve = SubResource("Curve_eao2j")
+color_ramp = SubResource("Gradient_oti66")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3fi7e")
+metadata/_edit_lock_ = true
