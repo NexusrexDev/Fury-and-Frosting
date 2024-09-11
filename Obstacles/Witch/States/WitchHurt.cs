@@ -26,7 +26,8 @@ public partial class WitchHurt : WitchState
 
 		_witch.Health -= (int)_message["value"];
 
-		_phaseSwitched = (_witch.BossPhase != preHitPhase);
+		if (_witch.Health > 0)
+			_phaseSwitched = (_witch.BossPhase != preHitPhase);
 
 		await ToSignal(GetTree().CreateTimer(0.1f), SceneTreeTimer.SignalName.Timeout);
 

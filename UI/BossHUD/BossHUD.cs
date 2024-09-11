@@ -13,11 +13,18 @@ public partial class BossHUD : CanvasLayer
 	{
 		_healthProgress.MaxValue = Witch.MaxHealth;
 		_witchReference.HealthChange += OnHealthChange;
+		_witchReference.Death += OnDeath;
+	}
+
+	private void OnDeath()
+	{
+		QueueFree();
 	}
 
 	public override void _ExitTree()
 	{
 		_witchReference.HealthChange -= OnHealthChange;
+		_witchReference.Death -= OnDeath;
 	}
 
 	private void OnHealthChange(int newHealth)

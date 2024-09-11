@@ -1,0 +1,20 @@
+[gd_scene load_steps=7 format=3 uid="uid://5ll6p7groreb"]
+
+[ext_resource type="Texture2D" uid="uid://c6v0hmypyg55k" path="res://Obstacles/Witch/Witch.png" id="1_tvm8e"]
+[ext_resource type="Script" path="res://Obstacles/Witch/WitchDeath.cs" id="2_iqh7m"]
+[ext_resource type="PackedScene" uid="uid://cuk5lpr75xn6w" path="res://Effects/Particle Nodes/explosion_particle.tscn" id="3_55nue"]
+[ext_resource type="AudioStream" uid="uid://b762jgj0cfs5i" path="res://Shared SFX/small_explosion.wav" id="4_rvjim"]
+[ext_resource type="PackedScene" uid="uid://lqp5ecadjqgp" path="res://Obstacles/Witch/cookie_descent.tscn" id="4_tubtb"]
+[ext_resource type="AudioStream" uid="uid://dmmi34mjd8vs5" path="res://Obstacles/Witch/SFX/big_explosion.wav" id="6_4swp0"]
+
+[node name="WitchDeath" type="Sprite2D"]
+process_mode = 2
+texture = ExtResource("1_tvm8e")
+offset = Vector2(0, -4)
+hframes = 6
+frame = 3
+script = ExtResource("2_iqh7m")
+_explosionScene = ExtResource("3_55nue")
+_cookieDescentScene = ExtResource("4_tubtb")
+_explosionSFX = ExtResource("4_rvjim")
+_bigExplosionSFX = ExtResource("6_4swp0")

@@ -1,11 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://cldjw685eahh4"]
+[gd_scene load_steps=13 format=3 uid="uid://cldjw685eahh4"]
 
 [ext_resource type="Script" path="res://Obstacles/Witch/Mechanic Manager/BossMechanicManager.cs" id="1_et3cp"]
 [ext_resource type="PackedScene" uid="uid://b5ole3gesynv5" path="res://Mechanics/Spring/Sprout/Sprout.tscn" id="2_0ajxv"]
+[ext_resource type="AudioStream" uid="uid://7elexvhquwqe" path="res://Obstacles/Witch/SFX/witch_warning.wav" id="3_a3swm"]
 [ext_resource type="PackedScene" uid="uid://xthdrphjuidn" path="res://Mechanics/Activatable Platform/activatable_platform.tscn" id="3_cxiqt"]
 [ext_resource type="PackedScene" uid="uid://cdix1p0axpcd" path="res://Mechanics/Activatable Platform/activator.tscn" id="3_hbeyo"]
+[ext_resource type="AudioStream" uid="uid://0oem5pugj4px" path="res://Mechanics/Activatable Platform/SFX/platform_disappear.wav" id="4_cvlka"]
 [ext_resource type="PackedScene" uid="uid://d0kaqq0sac714" path="res://Obstacles/Witch/Mechanic Manager/magic_wall_creator.tscn" id="4_ecfl0"]
 [ext_resource type="Texture2D" uid="uid://cbibe6wcnvjyg" path="res://Obstacles/Witch/Mechanic Manager/WallWarning/Light.png" id="5_s5amd"]
+[ext_resource type="AudioStream" uid="uid://b762jgj0cfs5i" path="res://Shared SFX/small_explosion.wav" id="5_v251e"]
 [ext_resource type="Texture2D" uid="uid://dv5td0gcavkav" path="res://Obstacles/Witch/Mechanic Manager/WallWarning/WarningSign.png" id="6_8q8br"]
 
 [sub_resource type="Animation" id="Animation_76uqr"]
@@ -57,6 +60,7 @@ script = ExtResource("1_et3cp")
 _sproutReference = ExtResource("2_0ajxv")
 _platformActivatorRight = NodePath("ActivatablePlatforms/RightActivator")
 _platformActivatorLeft = NodePath("ActivatablePlatforms/LeftActivator")
+_warningSFX = ExtResource("3_a3swm")
 
 [node name="SproutMarkerLeft" type="Marker2D" parent="."]
 
@@ -66,12 +70,13 @@ _platformActivatorLeft = NodePath("ActivatablePlatforms/LeftActivator")
 
 [node name="LeftActivator" parent="ActivatablePlatforms" node_paths=PackedStringArray("activatableObjects") instance=ExtResource("3_hbeyo")]
 _throwable = true
-activatableObjects = [NodePath("../ActivatablePlatformRight")]
+_disableSFX = Array[AudioStream]([ExtResource("4_cvlka"), ExtResource("5_v251e")])
+activatableObjects = [NodePath("../ActivatablePlatformRight"), NodePath("../ActivatablePlatformRight2")]
 
-[node name="RightActivator" parent="ActivatablePlatforms" node_paths=PackedStringArray("_emitter", "activatableObjects") instance=ExtResource("3_hbeyo")]
+[node name="RightActivator" parent="ActivatablePlatforms" node_paths=PackedStringArray("activatableObjects") instance=ExtResource("3_hbeyo")]
 _throwable = true
-_emitter = NodePath("../LeftActivator/Sprite2D/ParticleEmitter")
-activatableObjects = [NodePath("../ActivatablePlatformRight")]
+_disableSFX = Array[AudioStream]([ExtResource("4_cvlka"), ExtResource("5_v251e")])
+activatableObjects = [NodePath("../ActivatablePlatformLeft"), NodePath("../ActivatablePlatformLeft2")]
 
 [node name="ActivatablePlatformLeft" parent="ActivatablePlatforms" instance=ExtResource("3_cxiqt")]
 

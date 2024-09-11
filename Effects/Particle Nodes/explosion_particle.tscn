@@ -16,6 +16,7 @@ offsets = PackedFloat32Array(0.374269, 0.789474)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="ExplosionParticle" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_e57tp")
 _emitOnReady = true
 _destroyOnEmit = true

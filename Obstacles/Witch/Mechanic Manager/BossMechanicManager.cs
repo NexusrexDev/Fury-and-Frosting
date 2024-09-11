@@ -21,6 +21,9 @@ public partial class BossMechanicManager : Node2D
 
 	private Node2D _wallWarning;
 
+	[Export]
+	private AudioStream _warningSFX;
+
 	private int _currentPhase = 1;
 
 	public override void _Ready()
@@ -35,10 +38,17 @@ public partial class BossMechanicManager : Node2D
 		_witchReference.PhaseChange += OnPhaseChange;
 		_witchReference.ThrowActivator += OnThrowActivator;
 		_witchReference.WallActivator += OnWallActivator;
+		_witchReference.Death += OnDeath;
+	}
+
+	private void OnDeath()
+	{
+		QueueFree();
 	}
 
 	private async void OnWallActivator(int lane)
 	{
+		AudioManager.Instance.PlaySFX(_warningSFX);
 		_wallWarning.Scale = new Vector2(-lane, 1);
 		_wallWarning.Position = new Vector2((lane==-1)?0 : 320, 128);
 		_animationPlayer.Play("warning");

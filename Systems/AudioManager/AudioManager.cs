@@ -11,7 +11,8 @@ public enum MusicTitles
 	StoryScene,
 	Gameplay,
 	BossFight,
-	Credits
+	Credits,
+	CookieDescent
 }
 
 public partial class AudioManager : Node
@@ -26,7 +27,8 @@ public partial class AudioManager : Node
 		{ MusicTitles.StoryScene, new StringName("res://Music/Tunes/StoryScene.ogg") },
 		{ MusicTitles.Gameplay, new StringName("res://Music/Tunes/ForestTheme.ogg") },
 		{ MusicTitles.BossFight, new StringName("res://Music/Tunes/Witchfight.ogg") },
-		{ MusicTitles.Credits, new StringName("res://Music/Tunes/Credits.ogg") }
+		{ MusicTitles.Credits, new StringName("res://Music/Tunes/Credits.ogg") },
+		{ MusicTitles.CookieDescent, new StringName("res://Music/Tunes/CookieDescent.ogg") }
 	};
 
 	private int _sfxPlayerCount = 16;

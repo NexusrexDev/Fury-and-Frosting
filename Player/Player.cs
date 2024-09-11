@@ -71,6 +71,7 @@ public partial class Player : CharacterBody2D
 
 	[Export]
 	public bool IsControllable = false;
+	public bool IsRaging = true;
 
 	[Export]
 	public Timer Timer;

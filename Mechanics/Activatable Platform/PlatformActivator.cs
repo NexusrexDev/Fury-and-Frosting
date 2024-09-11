@@ -27,6 +27,7 @@ public partial class PlatformActivator : ObjectActivator
 	private Array<AudioStream> _disableSFX;
 
 	private Tween _tween;
+	private AnimationPlayer _animationPlayer;
 
 	public override void _Ready()
 	{
@@ -36,8 +37,8 @@ public partial class PlatformActivator : ObjectActivator
 
 		if (_throwable)
 		{
-			AnimationPlayer animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-			animationPlayer.Stop();
+			_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+			_animationPlayer.Stop();
 
 			_notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
 			_notifier.ScreenExited += OnScreenExited;
@@ -89,6 +90,9 @@ public partial class PlatformActivator : ObjectActivator
 		PlaySFX(_enableSFX, true);
 
 		GameManager.Instance.EmitSignal(GameManager.SignalName.ScreenShake, 0.15f);
+
+		if (_throwable)
+			_animationPlayer.Play("hover");
 	}
 
 	public override void VisualDisable()
@@ -104,7 +108,8 @@ public partial class PlatformActivator : ObjectActivator
 			AddSibling(explosion);
 
 			Position = _startPosition;
-        }
+			_animationPlayer.Stop();
+		}
     }
 
 	private void SetVisuals()

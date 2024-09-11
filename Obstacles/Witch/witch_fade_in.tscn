@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://m8hfqcuamckb"]
+[gd_scene load_steps=8 format=3 uid="uid://m8hfqcuamckb"]
 
 [ext_resource type="Script" path="res://Obstacles/Witch/WitchFade.cs" id="1_6jksq"]
 [ext_resource type="Shader" uid="uid://cffb2urwskd66" path="res://Effects/flashShader.tres" id="1_jljou"]
+[ext_resource type="AudioStream" uid="uid://ddih5pktosayg" path="res://Obstacles/Witch/SFX/witch_appear.wav" id="2_3if8a"]
 [ext_resource type="Texture2D" uid="uid://c6v0hmypyg55k" path="res://Obstacles/Witch/Witch.png" id="2_jdnf3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mh0nc"]
@@ -163,8 +164,9 @@ _data = {
 "fadeIn": SubResource("Animation_jg0wt")
 }
 
-[node name="WitchFadeOut" type="Node2D"]
+[node name="WitchFadeIn" type="Node2D"]
 script = ExtResource("1_6jksq")
+_fadeSFX = ExtResource("2_3if8a")
 
 [node name="SpriteLeft" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0)

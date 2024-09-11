@@ -94,6 +94,9 @@ public partial class Witch : CharacterBody2D
 	[Export]
 	private AudioStream _shootSFX;
 
+	[Export]
+	private PackedScene _deathAnimationReference;
+
 	public override void _Ready()
 	{
 		_stateMachine = GetNode<StateMachine>("StateMachine");
@@ -198,5 +201,15 @@ public partial class Witch : CharacterBody2D
 	private void Die()
 	{
 		EmitSignal(SignalName.Death);
+		WitchDeath witchDeath = _deathAnimationReference.Instantiate<WitchDeath>();
+		witchDeath.PlayerReference = PlayerReference;
+		witchDeath.Position = Position;
+		witchDeath.FlipH = Direction == 1;
+		CallDeferred(MethodName.AddSibling, witchDeath);
+		QueueFree();
+		GetTree().Paused = true;
+		AudioManager.Instance.StopAllSFX();
+		AudioManager.Instance.StopMusic();
+		AudioManager.Instance.SetMusicHiPass(false);
 	}
 }

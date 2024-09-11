@@ -27,7 +27,8 @@ public partial class Idle : PlayerState
 
 		HandleInput();
 
-		_player.Rage += (float)delta * 10f;
+		if (_player.IsRaging)
+			_player.Rage += (float)delta * 10f;
 	}
 
 	public override void PhysicsProcess(double delta)

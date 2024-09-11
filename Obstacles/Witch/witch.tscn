@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d2bj36q7pgt6j"]
+[gd_scene load_steps=23 format=3 uid="uid://d2bj36q7pgt6j"]
 
 [ext_resource type="Texture2D" uid="uid://c6v0hmypyg55k" path="res://Obstacles/Witch/Witch.png" id="1_044h0"]
 [ext_resource type="Script" path="res://Obstacles/Witch/Witch.cs" id="1_xijip"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Obstacles/Witch/States/WitchAttack1.cs" id="5_ojopq"]
 [ext_resource type="Script" path="res://Obstacles/IdleObstacle.cs" id="5_txf3w"]
 [ext_resource type="AudioStream" uid="uid://dnaq82x43x82j" path="res://Obstacles/Witch/SFX/MagicShot.wav" id="5_y8qb2"]
+[ext_resource type="PackedScene" uid="uid://5ll6p7groreb" path="res://Obstacles/Witch/witch_death.tscn" id="6_gln4k"]
 [ext_resource type="Script" path="res://Effects/ParticleEmitter.cs" id="6_lbo01"]
 [ext_resource type="Script" path="res://Obstacles/Witch/States/WitchHurt.cs" id="7_2uuh2"]
 [ext_resource type="Script" path="res://Obstacles/Witch/States/WitchAttack2.cs" id="7_bkoll"]
@@ -45,6 +46,7 @@ _positionMarker = NodePath("ProjectileMarker")
 FadeInReference = ExtResource("3_3eic6")
 FadeOutReference = ExtResource("4_pl8wc")
 _shootSFX = ExtResource("5_y8qb2")
+_deathAnimationReference = ExtResource("6_gln4k")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_nr8iv")

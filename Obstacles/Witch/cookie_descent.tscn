@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://lqp5ecadjqgp"]
+
+[ext_resource type="PackedScene" uid="uid://bcgma0ebx3pdq" path="res://Mechanics/Cookie (Endgoal)/cookie.tscn" id="1_e8xrq"]
+
+[sub_resource type="Animation" id="Animation_ddo5p"]
+resource_name = "animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cookie:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(160, -32), Vector2(160, 122)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rh8j0"]
+_data = {
+"animation": SubResource("Animation_ddo5p")
+}
+
+[node name="CookieDescent" type="Node2D"]
+
+[node name="Cookie" parent="." instance=ExtResource("1_e8xrq")]
+position = Vector2(160, -32)
+_nextLevel = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rh8j0")
+}
+autoplay = "animation"
+speed_scale = 0.25
