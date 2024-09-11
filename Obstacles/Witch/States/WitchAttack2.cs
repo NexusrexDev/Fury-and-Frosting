@@ -2,15 +2,15 @@
 using Godot.Collections;
 using System;
 
+public enum FadeType
+{
+	Appear,
+	Disappear
+}
+
 public partial class WitchAttack2 : WitchState
 {
 	private Vector2 _velocity;
-
-	private enum FadeType
-	{
-		Appear,
-		Disappear
-	}
 
 	public override void Enter(Dictionary<string, Variant> _message = null)
 	{
@@ -18,7 +18,7 @@ public partial class WitchAttack2 : WitchState
 
 		if (_message != null)
 		{
-			//Sprout generation code goes here
+			_witch.EmitSignal(Witch.SignalName.PhaseChange, 2);
 		}
 
 		_phaseTimer.WaitTime = 0.5f;

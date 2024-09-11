@@ -1,0 +1,107 @@
+[gd_scene load_steps=10 format=3 uid="uid://cldjw685eahh4"]
+
+[ext_resource type="Script" path="res://Obstacles/Witch/Mechanic Manager/BossMechanicManager.cs" id="1_et3cp"]
+[ext_resource type="PackedScene" uid="uid://b5ole3gesynv5" path="res://Mechanics/Spring/Sprout/Sprout.tscn" id="2_0ajxv"]
+[ext_resource type="PackedScene" uid="uid://xthdrphjuidn" path="res://Mechanics/Activatable Platform/activatable_platform.tscn" id="3_cxiqt"]
+[ext_resource type="PackedScene" uid="uid://cdix1p0axpcd" path="res://Mechanics/Activatable Platform/activator.tscn" id="3_hbeyo"]
+[ext_resource type="PackedScene" uid="uid://d0kaqq0sac714" path="res://Obstacles/Witch/Mechanic Manager/magic_wall_creator.tscn" id="4_ecfl0"]
+[ext_resource type="Texture2D" uid="uid://cbibe6wcnvjyg" path="res://Obstacles/Witch/Mechanic Manager/WallWarning/Light.png" id="5_s5amd"]
+[ext_resource type="Texture2D" uid="uid://dv5td0gcavkav" path="res://Obstacles/Witch/Mechanic Manager/WallWarning/WarningSign.png" id="6_8q8br"]
+
+[sub_resource type="Animation" id="Animation_76uqr"]
+resource_name = "warning"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WallWarning:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WallWarning/Sign:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WallWarning/Glow:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.8, 1, 1.3),
+"transitions": PackedFloat32Array(0.5, 1, 0.5, 1, 0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qkbx4"]
+_data = {
+"warning": SubResource("Animation_76uqr")
+}
+
+[node name="BossMechanicManager" type="Node2D" node_paths=PackedStringArray("_platformActivatorRight", "_platformActivatorLeft")]
+script = ExtResource("1_et3cp")
+_sproutReference = ExtResource("2_0ajxv")
+_platformActivatorRight = NodePath("ActivatablePlatforms/RightActivator")
+_platformActivatorLeft = NodePath("ActivatablePlatforms/LeftActivator")
+
+[node name="SproutMarkerLeft" type="Marker2D" parent="."]
+
+[node name="SproutMarkerRight" type="Marker2D" parent="."]
+
+[node name="ActivatablePlatforms" type="Node2D" parent="."]
+
+[node name="LeftActivator" parent="ActivatablePlatforms" node_paths=PackedStringArray("activatableObjects") instance=ExtResource("3_hbeyo")]
+_throwable = true
+activatableObjects = [NodePath("../ActivatablePlatformRight")]
+
+[node name="RightActivator" parent="ActivatablePlatforms" node_paths=PackedStringArray("_emitter", "activatableObjects") instance=ExtResource("3_hbeyo")]
+_throwable = true
+_emitter = NodePath("../LeftActivator/Sprite2D/ParticleEmitter")
+activatableObjects = [NodePath("../ActivatablePlatformRight")]
+
+[node name="ActivatablePlatformLeft" parent="ActivatablePlatforms" instance=ExtResource("3_cxiqt")]
+
+[node name="ActivatablePlatformLeft2" parent="ActivatablePlatforms" instance=ExtResource("3_cxiqt")]
+
+[node name="ActivatablePlatformRight" parent="ActivatablePlatforms" instance=ExtResource("3_cxiqt")]
+
+[node name="ActivatablePlatformRight2" parent="ActivatablePlatforms" instance=ExtResource("3_cxiqt")]
+
+[node name="MagicWallCreatorLeft" parent="." instance=ExtResource("4_ecfl0")]
+
+[node name="MagicWallCreatorRight" parent="." instance=ExtResource("4_ecfl0")]
+direction = 3.14159
+
+[node name="WallWarning" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, 128)
+
+[node name="Glow" type="Sprite2D" parent="WallWarning"]
+modulate = Color(0.901961, 0.352941, 0.901961, 1)
+self_modulate = Color(1, 1, 1, 0)
+texture = ExtResource("5_s5amd")
+offset = Vector2(8, 0)
+
+[node name="Sign" type="Sprite2D" parent="WallWarning"]
+visible = false
+position = Vector2(16, 0)
+texture = ExtResource("6_8q8br")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qkbx4")
+}

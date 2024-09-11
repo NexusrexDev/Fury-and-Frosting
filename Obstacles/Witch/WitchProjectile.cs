@@ -17,6 +17,26 @@ public partial class WitchProjectile : Area2D, IDamaging
 	public override void _Ready()
 	{
 		_motionVector = Vector2.FromAngle(Direction);
+		VisibleOnScreenNotifier2D notifier = GetNode<VisibleOnScreenNotifier2D>("VisibleOnScreenNotifier2D");
+		notifier.ScreenExited += FadeOut;
+		BodyEntered += OnBodyEntered;
+	}
+
+	private async void FadeOut()
+	{
+		CpuParticles2D flame = GetNode<CpuParticles2D>("Flame");
+		flame.Emitting = false;
+		SetDeferred(PropertyName.Monitorable, false);
+		await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
+		QueueFree();
+	}
+
+	private void OnBodyEntered(Node2D body)
+	{
+		if (body is ActivatablePlatform)
+		{
+			FadeOut();
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -24,4 +44,6 @@ public partial class WitchProjectile : Area2D, IDamaging
 		Vector2 motion = _motionVector * _speed * (float)delta;
 		Position += motion;
 	}
+
+
 }

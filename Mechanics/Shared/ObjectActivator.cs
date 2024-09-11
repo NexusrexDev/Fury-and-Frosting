@@ -13,7 +13,7 @@ public abstract partial class ObjectActivator : Area2D
 	[Export]
 	private Timer _timer;
 
-	private bool _activated = false;
+	protected bool _activated = false;
 
 	protected bool _deactivatable = false;
 

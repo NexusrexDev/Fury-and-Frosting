@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b7w6iyhfnxkts"]
+[gd_scene load_steps=18 format=3 uid="uid://b7w6iyhfnxkts"]
 
 [ext_resource type="PackedScene" uid="uid://bk20bkl01bljj" path="res://Systems/Camera/Camera.tscn" id="1_7wkqv"]
 [ext_resource type="Script" path="res://Systems/AudioManager/MusicAutoPlayer.cs" id="1_i1ttj"]
@@ -10,6 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://q245pphpxk78" path="res://UI/BossHUD/boss_hud.tscn" id="5_8wli7"]
 [ext_resource type="PackedScene" uid="uid://cu4xrd20aho12" path="res://Player/Player.tscn" id="6_857j5"]
 [ext_resource type="PackedScene" uid="uid://d2bj36q7pgt6j" path="res://Obstacles/Witch/witch.tscn" id="8_eur71"]
+[ext_resource type="PackedScene" uid="uid://cldjw685eahh4" path="res://Obstacles/Witch/Mechanic Manager/boss_mechanic_manager.tscn" id="11_50wvx"]
+[ext_resource type="AudioStream" uid="uid://0oem5pugj4px" path="res://Mechanics/Activatable Platform/SFX/platform_disappear.wav" id="12_j2nxx"]
+[ext_resource type="AudioStream" uid="uid://b762jgj0cfs5i" path="res://Shared SFX/small_explosion.wav" id="13_i0jb8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a0thi"]
 texture = ExtResource("3_tihui")
@@ -32,7 +35,7 @@ script = ExtResource("1_i1ttj")
 _trackName = 5
 
 [node name="Background" type="Node2D" parent="."]
-z_index = -10
+z_index = -12
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -93,3 +96,48 @@ IsControllable = true
 z_index = -1
 position = Vector2(296, 152)
 PlayerReference = NodePath("../Player")
+
+[node name="BossMechanicManager" parent="." node_paths=PackedStringArray("_witchReference") instance=ExtResource("11_50wvx")]
+_witchReference = NodePath("../Witch")
+
+[node name="SproutMarkerLeft" parent="BossMechanicManager" index="0"]
+position = Vector2(64, 160)
+
+[node name="SproutMarkerRight" parent="BossMechanicManager" index="1"]
+position = Vector2(256, 160)
+
+[node name="LeftActivator" parent="BossMechanicManager/ActivatablePlatforms" index="0" node_paths=PackedStringArray("activatableObjects")]
+position = Vector2(64, 208)
+_disableSFX = Array[AudioStream]([ExtResource("12_j2nxx"), ExtResource("13_i0jb8")])
+activatableObjects = [NodePath("../ActivatablePlatformRight"), NodePath("../ActivatablePlatformRight2")]
+
+[node name="RightActivator" parent="BossMechanicManager/ActivatablePlatforms" index="1" node_paths=PackedStringArray("activatableObjects")]
+position = Vector2(256, 208)
+_disableSFX = Array[AudioStream]([ExtResource("12_j2nxx"), ExtResource("13_i0jb8")])
+activatableObjects = [NodePath("../ActivatablePlatformLeft"), NodePath("../ActivatablePlatformLeft2")]
+
+[node name="ActivatablePlatformLeft" parent="BossMechanicManager/ActivatablePlatforms" index="2"]
+position = Vector2(88, 160)
+_startPosition = Vector2(0, 80)
+_tweenDelay = 0.1
+
+[node name="ActivatablePlatformLeft2" parent="BossMechanicManager/ActivatablePlatforms" index="3"]
+position = Vector2(136, 184)
+_startPosition = Vector2(0, 80)
+
+[node name="ActivatablePlatformRight" parent="BossMechanicManager/ActivatablePlatforms" index="4"]
+position = Vector2(232, 160)
+_startPosition = Vector2(0, 80)
+_tweenDelay = 0.1
+
+[node name="ActivatablePlatformRight2" parent="BossMechanicManager/ActivatablePlatforms" index="5"]
+position = Vector2(184, 184)
+_startPosition = Vector2(0, 80)
+
+[node name="MagicWallCreatorLeft" parent="BossMechanicManager" index="3"]
+position = Vector2(-24, 152)
+
+[node name="MagicWallCreatorRight" parent="BossMechanicManager" index="4"]
+position = Vector2(344, 152)
+
+[editable path="BossMechanicManager"]

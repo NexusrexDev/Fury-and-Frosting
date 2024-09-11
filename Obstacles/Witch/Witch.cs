@@ -21,6 +21,15 @@ public partial class Witch : CharacterBody2D
 	[Signal]
 	public delegate void DeathEventHandler();
 
+	[Signal]
+	public delegate void PhaseChangeEventHandler(int phaseNumber);
+
+	[Signal]
+	public delegate void ThrowActivatorEventHandler(int position);
+
+	[Signal]
+	public delegate void WallActivatorEventHandler(int lane);
+
 	private Array<StringName> phaseNames = new Array<StringName> { WitchState.Attack1, WitchState.Attack2, WitchState.Attack3 };
 
 	public StringName BossPhase 

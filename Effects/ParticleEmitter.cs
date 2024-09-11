@@ -5,10 +5,13 @@ using System;
 public partial class ParticleEmitter : Node2D
 {
 	[Export]
-	private bool _destroyOnEmit = false;
-
-	[Export]
 	private bool _emitOnReady = false;
+
+	[ExportGroup("Destroy Settings")]
+	[Export]
+	private bool _destroyOnEmit = false;
+	[Export]
+	private float _destroyTime;
 
 	private Array<CpuParticles2D> cpuParticles2Ds = new Array<CpuParticles2D>();
 
@@ -30,7 +33,7 @@ public partial class ParticleEmitter : Node2D
 			cpuParticles2D.Emitting = true;
 
 		if (_destroyOnEmit)
-			QueueFree();
+			GetTree().CreateTimer(_destroyTime).Timeout += () => QueueFree();
 	}
 
 	public void StopParticles()

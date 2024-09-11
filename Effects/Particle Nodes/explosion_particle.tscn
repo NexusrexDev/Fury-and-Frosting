@@ -18,6 +18,8 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 [node name="ExplosionParticle" type="Node2D"]
 script = ExtResource("1_e57tp")
 _emitOnReady = true
+_destroyOnEmit = true
+_destroyTime = 1.0
 
 [node name="DecayParticles" type="CPUParticles2D" parent="."]
 z_index = 1

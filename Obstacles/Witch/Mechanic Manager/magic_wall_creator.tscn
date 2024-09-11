@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0kaqq0sac714"]
+
+[ext_resource type="Script" path="res://Obstacles/Witch/Mechanic Manager/MagicWallCreator.cs" id="1_fxdqi"]
+[ext_resource type="PackedScene" uid="uid://qsbr3bko4j66" path="res://Obstacles/Witch/witch_projectile.tscn" id="2_7rjij"]
+[ext_resource type="AudioStream" uid="uid://dnaq82x43x82j" path="res://Obstacles/Witch/SFX/MagicShot.wav" id="3_tm5b1"]
+
+[node name="MagicWallCreator" type="Marker2D"]
+script = ExtResource("1_fxdqi")
+_projectileReference = ExtResource("2_7rjij")
+_shootSFX = ExtResource("3_tm5b1")
