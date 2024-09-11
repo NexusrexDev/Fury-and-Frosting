@@ -1,14 +1,19 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://curp6twkpqer4"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://curp6twkpqer4"]
 
 [ext_resource type="FontFile" uid="uid://hckfkair3er6" path="res://UI/Fonts/ThaleahFat.ttf" id="1_1s8xp"]
+[ext_resource type="Texture2D" uid="uid://cr2d6xvgf7x3u" path="res://UI/Title Screen/ButtonBorder.png" id="2_gktf2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8iasv"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ji6ku"]
+texture = ExtResource("2_gktf2")
+texture_margin_left = 5.0
+texture_margin_right = 5.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [resource]
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_focus_color = Color(1, 1, 1, 1)
 Button/fonts/font = ExtResource("1_1s8xp")
-Button/styles/focus = SubResource("StyleBoxFlat_8iasv")
+Button/styles/focus = SubResource("StyleBoxTexture_ji6ku")
 Label/fonts/font = ExtResource("1_1s8xp")
 RichTextLabel/fonts/normal_font = ExtResource("1_1s8xp")
