@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://b5ole3gesynv5"]
+
+[ext_resource type="Script" path="res://Mechanics/Spring/Sprout/Sprout.cs" id="1_qcxba"]
+[ext_resource type="PackedScene" uid="uid://c34223pk0kywc" path="res://Mechanics/Spring/Spring.tscn" id="2_ck5bj"]
+[ext_resource type="PackedScene" uid="uid://cuk5lpr75xn6w" path="res://Effects/Particle Nodes/explosion_particle.tscn" id="3_sjesj"]
+[ext_resource type="AudioStream" uid="uid://b762jgj0cfs5i" path="res://Shared SFX/small_explosion.wav" id="4_n611i"]
+[ext_resource type="Texture2D" uid="uid://cwhkoc1xx0kwo" path="res://Mechanics/Spring/Sprout/Sprout.png" id="5_1lvr0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhu16"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_4c1h6"]
+resource_name = "appear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vq3pn"]
+_data = {
+"appear": SubResource("Animation_4c1h6")
+}
+
+[node name="Sprout" type="Area2D"]
+z_index = -2
+script = ExtResource("1_qcxba")
+_springReference = ExtResource("2_ck5bj")
+_explosionReference = ExtResource("3_sjesj")
+_explosionSFX = ExtResource("4_n611i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("5_1lvr0")
+offset = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_rhu16")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vq3pn")
+}
+autoplay = "appear"
+speed_scale = 1.25

@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public partial class Spring : StaticBody2D
+public partial class Spring : StaticBody2D, IDisappearable
 {
 	[Export]
-	private bool _oneTimeUse = false;
+	public bool OneTimeUse = false;
 
 	[Export]
 	private PackedScene _explosionReference;
@@ -23,7 +23,7 @@ public partial class Spring : StaticBody2D
 		Area2D bounceArea = GetNode<Area2D>("BounceArea");
 		bounceArea.BodyEntered += _On_BounceArea_Collision;
 
-		if (_oneTimeUse)
+		if (OneTimeUse)
 			_animationPlayer.Play("grow");
 	}
 
@@ -39,15 +39,28 @@ public partial class Spring : StaticBody2D
 			player.Position = new Vector2(player.Position.X, Position.Y - 22);
 			player.SpringJump();
 			_sprite.Scale = new Vector2(1.25f, 0.75f);
-			if (_oneTimeUse)
-			{
-				ParticleEmitter explosionParticles = _explosionReference.Instantiate<ParticleEmitter>();
-				explosionParticles.Position = new Vector2(Position.X, Position.Y - 10);
-				AddSibling(explosionParticles);
-				AudioManager.Instance.PlaySFX(_explosionSFX);
-				QueueFree();
-			}
+
+			if (OneTimeUse)
+				Disappear(true);
 		}
+	}
+
+	public void Disappear(bool createSprout)
+	{
+		ParticleEmitter explosionParticles = _explosionReference.Instantiate<ParticleEmitter>();
+		explosionParticles.Position = new Vector2(Position.X, Position.Y - 10);
+		AddSibling(explosionParticles);
+		AudioManager.Instance.PlaySFX(_explosionSFX);
+
+		if (createSprout)
+		{
+			PackedScene sproutScene = GD.Load<PackedScene>("res://Mechanics/Spring/Sprout/Sprout.tscn");
+			Sprout sprout = sproutScene.Instantiate<Sprout>();
+			sprout.Position = Position;
+			CallDeferred(MethodName.AddSibling, sprout);
+		}
+
+		QueueFree();
 	}
 
 }
