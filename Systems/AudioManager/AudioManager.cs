@@ -25,7 +25,7 @@ public partial class AudioManager : Node
 		{ MusicTitles.MainMenu, new StringName("res://Music/Tunes/MainMenu.ogg") },
 		{ MusicTitles.StoryScene, new StringName("res://Music/Tunes/StoryScene.ogg") },
 		{ MusicTitles.Gameplay, new StringName("res://Music/Tunes/ForestTheme.ogg") },
-		{ MusicTitles.BossFight, new StringName("res://Music/Tunes/WitchFight.ogg") },
+		{ MusicTitles.BossFight, new StringName("res://Music/Tunes/Witchfight.ogg") },
 		{ MusicTitles.Credits, new StringName("res://Music/Tunes/Credits.ogg") }
 	};
 
