@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b7w6iyhfnxkts"]
+[gd_scene load_steps=28 format=3 uid="uid://b7w6iyhfnxkts"]
 
 [ext_resource type="PackedScene" uid="uid://bk20bkl01bljj" path="res://Systems/Camera/Camera.tscn" id="1_7wkqv"]
 [ext_resource type="Script" path="res://Systems/AudioManager/MusicAutoPlayer.cs" id="1_i1ttj"]
@@ -11,6 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://cu4xrd20aho12" path="res://Player/Player.tscn" id="6_857j5"]
 [ext_resource type="PackedScene" uid="uid://d2bj36q7pgt6j" path="res://Obstacles/Witch/witch.tscn" id="8_eur71"]
 [ext_resource type="PackedScene" uid="uid://cldjw685eahh4" path="res://Obstacles/Witch/Mechanic Manager/boss_mechanic_manager.tscn" id="11_50wvx"]
+[ext_resource type="Script" path="res://Obstacles/Witch/BossAnimation.cs" id="12_btxkl"]
+[ext_resource type="AudioStream" uid="uid://bpuf5a64xcewq" path="res://Obstacles/Witch/SFX/witch_laugh.wav" id="13_2d24e"]
+[ext_resource type="PackedScene" uid="uid://m8hfqcuamckb" path="res://Obstacles/Witch/witch_fade_in.tscn" id="14_4ndas"]
+[ext_resource type="Texture2D" uid="uid://qy1xs3j10boi" path="res://Obstacles/Witch/WitchLaugh.png" id="15_lw23q"]
+[ext_resource type="PackedScene" uid="uid://btuwq7k5c240h" path="res://UI/Transition/entrance_transition.tscn" id="16_cc0hy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a0thi"]
 texture = ExtResource("3_tihui")
@@ -26,11 +31,210 @@ size = Vector2(16, 184)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fqk27"]
 size = Vector2(320, 24)
 
+[sub_resource type="Animation" id="Animation_tpsf6"]
+resource_name = "BossIdle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Witch:process_mode")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Player:IsControllable")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MusicAutoPlayer:_playOnStart")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Witch:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+
+[sub_resource type="Animation" id="Animation_g3yea"]
+resource_name = "BossIntro"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Witch:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Witch:process_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Player:IsControllable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BossIntro")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.7, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"CreateFade"
+}, {
+"args": [],
+"method": &"PlayLaughSFX"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BossIntro/LaughSprite:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MusicAutoPlayer:_playOnStart")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("MusicAutoPlayer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(2.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"PlayMusic"
+}]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("BossIntro/LaughSprite:animation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(1, 1.0001, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [&"default", &"default", &"laugh"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yavml"]
+_data = {
+"BossIdle": SubResource("Animation_tpsf6"),
+"BossIntro": SubResource("Animation_g3yea")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33rdf"]
+atlas = ExtResource("15_lw23q")
+region = Rect2(0, 0, 26, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kccrm"]
+atlas = ExtResource("15_lw23q")
+region = Rect2(26, 0, 26, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8ewf"]
+atlas = ExtResource("15_lw23q")
+region = Rect2(52, 0, 26, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rbf4d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33rdf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kccrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8ewf")
+}],
+"loop": true,
+"name": &"laugh",
+"speed": 5.0
+}]
+
 [node name="BossFight" type="Node2D"]
 
 [node name="MusicAutoPlayer" type="Node" parent="."]
 script = ExtResource("1_i1ttj")
 _trackName = 5
+_playOnStart = false
 
 [node name="Background" type="Node2D" parent="."]
 z_index = -12
@@ -88,9 +292,10 @@ shape = SubResource("RectangleShape2D_fqk27")
 
 [node name="Player" parent="." instance=ExtResource("6_857j5")]
 position = Vector2(24, 152)
-IsControllable = true
 
 [node name="Witch" parent="." node_paths=PackedStringArray("PlayerReference") instance=ExtResource("8_eur71")]
+process_mode = 4
+visible = false
 z_index = -1
 position = Vector2(296, 152)
 PlayerReference = NodePath("../Player")
@@ -133,5 +338,23 @@ position = Vector2(-24, 152)
 
 [node name="MagicWallCreatorRight" parent="BossMechanicManager" index="4"]
 position = Vector2(344, 152)
+
+[node name="BossIntro" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yavml")
+}
+script = ExtResource("12_btxkl")
+_laughSFX = ExtResource("13_2d24e")
+_fadeAnimation = ExtResource("14_4ndas")
+
+[node name="LaughSprite" type="AnimatedSprite2D" parent="BossIntro"]
+visible = false
+position = Vector2(296, 152)
+sprite_frames = SubResource("SpriteFrames_rbf4d")
+autoplay = "default"
+frame_progress = 0.921897
+offset = Vector2(0, -4)
+
+[node name="EntranceTransition" parent="." instance=ExtResource("16_cc0hy")]
 
 [editable path="BossMechanicManager"]

@@ -22,6 +22,7 @@ public partial class TitleScreen : Node2D
 
 	public override void _Ready()
 	{
+		GameManager.Instance.BossIntroPlayed = false;
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		_startButton.GrabFocus();
 		_startButton.Pressed += ButtonPressed;

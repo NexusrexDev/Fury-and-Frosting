@@ -39,6 +39,8 @@ public partial class GameManager : Node
 		{ SceneNames.CreditsSegment, GD.Load<PackedScene>("res://UI/Ending Segment/ending_segment.tscn") }
 	};
 
+	public bool BossIntroPlayed = false;
+
 	public override void _Ready()
 	{
 		Instance = this;
