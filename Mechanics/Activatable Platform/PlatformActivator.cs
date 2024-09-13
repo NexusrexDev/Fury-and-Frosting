@@ -26,6 +26,10 @@ public partial class PlatformActivator : ObjectActivator
 	[Export]
 	private Array<AudioStream> _disableSFX;
 
+	[ExportGroup("Refrences")]
+	[Export]
+	private PlatformActivator _activator;
+
 	private Tween _tween;
 	private AnimationPlayer _animationPlayer;
 
@@ -99,7 +103,12 @@ public partial class PlatformActivator : ObjectActivator
 	{
 		SetVisuals();
 
-		PlaySFX(_disableSFX, false);
+		bool skipAudio = false;
+		if (_activator != null)
+			skipAudio = _activator._activated;
+
+		if (!skipAudio)
+			PlaySFX(_disableSFX, false);
 
         if (_throwable)
         {
@@ -124,7 +133,10 @@ public partial class PlatformActivator : ObjectActivator
 	private void PlaySFX(Array<AudioStream> SFXArray, bool hiPass)
 	{
 		foreach (AudioStream SFXFile in SFXArray)
+		{
+			AudioManager.Instance.StopSFX(SFXFile);
 			AudioManager.Instance.PlaySFX(SFXFile);
+		}	
 		AudioManager.Instance.SetMusicHiPass(hiPass);
 	}
 }

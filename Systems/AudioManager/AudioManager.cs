@@ -118,6 +118,22 @@ public partial class AudioManager : Node
 		_queueSFXPlayers.Add(player);
 	}
 
+	public void StopSFX(AudioStream audioStream)
+	{
+		//AudioStreamPlayer playerToStop;
+		foreach (AudioStreamPlayer player in _queueSFXPlayers)
+		{
+			if (player.Stream == audioStream)
+			{
+				player.Stop();
+				//playerToStop = player;
+				_availableSFXPlayers.Add(player);
+				_queueSFXPlayers.Remove(player);
+				break;
+			}
+		}
+	}
+
 	public void StopAllSFX()
 	{
 		foreach (AudioStreamPlayer player in _queueSFXPlayers)

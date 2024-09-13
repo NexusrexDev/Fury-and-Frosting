@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://btapkw3jskelm"]
+[gd_scene load_steps=8 format=3 uid="uid://btapkw3jskelm"]
 
 [ext_resource type="Texture2D" uid="uid://cwbasbq0rmbm" path="res://Tilesets/Forest/background.png" id="1_d2t8x"]
 [ext_resource type="Texture2D" uid="uid://byr5qt2vu31ac" path="res://Tilesets/Forest/BackColor.png" id="1_lqcko"]
 [ext_resource type="Texture2D" uid="uid://c4df1011perxh" path="res://Effects/Leafparticles.png" id="3_d07m0"]
+[ext_resource type="Texture2D" uid="uid://bydvf32nv0dtk" path="res://Tilesets/Forest/treetrunk.png" id="4_23hvy"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0f2vl"]
 particles_animation = true
@@ -99,3 +100,8 @@ texture = ExtResource("1_d2t8x")
 centered = false
 vframes = 2
 frame = 1
+
+[node name="Sprite2D3" type="Sprite2D" parent="BG1"]
+position = Vector2(0, 180)
+texture = ExtResource("4_23hvy")
+centered = false
