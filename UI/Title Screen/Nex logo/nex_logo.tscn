@@ -67,8 +67,8 @@ grow_vertical = 2
 color = Color(0, 0, 0.0196078, 1)
 
 [node name="Logo" type="Sprite2D" parent="."]
-position = Vector2(161, 90)
-scale = Vector2(1.49414, 1.49414)
+position = Vector2(160, 90)
+scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("1_sgx4e")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

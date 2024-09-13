@@ -47,6 +47,15 @@ public partial class GameManager : Node
 		ProcessMode = ProcessModeEnum.Always;
 	}
 
+	public override void _Process(double delta)
+	{
+		if (Input.IsKeyPressed(Key.F4))
+		{
+			Image image = GetViewport().GetTexture().GetImage();
+			image.SavePng($"user://Screenshot-{Time.GetUnixTimeFromDatetimeString}.png");
+		}
+	}
+
 	public async void FreezeFrame(float timeScale, float duration)
 	{
 		Engine.TimeScale = timeScale;
